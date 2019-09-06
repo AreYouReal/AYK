@@ -27,9 +27,15 @@
     <ClInclude Include="src\AYK\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

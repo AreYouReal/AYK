@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="AYK">
+      <UniqueIdentifier>{2AD3870B-96DC-877C-1F58-9E7C8B60937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AYK\Events">
+      <UniqueIdentifier>{CE0B5FBE-BAC3-A00B-23CB-79670FA23BFC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\AYK.h" />
+    <ClInclude Include="src\AYK\Application.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Core.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\EntryPoint.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Events\ApplicationEvent.h">
+      <Filter>AYK\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Events\Event.h">
+      <Filter>AYK\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Events\KeyEvent.h">
+      <Filter>AYK\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Events\MouseEvent.h">
+      <Filter>AYK\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Log.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\aykpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AYK\Application.cpp">
+      <Filter>AYK</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\Log.cpp">
+      <Filter>AYK</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aykpch.cpp" />
+  </ItemGroup>
+</Project>

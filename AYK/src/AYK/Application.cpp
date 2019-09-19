@@ -1,3 +1,4 @@
+#include "aykpch.h"
 #include "Application.h"
 
 #include "AYK/Events/ApplicationEvent.h"
@@ -12,7 +13,7 @@ namespace AYK {
 	}
 	
 	void Application::Run() {
-
+		 
 		WindowResizeEvent ResizeEvent(1280, 720);
 		if (ResizeEvent.IsInCategory(EventCategoryApplication)) {
 			AYK_TRACE(ResizeEvent);

@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace AYK {
 
 	class AYK_API MouseMovedEvent : public Event {

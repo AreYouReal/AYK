@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "AYK/Log.h"
+
 #ifdef AYK_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

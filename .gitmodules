@@ -1,3 +1,6 @@
 [submodule "AYK/vendor/spdlog"]
 	path = AYK/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "AYK/vendor/GLFW"]
+	path = AYK/vendor/GLFW
+	url = https://github.com/thecherno/glfw

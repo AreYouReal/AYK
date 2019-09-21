@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <memory>
+#include <functional>
+
 #include "AYK/Core.h"
 
 namespace AYK {

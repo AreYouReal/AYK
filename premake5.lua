@@ -10,6 +10,12 @@ workspace "AYK"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "AYK/vendor/GLFW/include"
+
+include "AYK/vendor/GLFW"
+
 project "AYK"
 	location "AYK"
 	kind "SharedLib"
@@ -28,7 +34,13 @@ project "AYK"
 
 	includedirs {
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include;"
+		"%{prj.name}/vendor/spdlog/include;",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

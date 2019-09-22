@@ -12,7 +12,12 @@ namespace AYK {
 
 		void Run();
 
+		void OnEvent(Event& E);
+
 	private:
+		//bool OnWindowClose(WindowCloseEvent& E);
+
+
 		std::unique_ptr<Window> WindowPtr;
 		bool bRunning = true;
 	};

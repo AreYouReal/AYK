@@ -25,6 +25,12 @@ namespace AYK {
 		while (bRunning) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* L : LStack) {
+				L->OnUpdate();
+			}
+
+
 			WindowPtr->OnUpdate();
 		}
 	}
@@ -42,6 +48,22 @@ namespace AYK {
 		});
 	
 		AYK_CORE_TRACE("{0}", E);
+
+		for (auto it = LStack.end(); it != LStack.begin();) {
+			(*--it)->OnEvent(E);
+			if (E.bHandled) {
+				break;
+			}
+		}
+
+	}
+
+	void Application::PushLayer(Layer* LayerToPush){
+		LStack.PushLayer(LayerToPush);
+	}
+
+	void Application::PushOverlay(Layer* OverlayToPush){ 
+		LStack.PushOverlay(OverlayToPush);
 	}
 
 

@@ -37,6 +37,12 @@
     <ClInclude Include="src\AYK\Events\MouseEvent.h">
       <Filter>AYK\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Layer.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\LayerStack.h">
+      <Filter>AYK</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Log.h">
       <Filter>AYK</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">
+      <Filter>AYK</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\Layer.cpp">
+      <Filter>AYK</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\LayerStack.cpp">
       <Filter>AYK</Filter>
     </ClCompile>
     <ClCompile Include="src\AYK\Log.cpp">

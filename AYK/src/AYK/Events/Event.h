@@ -44,7 +44,7 @@ namespace AYK {
 			return(GetCategoryFlags() & Category);
 		}
 		
-	protected:
+
 		bool bHandled = false;
 	};
 

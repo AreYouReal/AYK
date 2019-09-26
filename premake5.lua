@@ -59,14 +59,17 @@ project "AYK"
 
 	filter "configurations:Debug"
 		defines "AYK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "AYK_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "AYK_DIST"
+		buildoptions "/MD"
 		symbols "On"
 
 project "Sandbox"
@@ -103,12 +106,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "AYK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "AYK_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "AYK_DIST"
+		buildoptions "/MD"
 		symbols "On"

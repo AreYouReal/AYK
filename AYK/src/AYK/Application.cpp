@@ -2,11 +2,11 @@
 #include "Application.h"
 
 #include "AYK/Log.h"
-#include <GLFW/glfw3.h>
+
 
 #include "Events/ApplicationEvent.h"
 
-
+#include <glad/glad.h>
 
 namespace AYK {
 
@@ -15,6 +15,9 @@ namespace AYK {
 	Application::Application(){
 		WindowPtr = std::unique_ptr<Window>( Window::Create() );
 		WindowPtr->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		unsigned int ID;
+		glGenVertexArrays(1, &ID);
 	}
 	
 	Application::~Application(){

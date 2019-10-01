@@ -5,6 +5,8 @@
 #include <AYK\Events\MouseEvent.h>
 #include <AYK\Events\KeyEvent.h>
 
+#include <glad/glad.h>
+
 namespace AYK {
 
 	static bool bGLFWInitialized = false;
@@ -41,6 +43,8 @@ namespace AYK {
 
 		WindowHandle = glfwCreateWindow((int)WData.Widht, (int)WData.Height, WData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(WindowHandle);
+		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		AYK_CORE_ASSERT(Status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(WindowHandle, &WData);
 		SetVSync(true);
 

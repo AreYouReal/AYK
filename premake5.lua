@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "AYK/vendor/GLFW/include"
+IncludeDir["Glad"] = "AYK/vendor/Glad/include"
 
 include "AYK/vendor/GLFW"
+include "AYK/vendor/Glad"
 
 project "AYK"
 	location "AYK"
@@ -35,11 +37,13 @@ project "AYK"
 	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include;",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -50,7 +54,8 @@ project "AYK"
 
 		defines {
 			"AYK_PLATFORM_WINDOWS",
-			"AYK_BUILD_DLL"
+			"AYK_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands {

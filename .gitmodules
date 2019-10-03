@@ -4,3 +4,6 @@
 [submodule "AYK/vendor/GLFW"]
 	path = AYK/vendor/GLFW
 	url = https://github.com/thecherno/glfw
+[submodule "AYK/vendor/imgui"]
+	path = AYK/vendor/imgui
+	url = https://github.com/TheCherno/imgui

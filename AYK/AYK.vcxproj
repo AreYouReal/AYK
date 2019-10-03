@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>aykpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYK_PLATFORM_WINDOWS;AYK_BUILD_DLL;GLFW_INCLUDE_NONE;AYK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -103,7 +103,7 @@
       <PrecompiledHeaderFile>aykpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYK_PLATFORM_WINDOWS;AYK_BUILD_DLL;GLFW_INCLUDE_NONE;AYK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>aykpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYK_PLATFORM_WINDOWS;AYK_BUILD_DLL;GLFW_INCLUDE_NONE;AYK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -152,18 +152,22 @@
     <ClInclude Include="src\AYK\Events\Event.h" />
     <ClInclude Include="src\AYK\Events\KeyEvent.h" />
     <ClInclude Include="src\AYK\Events\MouseEvent.h" />
+    <ClInclude Include="src\AYK\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\AYK\Layer.h" />
     <ClInclude Include="src\AYK\LayerStack.h" />
     <ClInclude Include="src\AYK\Log.h" />
     <ClInclude Include="src\AYK\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\aykpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp" />
+    <ClCompile Include="src\AYK\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\AYK\Layer.cpp" />
     <ClCompile Include="src\AYK\LayerStack.cpp" />
     <ClCompile Include="src\AYK\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\aykpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -175,6 +179,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

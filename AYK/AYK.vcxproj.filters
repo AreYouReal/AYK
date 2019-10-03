@@ -7,8 +7,14 @@
     <Filter Include="AYK\Events">
       <UniqueIdentifier>{CE0B5FBE-BAC3-A00B-23CB-79670FA23BFC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AYK\ImGui">
+      <UniqueIdentifier>{D47FF0A8-40EA-A41F-8928-56C5F5D18274}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\AYK\Events\MouseEvent.h">
       <Filter>AYK\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\ImGui\ImGuiLayer.h">
+      <Filter>AYK\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Layer.h">
       <Filter>AYK</Filter>
     </ClInclude>
@@ -49,6 +58,9 @@
     <ClInclude Include="src\AYK\Window.h">
       <Filter>AYK</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -58,6 +70,9 @@
     <ClCompile Include="src\AYK\Application.cpp">
       <Filter>AYK</Filter>
     </ClCompile>
+    <ClCompile Include="src\AYK\ImGui\ImGuiLayer.cpp">
+      <Filter>AYK\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\AYK\Layer.cpp">
       <Filter>AYK</Filter>
     </ClCompile>
@@ -66,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="src\AYK\Log.cpp">
       <Filter>AYK</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>

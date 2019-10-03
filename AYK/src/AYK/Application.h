@@ -19,6 +19,11 @@ namespace AYK {
 		void PushLayer(Layer* LayerToPush);
 		void PushOverlay(Layer* OverlayToPush);
 
+
+		inline static Application& Get() { return(*Instance); }
+
+		inline Window& GetWindow() { return(*WindowPtr); }
+
 	private:
 		//bool OnWindowClose(WindowCloseEvent& E);
 
@@ -26,6 +31,8 @@ namespace AYK {
 		std::unique_ptr<Window> WindowPtr;
 		bool bRunning = true;
 		LayerStack LStack;
+
+		static Application* Instance;
 	};
 
 }

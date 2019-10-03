@@ -3,7 +3,6 @@
 
 #include "AYK/Log.h"
 
-
 #include "Events/ApplicationEvent.h"
 
 #include <glad/glad.h>
@@ -12,7 +11,12 @@ namespace AYK {
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+	Application* Application::Instance = nullptr;
+
 	Application::Application(){
+		AYK_CORE_ASSERT(!Instance, "Application already exists!");
+		Instance = this;
+
 		WindowPtr = std::unique_ptr<Window>( Window::Create() );
 		WindowPtr->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
@@ -63,10 +67,12 @@ namespace AYK {
 
 	void Application::PushLayer(Layer* LayerToPush){
 		LStack.PushLayer(LayerToPush);
+		LayerToPush->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* OverlayToPush){ 
 		LStack.PushOverlay(OverlayToPush);
+		OverlayToPush->OnAttach();
 	}
 
 

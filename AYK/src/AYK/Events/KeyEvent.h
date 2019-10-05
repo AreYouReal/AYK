@@ -54,4 +54,18 @@ namespace AYK {
 
 	};
 
+
+	class AYK_API KeyTypedEvent : public KeyEvent {
+
+	public:
+		KeyTypedEvent(int KeyCode) : KeyEvent(KeyCode) {}
+
+		std::string ToString() const override {
+			std::stringstream SS;
+			SS << "KeyTypedEvent: " << KeyCode;
+			return SS.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
+	};
 }

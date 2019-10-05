@@ -82,31 +82,37 @@ namespace AYK {
 			};
 			});
 
-			glfwSetMouseButtonCallback(WindowHandle, [](GLFWwindow* Wnd, int Button, int Action, int Mods) {
-				WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
+		glfwSetCharCallback(WindowHandle, [](GLFWwindow* Wnd, unsigned int KeyCode) {
+			WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
+			KeyTypedEvent E(KeyCode);
+			Data.EventCallback(E);
+		});
 
-				switch (Action){
-					case GLFW_PRESS: {
-						MouseButtonPressedEvent Event(Button);
-						Data.EventCallback(Event);
-					} break;
-					case GLFW_RELEASE: {
-						MouseButtonReleasedEvent Event(Button);
-						Data.EventCallback(Event);
-					} break;
-				}
+		glfwSetMouseButtonCallback(WindowHandle, [](GLFWwindow* Wnd, int Button, int Action, int Mods) {
+			WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
+
+			switch (Action) {
+				case GLFW_PRESS: {
+					MouseButtonPressedEvent Event(Button);
+					Data.EventCallback(Event);
+				} break;
+				case GLFW_RELEASE: {
+					MouseButtonReleasedEvent Event(Button);
+					Data.EventCallback(Event);
+				} break;
+			}
 			});
 
-			glfwSetScrollCallback(WindowHandle, [](GLFWwindow* Wnd, double XOffset, double YOffset) {
-				WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
-				MouseScrolledEvent Event((float)XOffset, (float)YOffset);
-				Data.EventCallback(Event);
+		glfwSetScrollCallback(WindowHandle, [](GLFWwindow* Wnd, double XOffset, double YOffset) {
+			WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
+			MouseScrolledEvent Event((float)XOffset, (float)YOffset);
+			Data.EventCallback(Event);
 			});
 
-			glfwSetCursorPosCallback(WindowHandle, [](GLFWwindow* Wnd, double X, double Y) {
-				WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
-				MouseMovedEvent Event((float)X, (float)Y);
-				Data.EventCallback(Event);
+		glfwSetCursorPosCallback(WindowHandle, [](GLFWwindow* Wnd, double X, double Y) {
+			WindowData& Data = *(WindowData*)glfwGetWindowUserPointer(Wnd);
+			MouseMovedEvent Event((float)X, (float)Y);
+			Data.EventCallback(Event);
 			});
 
 	}

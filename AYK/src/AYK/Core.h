@@ -19,3 +19,5 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+#define AYK_BIND_EVENT_FN(function) std::bind(&function, this, std::placeholders::_1)

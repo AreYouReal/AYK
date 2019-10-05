@@ -54,7 +54,7 @@ namespace AYK {
 			return(true);
 		});
 	
-		AYK_CORE_TRACE("{0}", E);
+		//AYK_CORE_TRACE("{0}", E);
 
 		for (auto it = LStack.end(); it != LStack.begin();) {
 			(*--it)->OnEvent(E);

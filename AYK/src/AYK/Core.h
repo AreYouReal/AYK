@@ -10,6 +10,10 @@
 	#error AYK only supports Windows!
 #endif
 
+#ifdef AYK_DEBUG
+	#define AYK_ENABLE_ASSERTS
+#endif
+
 #ifdef AYK_ENABLE_ASSERTS
 	#define AYK_ASSERT(x, ...) { if(!(x)){ AYK_ERROR("Assertion Failed {0}", __VA_ARGS__); __debugbreak();}}
 	#define AYK_CORE_ASSERT(x, ...){ if(!(x)){ AYK_CORE_ERROR("Assertion Failed {0}", __VA_ARGS__); __debugbreak();}}

@@ -1,6 +1,6 @@
 workspace "AYK"
 	architecture "x64"
-
+	startproject "Sandbox"
 	configurations{
 		"Debug",
 		"Release",
@@ -24,6 +24,7 @@ project "AYK"
 	location "AYK"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -53,7 +54,6 @@ project "AYK"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines {
@@ -68,17 +68,17 @@ project "AYK"
 
 	filter "configurations:Debug"
 		defines "AYK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "AYK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "AYK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
 
 project "Sandbox"
@@ -106,8 +106,8 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
+		staticruntime "off"
 
 		defines {
 			"AYK_PLATFORM_WINDOWS"
@@ -115,15 +115,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "AYK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "AYK_RELEASE"
-		buildoptions "/MD"
-		symbols "On"
+		defines "AYK_RELEASE" 
+		runtime "Release"
+		optimize "On"
 
 	filter "configurations:Dist"
 		defines "AYK_DIST"
-		buildoptions "/MD"
-		symbols "On"
+		runtime "Release"
+		optimize "On"

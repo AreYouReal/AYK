@@ -16,9 +16,12 @@ IncludeDir["GLFW"] = "AYK/vendor/GLFW/include"
 IncludeDir["Glad"] = "AYK/vendor/Glad/include"
 IncludeDir["ImGui"] = "AYK/vendor/imgui"
 
-include "AYK/vendor/GLFW"
-include "AYK/vendor/Glad"
-include "AYK/vendor/imgui"
+group "Dependencies"
+	include "AYK/vendor/GLFW"
+	include "AYK/vendor/Glad"
+	include "AYK/vendor/imgui"
+
+group ""
 
 project "AYK"
 	location "AYK"
@@ -63,7 +66,7 @@ project "AYK"
 		}
 
 		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"

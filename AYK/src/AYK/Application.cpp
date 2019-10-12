@@ -7,6 +7,8 @@
 
 #include <glad/glad.h>
 
+#include "Input.h"
+
 namespace AYK {
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
@@ -36,6 +38,9 @@ namespace AYK {
 			for (Layer* L : LStack) {
 				L->OnUpdate();
 			}
+
+			auto [X, Y] = Input::GetMousePosition();
+			AYK_CORE_TRACE("{0} {1}", X, Y);
 
 
 			WindowPtr->OnUpdate();

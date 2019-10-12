@@ -150,6 +150,7 @@
     <ClInclude Include="src\AYK\Events\KeyEvent.h" />
     <ClInclude Include="src\AYK\Events\MouseEvent.h" />
     <ClInclude Include="src\AYK\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\AYK\Input.h" />
     <ClInclude Include="src\AYK\Layer.h" />
     <ClInclude Include="src\AYK\LayerStack.h" />
     <ClInclude Include="src\AYK\Log.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\aykpch.h" />
+    <ClInclude Include="WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="src\aykpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

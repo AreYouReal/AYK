@@ -21,6 +21,8 @@ namespace AYK {
 		void SetVSync(bool Enabled) override;
 		bool IsVSync() const override;
 
+		inline virtual void* GetNativeWindow() const { return(WindowHandle); }
+
 	private:
 		virtual void Init(const WindowProps& PropsToSet);
 		virtual void Shutdown();

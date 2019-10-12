@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "AYK/vendor/GLFW/include"
 IncludeDir["Glad"] = "AYK/vendor/Glad/include"
 IncludeDir["ImGui"] = "AYK/vendor/imgui"
+IncludeDir["glm"] = "AYK/vendor/glm"
 
 group "Dependencies"
 	include "AYK/vendor/GLFW"
@@ -37,7 +38,9 @@ project "AYK"
 
 	files {
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs {
@@ -45,7 +48,8 @@ project "AYK"
 		"%{prj.name}/vendor/spdlog/include;",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links{
@@ -95,12 +99,13 @@ project "Sandbox"
 
 	files {
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
 	}
 
 	includedirs {
 		"AYK/vendor/spdlog/include",
-		"AYK/src"
+		"AYK/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links{

@@ -39,8 +39,8 @@ namespace AYK {
 				L->OnUpdate();
 			}
 
-			auto [X, Y] = Input::GetMousePosition();
-			AYK_CORE_TRACE("{0} {1}", X, Y);
+			//auto [X, Y] = Input::GetMousePosition();
+			//AYK_CORE_TRACE("{0} {1}", X, Y);
 
 
 			WindowPtr->OnUpdate();

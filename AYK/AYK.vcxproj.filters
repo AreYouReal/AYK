@@ -67,6 +67,8 @@
     <ClInclude Include="src\aykpch.h" />
     <ClInclude Include="src\AYK\Input.h" />
     <ClInclude Include="WindowsInput.h" />
+    <ClInclude Include="src\AYK\KeyCodes.h" />
+    <ClInclude Include="src\AYK\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">

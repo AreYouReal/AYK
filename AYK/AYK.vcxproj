@@ -151,9 +151,11 @@
     <ClInclude Include="src\AYK\Events\MouseEvent.h" />
     <ClInclude Include="src\AYK\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\AYK\Input.h" />
+    <ClInclude Include="src\AYK\KeyCodes.h" />
     <ClInclude Include="src\AYK\Layer.h" />
     <ClInclude Include="src\AYK\LayerStack.h" />
     <ClInclude Include="src\AYK\Log.h" />
+    <ClInclude Include="src\AYK\MouseButtonCodes.h" />
     <ClInclude Include="src\AYK\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\IMGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />

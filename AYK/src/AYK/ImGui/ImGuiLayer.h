@@ -13,25 +13,16 @@ namespace AYK {
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach();
-		void OnDetach();
-		void OnUpdate();
-		void OnEvent(Event& E);
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
+		
+		void Begin();
+		void End();
 
 	private:
 
 		float Time;
-
-	private:
-
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& E);
-		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& E);
-		bool OnMouseMovedEvent(MouseMovedEvent& E);
-		bool OnMouseScrolledEvent(MouseScrolledEvent& E);
-		bool OnKeyPressedEvent(KeyPressedEvent& E);
-		bool OnKeyReleasedEvent(KeyReleaseEvent& E);
-		bool OnKeyTypedEvent(KeyTypedEvent& E);
-		bool OnWindowResizedEvent(WindowResizeEvent& E);
 
 	};
 

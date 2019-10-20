@@ -23,8 +23,8 @@ namespace AYK {
 		WindowPtr = std::unique_ptr<Window>( Window::Create() );
 		WindowPtr->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-		unsigned int ID;
-		glGenVertexArrays(1, &ID);
+		ImGuiLayerPtr = new ImGuiLayer();
+		PushOverlay(ImGuiLayerPtr);
 	}
 	
 	Application::~Application(){
@@ -40,9 +40,9 @@ namespace AYK {
 				L->OnUpdate();
 			}
 
-			//auto [X, Y] = Input::GetMousePosition();
-			//AYK_CORE_TRACE("{0} {1}", X, Y);
-
+			ImGuiLayerPtr->Begin();
+			for (Layer* L : LStack) { L->OnImGuiRender(); }
+			ImGuiLayerPtr->End();
 
 			WindowPtr->OnUpdate();
 		}

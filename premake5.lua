@@ -91,8 +91,8 @@ project "AYK"
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -105,6 +105,7 @@ project "Sandbox"
 	includedirs {
 		"AYK/vendor/spdlog/include",
 		"AYK/src",
+		"AYK/vendor",
 		"%{IncludeDir.glm}"
 	}
 
@@ -115,7 +116,6 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		systemversion "latest"
-		staticruntime "off"
 
 		defines {
 			"AYK_PLATFORM_WINDOWS"

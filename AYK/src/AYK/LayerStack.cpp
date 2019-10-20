@@ -3,9 +3,7 @@
 
 namespace AYK {
 
-	LayerStack::LayerStack() {
-		LayerInsert = Layers.begin();
-	}
+	LayerStack::LayerStack() {	}
 
 	LayerStack::~LayerStack() {
 		for (Layer* L : Layers) {
@@ -14,7 +12,8 @@ namespace AYK {
 	}
 
 	void LayerStack::PushLayer(Layer* LayerToPush) {
-		LayerInsert = Layers.emplace(LayerInsert, LayerToPush);
+		Layers.emplace( Layers.begin() + LayerInsertIndex, LayerToPush);
+		++LayerInsertIndex;
 	}
 
 	void LayerStack::PushOverlay(Layer* OverlayToPush) {
@@ -25,7 +24,7 @@ namespace AYK {
 		auto Iterator = std::find(Layers.begin(), Layers.end(), LayerToPop);
 		if (Iterator != Layers.end()) {
 			Layers.erase(Iterator);
-			--LayerInsert;
+			--LayerInsertIndex;
 		}
 	}
 

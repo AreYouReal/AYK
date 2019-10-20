@@ -6,6 +6,8 @@
 #include "AYK/Events/Event.h"
 #include "AYK/Events/ApplicationEvent.h"
 
+#include "AYK/ImGui/ImGuiLayer.h"
+
 namespace AYK {
 	class AYK_API Application {
 	public:
@@ -29,6 +31,7 @@ namespace AYK {
 
 
 		std::unique_ptr<Window> WindowPtr;
+		ImGuiLayer* ImGuiLayerPtr;
 		bool bRunning = true;
 		LayerStack LStack;
 

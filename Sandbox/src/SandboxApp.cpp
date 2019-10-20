@@ -1,5 +1,7 @@
 #include "AYK.h"
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public AYK::Layer {
 
 public:
@@ -12,6 +14,12 @@ public:
 			AYK_TRACE("TAB KEY IS PRESSED! (poll)");
 		}
 
+	}
+
+	virtual void OnImGuiRender() override {
+		ImGui::Begin("TEST");
+		ImGui::Text("Hello world");
+		ImGui::End();
 	}
 
 	void OnEvent(AYK::Event& E) override {
@@ -34,7 +42,6 @@ public:
 
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlay(new AYK::ImGuiLayer());
 	}
 
 	~Sandbox() {

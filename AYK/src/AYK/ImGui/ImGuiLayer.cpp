@@ -3,7 +3,6 @@
 
 #include "imgui.h"
 
-#define IMGUI_IMPL_API
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 
@@ -58,7 +57,7 @@ namespace AYK {
 	void ImGuiLayer::End() {
 		ImGuiIO& IO = ImGui::GetIO();
 		Application& App = Application::Get();
-		IO.DisplaySize = ImVec2(App.GetWindow().GetWidth(), App.GetWindow().GetHeight());
+		IO.DisplaySize = ImVec2((float)App.GetWindow().GetWidth(), (float)App.GetWindow().GetHeight());
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

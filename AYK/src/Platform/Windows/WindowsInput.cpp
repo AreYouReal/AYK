@@ -34,7 +34,7 @@ namespace AYK {
 		GLFWwindow* Wnd = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double X, Y;
 		glfwGetCursorPos(Wnd, &X, &Y);
-		return{ X, Y };
+		return{ (float)X, (float)Y };
 	}
 
 }

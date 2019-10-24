@@ -61,6 +61,7 @@ namespace AYK {
 				TheEvent.bHandled = Function(*(T*)&TheEvent);
 				return(true);
 			}
+			return(false);
 		}
 
 	private:

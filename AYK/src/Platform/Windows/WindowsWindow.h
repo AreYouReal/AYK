@@ -1,4 +1,5 @@
 #include "AYK/Window.h"
+#include "AYK/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -28,6 +29,8 @@ namespace AYK {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* WindowHandle;
+
+		GraphicsContext* GContext;
 
 		struct WindowData {
 			std::string Title;

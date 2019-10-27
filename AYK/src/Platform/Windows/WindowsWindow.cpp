@@ -5,7 +5,9 @@
 #include <AYK\Events\MouseEvent.h>
 #include <AYK\Events\KeyEvent.h>
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
+
+
 
 namespace AYK {
 
@@ -31,7 +33,7 @@ namespace AYK {
 		WData.Title = PropsToSet.Title;
 		WData.Widht = PropsToSet.Width;
 		WData.Height = PropsToSet.Height;
-		
+
 		AYK_CORE_INFO("Creating window {0} ({1} {2})", WData.Title, WData.Widht, WData.Height);
 
 		if (!bGLFWInitialized) {
@@ -42,9 +44,10 @@ namespace AYK {
 		}
 
 		WindowHandle = glfwCreateWindow((int)WData.Widht, (int)WData.Height, WData.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(WindowHandle);
-		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		AYK_CORE_ASSERT(Status, "Failed to initialize Glad!");
+
+		GContext = new OpenGLContext(WindowHandle);
+		GContext->Init();
+
 		glfwSetWindowUserPointer(WindowHandle, &WData);
 		SetVSync(true);
 
@@ -123,7 +126,7 @@ namespace AYK {
 
 	void WindowsWindow::OnUpdate() {
 		glfwPollEvents();
-		glfwSwapBuffers(WindowHandle);
+		GContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool Enabled) {

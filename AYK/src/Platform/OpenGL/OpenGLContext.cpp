@@ -14,6 +14,11 @@ namespace AYK {
 		glfwMakeContextCurrent(WindowHandle);
 		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		AYK_CORE_ASSERT(Status, "Failed to initialize Glad!");
+
+		AYK_CORE_INFO("OpenGL Info:");
+		AYK_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		AYK_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		AYK_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers() {

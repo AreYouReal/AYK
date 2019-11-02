@@ -25,6 +25,33 @@ namespace AYK {
 
 		ImGuiLayerPtr = new ImGuiLayer();
 		PushOverlay(ImGuiLayerPtr);
+
+		
+		glGenVertexArrays(1, &VertexArray);
+		glBindVertexArray(VertexArray);
+
+		glGenBuffers(1, &VertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
+
+		float Vertices[3 * 3] = {
+			-.5f, -.5f, .0f,
+			.5f, -.5f, .0f,
+			.0f, .5f, .0f
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		glGenBuffers(1, &IndexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
+
+		unsigned int Indices[3] = { 0, 1, 2 };
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+
+
 	}
 	
 	Application::~Application(){
@@ -33,8 +60,11 @@ namespace AYK {
 	void Application::Run() {
 
 		while (bRunning) {
-			glClearColor(1, 0, 1, 1);
+			glClearColor(.1f, .1f, .1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glBindVertexArray(VertexArray);
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* L : LStack) {
 				L->OnUpdate();

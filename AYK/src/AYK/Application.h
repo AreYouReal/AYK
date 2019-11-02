@@ -35,6 +35,9 @@ namespace AYK {
 		bool bRunning = true;
 		LayerStack LStack;
 
+		unsigned int VertexArray, VertexBuffer, IndexBuffer;
+
+
 		static Application* Instance;
 	};
 

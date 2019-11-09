@@ -30,8 +30,6 @@ namespace AYK {
 		glGenVertexArrays(1, &VertexArray);
 		glBindVertexArray(VertexArray);
 
-		glGenBuffers(1, &VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
 
 		float Vertices[3 * 3] = {
 			-.5f, -.5f, .0f,
@@ -39,17 +37,14 @@ namespace AYK {
 			.0f, .5f, .0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
-
+		MyVertexBuffer.reset(VertexBuffer::Create(Vertices, sizeof(Vertices)));
+		
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-		glGenBuffers(1, &IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
-
-		unsigned int Indices[3] = { 0, 1, 2 };
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+		uint32_t Indices[3] = { 0, 1, 2 };
+		uint32_t IndexCount = sizeof(Indices) / sizeof(uint32_t);
+		MyIndexBuffer.reset(IndexBuffer::Create(Indices, IndexCount));
 
 		std::string VertexShaderSrc = R"(
 			#version 330 core
@@ -91,7 +86,7 @@ namespace AYK {
 
 			ShaderExample->Bind();
 			glBindVertexArray(VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, MyIndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* L : LStack) {
 				L->OnUpdate();

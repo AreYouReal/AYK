@@ -9,6 +9,7 @@
 #include "AYK/ImGui/ImGuiLayer.h"
 
 #include "AYK/Renderer/Shader.h"
+#include <AYK/Renderer/Buffer.h>
 
 namespace AYK {
 	class AYK_API Application {
@@ -37,10 +38,11 @@ namespace AYK {
 		bool bRunning = true;
 		LayerStack LStack;
 
-		unsigned int VertexArray, VertexBuffer, IndexBuffer;
+		unsigned int VertexArray;
 
 		std::unique_ptr<Shader> ShaderExample;
-
+		std::unique_ptr<VertexBuffer> MyVertexBuffer;
+		std::unique_ptr<IndexBuffer> MyIndexBuffer;
 
 		static Application* Instance;
 	};

@@ -1216,6 +1216,9 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\AYK\Renderer\Shader.h" />
+    <ClInclude Include="src\AYK\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\AYK\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">
@@ -1249,5 +1252,8 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\AYK\Renderer\Shader.cpp" />
+    <ClCompile Include="src\AYK\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\AYK\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

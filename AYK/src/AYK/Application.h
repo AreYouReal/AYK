@@ -8,6 +8,8 @@
 
 #include "AYK/ImGui/ImGuiLayer.h"
 
+#include "AYK/Renderer/Shader.h"
+
 namespace AYK {
 	class AYK_API Application {
 	public:
@@ -36,6 +38,8 @@ namespace AYK {
 		LayerStack LStack;
 
 		unsigned int VertexArray, VertexBuffer, IndexBuffer;
+
+		std::unique_ptr<Shader> ShaderExample;
 
 
 		static Application* Instance;

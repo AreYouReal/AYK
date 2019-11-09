@@ -1215,6 +1215,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">
@@ -1247,5 +1248,6 @@
     <ClCompile Include="src\aykpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\AYK\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

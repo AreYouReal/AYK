@@ -148,6 +148,7 @@
     <ClInclude Include="src\AYK\Log.h" />
     <ClInclude Include="src\AYK\MouseButtonCodes.h" />
     <ClInclude Include="src\AYK\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\AYK\Renderer\Shader.h" />
     <ClInclude Include="src\AYK\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
@@ -529,6 +530,7 @@
     <ClCompile Include="src\AYK\Layer.cpp" />
     <ClCompile Include="src\AYK\LayerStack.cpp" />
     <ClCompile Include="src\AYK\Log.cpp" />
+    <ClCompile Include="src\AYK\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

@@ -16,6 +16,27 @@ namespace AYK {
 
 	Application* Application::Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType Type) {
+		switch (Type) {
+			case AYK::ShaderDataType::Float: 
+			case AYK::ShaderDataType::Float2:
+			case AYK::ShaderDataType::Float3:
+			case AYK::ShaderDataType::Float4:
+			case AYK::ShaderDataType::Mat3:
+			case AYK::ShaderDataType::Mat4:
+			return(GL_FLOAT);
+			case AYK::ShaderDataType::Int:
+			case AYK::ShaderDataType::Int2:
+			case AYK::ShaderDataType::Int3:
+			case AYK::ShaderDataType::Int4:
+			return(GL_INT);
+			case AYK::ShaderDataType::Bool: 			
+			return(GL_BOOL);
+		}
+		AYK_CORE_ASSERT(false, "Unknown ShderDataType");
+		return(0);
+	}
+
 	Application::Application(){
 		AYK_CORE_ASSERT(!Instance, "Application already exists!");
 		Instance = this;
@@ -31,16 +52,34 @@ namespace AYK {
 		glBindVertexArray(VertexArray);
 
 
-		float Vertices[3 * 3] = {
-			-.5f, -.5f, .0f,
-			.5f, -.5f, .0f,
-			.0f, .5f, .0f
+		float Vertices[3 * 7] = {
+			-.5f, -.5f, .0f, 1.0f, .0f, .0f, 1.0f,
+			.5f, -.5f, .0f, .0f, 1.0f, .0f, 1.0f,
+			.0f, .5f, .0f, .0f, .0f, 1.0f, 1.0f
 		};
 
 		MyVertexBuffer.reset(VertexBuffer::Create(Vertices, sizeof(Vertices)));
-		
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		{
+			BufferLayout BLayout = {
+				{ ShaderDataType::Float3, "aPosition", true},
+				{ ShaderDataType::Float4, "aColor", false}
+			};
+
+			MyVertexBuffer->SetLayout(BLayout);
+		}
+
+		uint32_t CurrentIndex = 0;
+		const auto& VertexBufferLayout = MyVertexBuffer->GetLayout();
+		for (const auto& E : VertexBufferLayout) {
+			glEnableVertexAttribArray(CurrentIndex);
+			glVertexAttribPointer(CurrentIndex++, 
+				E.GetComponentCount(), 
+				ShaderDataTypeToOpenGLBaseType(E.Type), 
+				E.Normalized ? GL_TRUE : GL_FALSE, 
+				VertexBufferLayout.GetStride(),
+				(const void*)E.Offset);
+		}
 
 		uint32_t Indices[3] = { 0, 1, 2 };
 		uint32_t IndexCount = sizeof(Indices) / sizeof(uint32_t);
@@ -50,13 +89,14 @@ namespace AYK {
 			#version 330 core
 
 			layout(location = 0) in vec3 aPosition;
+			layout(location = 1) in vec4 aColor;
 
-			out vec3 vPosition;
+			out vec4 vColor;
 
 
 			void main(){
 				gl_Position = vec4(aPosition, 1.0);
-				vPosition = aPosition;
+				vColor = aColor;
 			}
 		)";
 
@@ -65,10 +105,10 @@ namespace AYK {
 
 			layout(location = 0) out vec4 oColor;
 
-			in vec3 vPosition;
+			in vec4 vColor;
 
 			void main(){
-				oColor = vec4(vPosition * 0.5 + 0.5, 1.0);
+				oColor = vColor;
 			}
 		)";
 

@@ -14,9 +14,14 @@ namespace AYK {
 
 		virtual void Unbind() const override;
 
+		virtual void SetLayout(const BufferLayout& Layout) override { BLayout = Layout; }
+
+		virtual const BufferLayout& GetLayout() const override { return(BLayout); }
+
 	private:
 
 		uint32_t RendererID;
+		BufferLayout BLayout;
 
 	};
 

@@ -16,27 +16,6 @@ namespace AYK {
 
 	Application* Application::Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType Type) {
-		switch (Type) {
-			case AYK::ShaderDataType::Float: 
-			case AYK::ShaderDataType::Float2:
-			case AYK::ShaderDataType::Float3:
-			case AYK::ShaderDataType::Float4:
-			case AYK::ShaderDataType::Mat3:
-			case AYK::ShaderDataType::Mat4:
-			return(GL_FLOAT);
-			case AYK::ShaderDataType::Int:
-			case AYK::ShaderDataType::Int2:
-			case AYK::ShaderDataType::Int3:
-			case AYK::ShaderDataType::Int4:
-			return(GL_INT);
-			case AYK::ShaderDataType::Bool: 			
-			return(GL_BOOL);
-		}
-		AYK_CORE_ASSERT(false, "Unknown ShderDataType");
-		return(0);
-	}
-
 	Application::Application(){
 		AYK_CORE_ASSERT(!Instance, "Application already exists!");
 		Instance = this;
@@ -47,43 +26,50 @@ namespace AYK {
 		ImGuiLayerPtr = new ImGuiLayer();
 		PushOverlay(ImGuiLayerPtr);
 
-		
-		glGenVertexArrays(1, &VertexArray);
-		glBindVertexArray(VertexArray);
 
+		// Generate VA -> Triangle
+		TriangleVA.reset(VertexArray::Create());
+		TriangleVA->Bind();
 
-		float Vertices[3 * 7] = {
+		float TriangleVertices[3 * 7] = {
 			-.5f, -.5f, .0f, 1.0f, .0f, .0f, 1.0f,
 			.5f, -.5f, .0f, .0f, 1.0f, .0f, 1.0f,
 			.0f, .5f, .0f, .0f, .0f, 1.0f, 1.0f
 		};
+		std::shared_ptr<VertexBuffer> TriangleVB;
+		TriangleVB.reset(VertexBuffer::Create(TriangleVertices, sizeof(TriangleVertices)));
 
-		MyVertexBuffer.reset(VertexBuffer::Create(Vertices, sizeof(Vertices)));
+		BufferLayout BLayout = {
+			{ ShaderDataType::Float3, "aPosition", true},
+			{ ShaderDataType::Float4, "aColor", false}
+		};
+		TriangleVB->SetLayout(BLayout);
+		TriangleVA->AddVertexBuffer(TriangleVB);
 
-		{
-			BufferLayout BLayout = {
-				{ ShaderDataType::Float3, "aPosition", true},
-				{ ShaderDataType::Float4, "aColor", false}
-			};
+		uint32_t TriangleIndices[3] = { 0, 1, 2 };
+		std::shared_ptr<IndexBuffer> TriangleIB;
+		TriangleIB.reset(IndexBuffer::Create(TriangleIndices, (sizeof(TriangleIndices) / sizeof(uint32_t))));
+		TriangleVA->SetIndexBuffer(TriangleIB);
 
-			MyVertexBuffer->SetLayout(BLayout);
-		}
+		// Generate VA - Square
+		SquareVA.reset(VertexArray::Create());
 
-		uint32_t CurrentIndex = 0;
-		const auto& VertexBufferLayout = MyVertexBuffer->GetLayout();
-		for (const auto& E : VertexBufferLayout) {
-			glEnableVertexAttribArray(CurrentIndex);
-			glVertexAttribPointer(CurrentIndex++, 
-				E.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(E.Type), 
-				E.Normalized ? GL_TRUE : GL_FALSE, 
-				VertexBufferLayout.GetStride(),
-				(const void*)E.Offset);
-		}
+		float SquareVertices[3 * 4] = {
+			-.75f, -.75f, .0f,
+			.75f, -.75f, .0f,
+			.75f, .75f, .0f, 
+			-.75f, .75f, .0f
+		};
 
-		uint32_t Indices[3] = { 0, 1, 2 };
-		uint32_t IndexCount = sizeof(Indices) / sizeof(uint32_t);
-		MyIndexBuffer.reset(IndexBuffer::Create(Indices, IndexCount));
+		std::shared_ptr<VertexBuffer> SquareVB;
+		SquareVB.reset(VertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
+		SquareVB->SetLayout({ { ShaderDataType::Float3, "aPosition"} });
+		SquareVA->AddVertexBuffer(SquareVB);
+
+		uint32_t SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> SquareIB;
+		SquareIB.reset(IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t))));
+		SquareVA->SetIndexBuffer(SquareIB);
 
 		std::string VertexShaderSrc = R"(
 			#version 330 core
@@ -112,7 +98,30 @@ namespace AYK {
 			}
 		)";
 
-		ShaderExample.reset(new Shader(VertexShaderSrc, FragmentSahderSrc ));
+		TriangleShader.reset(new Shader(VertexShaderSrc, FragmentSahderSrc ));
+
+		std::string SquareVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 aPosition;
+
+			void main(){
+				gl_Position = vec4(aPosition, 1.0);
+			}
+		)";
+
+		std::string SquareFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 oColor;
+
+			void main(){
+				oColor = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		SquareShader.reset(new Shader(SquareVertexSrc, SquareFragmentSrc));
+
 	}
 	
 	Application::~Application(){
@@ -124,9 +133,13 @@ namespace AYK {
 			glClearColor(.1f, .1f, .1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			ShaderExample->Bind();
-			glBindVertexArray(VertexArray);
-			glDrawElements(GL_TRIANGLES, MyIndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			SquareShader->Bind();
+			SquareVA->Bind();
+			glDrawElements(GL_TRIANGLES, SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			TriangleShader->Bind();
+			TriangleVA->Bind();
+			glDrawElements(GL_TRIANGLES, TriangleVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* L : LStack) {
 				L->OnUpdate();

@@ -9,7 +9,8 @@
 #include "AYK/ImGui/ImGuiLayer.h"
 
 #include "AYK/Renderer/Shader.h"
-#include <AYK/Renderer/Buffer.h>
+#include "AYK/Renderer/Buffer.h"
+#include "AYK/Renderer/VertexArray.h"
 
 namespace AYK {
 	class AYK_API Application {
@@ -38,11 +39,13 @@ namespace AYK {
 		bool bRunning = true;
 		LayerStack LStack;
 
-		unsigned int VertexArray;
+		std::shared_ptr<Shader> TriangleShader;
+		std::shared_ptr<VertexArray> TriangleVA;
 
-		std::unique_ptr<Shader> ShaderExample;
-		std::unique_ptr<VertexBuffer> MyVertexBuffer;
-		std::unique_ptr<IndexBuffer> MyIndexBuffer;
+		std::shared_ptr<Shader> SquareShader;
+		std::shared_ptr<VertexArray> SquareVA;
+
+
 
 		static Application* Instance;
 	};

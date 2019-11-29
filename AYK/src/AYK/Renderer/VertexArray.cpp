@@ -9,7 +9,7 @@ namespace AYK {
 
 	VertexArray* VertexArray::Create() {
 		switch (Renderer::GetAPI()) {
-			case RendererAPI::OpenGL: return(new OpenGlVertexArray());
+			case RendererAPI::API::OpenGL: return(new OpenGlVertexArray());
 			default:
 			AYK_CORE_ASSERT(false, "RendererAPI is not supported!");
 			return nullptr;

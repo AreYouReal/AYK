@@ -5,7 +5,7 @@
 
 #include "Events/ApplicationEvent.h"
 
-#include <glad/glad.h>
+#include "AYK/Renderer/Renderer.h"
 
 #include "Input.h"
 
@@ -130,16 +130,25 @@ namespace AYK {
 	void Application::Run() {
 
 		while (bRunning) {
-			glClearColor(.1f, .1f, .1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
 
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
+			
 			SquareShader->Bind();
-			SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
+			Renderer::Submit(SquareVA);
+			
 			TriangleShader->Bind();
+			Renderer::Submit(TriangleVA);
+
+			Renderer::EndScene();
+
+			SquareVA->Bind();
+			RenderCommand::DrawIndexed(SquareVA);
+
 			TriangleVA->Bind();
-			glDrawElements(GL_TRIANGLES, TriangleVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			RenderCommand::DrawIndexed(TriangleVA);
 
 			for (Layer* L : LStack) {
 				L->OnUpdate();

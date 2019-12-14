@@ -7,7 +7,7 @@ namespace AYK {
 	class AYK_API Input{
 		
 	public:
-		inline static bool ISkeyPressed(int Keycode) { return(Instance->IskeyPressedImpl(Keycode)); }
+		inline static bool IsKeyPressed(int Keycode) { return(Instance->IskeyPressedImpl(Keycode)); }
 		inline static bool IsMouseButtonPressed(int Button) { return(Instance->IsMouseButtonPressedImpl(Button)); }
 		inline static std::pair<float, float> GetMousePosition() { return(Instance->GetMousePositionImpl()); }
 		inline static float GetMouseX() { return(Instance->GetMouseXImpl()); }

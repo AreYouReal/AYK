@@ -8,14 +8,8 @@
 
 #include "AYK/ImGui/ImGuiLayer.h"
 
-#include "AYK/Renderer/Shader.h"
-#include "AYK/Renderer/Buffer.h"
-#include "AYK/Renderer/VertexArray.h"
-
-#include "AYK/Renderer/OrthographicCamera.h"
-
 namespace AYK {
-	class AYK_API Application {
+	class Application {
 	public:
 		Application();
 		virtual ~Application();
@@ -40,14 +34,6 @@ namespace AYK {
 		ImGuiLayer* ImGuiLayerPtr;
 		bool bRunning = true;
 		LayerStack LStack;
-
-		std::shared_ptr<Shader> TriangleShader;
-		std::shared_ptr<VertexArray> TriangleVA;
-
-		std::shared_ptr<Shader> SquareShader;
-		std::shared_ptr<VertexArray> SquareVA;
-
-		OrthographicCamera Camera;
 
 		static Application* Instance;
 	};

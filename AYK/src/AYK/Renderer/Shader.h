@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <glm/glm.hpp>
 
 namespace AYK {
 
@@ -13,6 +14,8 @@ namespace AYK {
 	
 		void Bind() const;
 		void Unbind() const;
+
+		void UploadUniformMat4(const std::string& Name, const glm::mat4& Matrix);
 	
 	private:
 

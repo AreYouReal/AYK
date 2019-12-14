@@ -12,6 +12,8 @@
 #include "AYK/Renderer/Buffer.h"
 #include "AYK/Renderer/VertexArray.h"
 
+#include "AYK/Renderer/OrthographicCamera.h"
+
 namespace AYK {
 	class AYK_API Application {
 	public:
@@ -45,7 +47,7 @@ namespace AYK {
 		std::shared_ptr<Shader> SquareShader;
 		std::shared_ptr<VertexArray> SquareVA;
 
-
+		OrthographicCamera Camera;
 
 		static Application* Instance;
 	};

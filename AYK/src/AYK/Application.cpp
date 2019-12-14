@@ -16,7 +16,7 @@ namespace AYK {
 
 	Application* Application::Instance = nullptr;
 
-	Application::Application(){
+	Application::Application() : Camera(-1.6f, 1.6f, -.9f, .9f){
 		AYK_CORE_ASSERT(!Instance, "Application already exists!");
 		Instance = this;
 
@@ -77,11 +77,13 @@ namespace AYK {
 			layout(location = 0) in vec3 aPosition;
 			layout(location = 1) in vec4 aColor;
 
+			uniform mat4 uViewProjection;
+
 			out vec4 vColor;
 
 
 			void main(){
-				gl_Position = vec4(aPosition, 1.0);
+				gl_Position = uViewProjection * vec4(aPosition, 1.0);
 				vColor = aColor;
 			}
 		)";
@@ -105,8 +107,10 @@ namespace AYK {
 
 			layout(location = 0) in vec3 aPosition;
 
+			uniform mat4 uViewProjection;
+
 			void main(){
-				gl_Position = vec4(aPosition, 1.0);
+				gl_Position = uViewProjection * vec4(aPosition, 1.0);
 			}
 		)";
 
@@ -134,17 +138,17 @@ namespace AYK {
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
+			Camera.SetRotation(45.0f);
+
+			Renderer::BeginScene(Camera);
 			
-			SquareShader->Bind();
-			Renderer::Submit(SquareVA);
-			
-			TriangleShader->Bind();
-			Renderer::Submit(TriangleVA);
+			Renderer::Submit(SquareShader, SquareVA);
+			Renderer::Submit(TriangleShader, TriangleVA);
 
 			Renderer::EndScene();
 
 			SquareVA->Bind();
+
 			RenderCommand::DrawIndexed(SquareVA);
 
 			TriangleVA->Bind();

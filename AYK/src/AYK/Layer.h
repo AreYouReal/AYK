@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AYK/Core.h"
+#include "AYK/Core/Timestep.h"
 #include "AYK/Events/Event.h"
 
 namespace AYK {
@@ -14,7 +15,7 @@ namespace AYK {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep TimeStep) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& E) {}
 

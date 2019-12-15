@@ -6,6 +6,8 @@
 #include "AYK/Events/Event.h"
 #include "AYK/Events/ApplicationEvent.h"
 
+#include "AYK/Core/Timestep.h"
+
 #include "AYK/ImGui/ImGuiLayer.h"
 
 namespace AYK {
@@ -27,13 +29,15 @@ namespace AYK {
 		inline Window& GetWindow() { return(*WindowPtr); }
 
 	private:
-		//bool OnWindowClose(WindowCloseEvent& E);
+		bool OnWindowClose(WindowCloseEvent& E);
 
 
 		std::unique_ptr<Window> WindowPtr;
 		ImGuiLayer* ImGuiLayerPtr;
 		bool bRunning = true;
 		LayerStack LStack;
+		float LastFrameTime = 0.0f;
+
 
 		static Application* Instance;
 	};

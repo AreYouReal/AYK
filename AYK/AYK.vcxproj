@@ -132,6 +132,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AYK\Core\Timestep.h" />
     <ClInclude Include="src\AYK\Renderer\Buffer.h" />
     <ClInclude Include="src\AYK.h" />
     <ClInclude Include="src\AYK\Application.h" />

@@ -1225,6 +1225,7 @@
     <ClInclude Include="src\AYK\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\AYK\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\AYK\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Application.cpp">

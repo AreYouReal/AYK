@@ -5,6 +5,8 @@
 #include "AYK/Layer.h"
 #include "AYK/Log.h"
 
+#include "AYK/Core/Timestep.h"
+
 #include "AYK/Input.h"
 #include "AYK/MouseButtonCodes.h"
 #include "AYK/KeyCodes.h"

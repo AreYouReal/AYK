@@ -106,23 +106,27 @@ public:
 		SquareShader.reset(new AYK::Shader(SquareVertexSrc, SquareFragmentSrc));
 	}
 
-	void OnUpdate() override {
+	void OnUpdate(AYK::Timestep Timestep) override {
+
+		AYK_TRACE("Delta time: {0}s  {1}ms", Timestep.GetSeconds(), Timestep.GetMilliseconds());
+
+		float CameraOffset = CameraSpeed * Timestep;
 
 		if (AYK::Input::IsKeyPressed(AYK_KEY_LEFT)) {
-			CameraPosition.x -= CameraSpeed;
+			CameraPosition.x -= CameraOffset;
 		}else if (AYK::Input::IsKeyPressed(AYK_KEY_RIGHT)) {
-			CameraPosition.x += CameraSpeed;
+			CameraPosition.x += CameraOffset;
 		}else if (AYK::Input::IsKeyPressed(AYK_KEY_UP)) {
-			CameraPosition.y += CameraSpeed;
+			CameraPosition.y += CameraOffset;
 		}else if (AYK::Input::IsKeyPressed(AYK_KEY_DOWN)) {
-			CameraPosition.y -= CameraSpeed;
+			CameraPosition.y -= CameraOffset;
 		}
 		
 		
 		if (AYK::Input::IsKeyPressed(AYK_KEY_E)) {
-			CameraRotation -= CameraSpeed;
+			CameraRotation -= CameraOffset * 100;
 		} else if (AYK::Input::IsKeyPressed(AYK_KEY_Q)) {
-			CameraRotation += CameraSpeed;
+			CameraRotation += CameraOffset * 100;
 		}
 
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });

@@ -14,9 +14,10 @@ namespace AYK {
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& Sh, const std::shared_ptr<VertexArray>& VA) {
+	void Renderer::Submit(const std::shared_ptr<Shader>& Sh, const std::shared_ptr<VertexArray>& VA, const glm::mat4& Transform) {
 		Sh->Bind();
 		Sh->UploadUniformMat4("uViewProjection", CurrentSceneData->ViewProjectionMatrix);
+		Sh->UploadUniformMat4("uTransform", Transform);
 		VA->Bind();
 		RenderCommand::DrawIndexed(VA);
 	}

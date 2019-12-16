@@ -2,10 +2,12 @@
 
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 class ExampleLayer : public AYK::Layer {
 
 public:
-	ExampleLayer() : Layer("Example"), Camera(-1.6f, 1.6f, -.9f, .9f), CameraPosition(0.0f){
+	ExampleLayer() : Layer("Example"), Camera(-1.6f, 1.6f, -.9f, .9f), CameraPosition(0.0f), SquarePosition(0.0f){
 		// Generate VA -> Triangle
 		TriangleVA.reset(AYK::VertexArray::Create());
 		TriangleVA->Bind();
@@ -34,10 +36,10 @@ public:
 		SquareVA.reset(AYK::VertexArray::Create());
 
 		float SquareVertices[3 * 4] = {
-			-.75f, -.75f, .0f,
-			.75f, -.75f, .0f,
-			.75f, .75f, .0f,
-			-.75f, .75f, .0f
+			-.5f, -.5f, .0f,
+			 .5f, -.5f, .0f,
+			 .5f,  .5f, .0f,
+			-.5f,  .5f, .0f
 		};
 
 		std::shared_ptr<AYK::VertexBuffer> SquareVB;
@@ -57,12 +59,13 @@ public:
 			layout(location = 1) in vec4 aColor;
 
 			uniform mat4 uViewProjection;
+			uniform mat4 uTransform;
 
 			out vec4 vColor;
 
 
 			void main(){
-				gl_Position = uViewProjection * vec4(aPosition, 1.0);
+				gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
 				vColor = aColor;
 			}
 		)";
@@ -87,9 +90,10 @@ public:
 			layout(location = 0) in vec3 aPosition;
 
 			uniform mat4 uViewProjection;
+			uniform mat4 uTransform;
 
 			void main(){
-				gl_Position = uViewProjection * vec4(aPosition, 1.0);
+				gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
 			}
 		)";
 
@@ -108,7 +112,7 @@ public:
 
 	void OnUpdate(AYK::Timestep Timestep) override {
 
-		AYK_TRACE("Delta time: {0}s  {1}ms", Timestep.GetSeconds(), Timestep.GetMilliseconds());
+		//AYK_TRACE("Delta time: {0}s  {1}ms", Timestep.GetSeconds(), Timestep.GetMilliseconds());
 
 		float CameraOffset = CameraSpeed * Timestep;
 
@@ -116,17 +120,31 @@ public:
 			CameraPosition.x -= CameraOffset;
 		}else if (AYK::Input::IsKeyPressed(AYK_KEY_RIGHT)) {
 			CameraPosition.x += CameraOffset;
-		}else if (AYK::Input::IsKeyPressed(AYK_KEY_UP)) {
+		}
+		
+		if (AYK::Input::IsKeyPressed(AYK_KEY_UP)) {
 			CameraPosition.y += CameraOffset;
 		}else if (AYK::Input::IsKeyPressed(AYK_KEY_DOWN)) {
 			CameraPosition.y -= CameraOffset;
 		}
 		
-		
 		if (AYK::Input::IsKeyPressed(AYK_KEY_E)) {
 			CameraRotation -= CameraOffset * 100;
 		} else if (AYK::Input::IsKeyPressed(AYK_KEY_Q)) {
 			CameraRotation += CameraOffset * 100;
+		}
+
+		float SquareOffset = SquareSpeed * Timestep;
+		if (AYK::Input::IsKeyPressed(AYK_KEY_A)) {
+			SquarePosition.x -= SquareOffset;
+		} else if (AYK::Input::IsKeyPressed(AYK_KEY_D)) {
+			SquarePosition.x += SquareOffset;
+		}
+		
+		if (AYK::Input::IsKeyPressed(AYK_KEY_W)) {
+			SquarePosition.y += SquareOffset;
+		} else if (AYK::Input::IsKeyPressed(AYK_KEY_S)) {
+			SquarePosition.y -= SquareOffset;
 		}
 
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -137,7 +155,17 @@ public:
 
 		AYK::Renderer::BeginScene(Camera);
 
-		AYK::Renderer::Submit(SquareShader, SquareVA);
+
+		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+
+		for (int y = 0; y < 30; ++y) {
+			for (int x = 0; x < 30; ++x) {
+				SquarePosition = glm::vec3(0.11f * x, y * 0.11f, 0.0f);
+				glm::mat4 SquareTransform = glm::translate(glm::mat4(1.0f), SquarePosition);
+				AYK::Renderer::Submit(SquareShader, SquareVA, SquareTransform * Scale);
+			}
+		}
+
 		AYK::Renderer::Submit(TriangleShader, TriangleVA);
 
 		AYK::Renderer::EndScene();
@@ -158,10 +186,12 @@ private:
 
 	AYK::OrthographicCamera Camera;
 	glm::vec3 CameraPosition;
-	float CameraSpeed = 0.1f;
+	float CameraSpeed = 1.0f;
 	float CameraRotation = 0.0f;
 
 
+	glm::vec3 SquarePosition;
+	float SquareSpeed = 1.0f;
 };
 
 class Sandbox : public AYK::Application {

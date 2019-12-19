@@ -84,7 +84,7 @@ public:
 
 		TriangleShader.reset(new AYK::Shader(VertexShaderSrc, FragmentSahderSrc));
 
-		std::string SquareVertexSrc = R"(
+		std::string FlatColorShaderVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 aPosition;
@@ -97,17 +97,19 @@ public:
 			}
 		)";
 
-		std::string SquareFragmentSrc = R"(
+		std::string FlatColorShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 oColor;
 
+			uniform vec4 uColor;
+
 			void main(){
-				oColor = vec4(0.2, 0.3, 0.8, 1.0);
+				oColor = uColor;
 			}
 		)";
 
-		SquareShader.reset(new AYK::Shader(SquareVertexSrc, SquareFragmentSrc));
+		FlatColorShader.reset(new AYK::Shader(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(AYK::Timestep Timestep) override {
@@ -158,11 +160,18 @@ public:
 
 		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 
+		glm::vec4 RedColor(.8f, .2f, .3f, 1.0f);
+		glm::vec4 BlueColor(.2f, .3f, .8f, 1.0f);
+
+
 		for (int y = 0; y < 30; ++y) {
 			for (int x = 0; x < 30; ++x) {
 				SquarePosition = glm::vec3(0.11f * x, y * 0.11f, 0.0f);
 				glm::mat4 SquareTransform = glm::translate(glm::mat4(1.0f), SquarePosition);
-				AYK::Renderer::Submit(SquareShader, SquareVA, SquareTransform * Scale);
+				
+				FlatColorShader->UploadUniformFloat4( "uColor", ((x % 2 == 0) ? RedColor : BlueColor));
+				
+				AYK::Renderer::Submit(FlatColorShader, SquareVA, SquareTransform * Scale);
 			}
 		}
 
@@ -181,7 +190,7 @@ private:
 	std::shared_ptr<AYK::Shader> TriangleShader;
 	std::shared_ptr<AYK::VertexArray> TriangleVA;
 
-	std::shared_ptr<AYK::Shader> SquareShader;
+	std::shared_ptr<AYK::Shader> FlatColorShader;
 	std::shared_ptr<AYK::VertexArray> SquareVA;
 
 	AYK::OrthographicCamera Camera;

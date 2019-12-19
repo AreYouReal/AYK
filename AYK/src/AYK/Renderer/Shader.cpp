@@ -86,6 +86,11 @@ void AYK::Shader::Unbind() const {
 	glUseProgram(0);
 }
 
+void AYK::Shader::UploadUniformFloat4(const std::string& Name, const glm::vec4& Values) {
+	GLint Location = glGetUniformLocation(RendererID, Name.c_str());
+	glUniform4fv(Location, 1, glm::value_ptr(Values));
+}
+
 void AYK::Shader::UploadUniformMat4(const std::string& Name, const glm::mat4& Matrix) {
 	GLint Location = glGetUniformLocation(RendererID, Name.c_str());
 	glUniformMatrix4fv(Location, 1, GL_FALSE, glm::value_ptr(Matrix));

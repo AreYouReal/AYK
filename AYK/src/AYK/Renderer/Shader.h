@@ -15,8 +15,10 @@ namespace AYK {
 		void Bind() const;
 		void Unbind() const;
 
+		void UploadUniformFloat4(const std::string& Name, const glm::vec4& Values);
 		void UploadUniformMat4(const std::string& Name, const glm::mat4& Matrix);
-	
+		
+
 	private:
 
 		uint32_t RendererID;

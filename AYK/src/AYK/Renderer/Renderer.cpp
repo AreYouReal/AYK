@@ -1,6 +1,7 @@
 #include "aykpch.h"
 #include "Renderer.h"
 
+#include "Platform/OpenGL/OpenGLShader.h"
 
 namespace AYK {
 
@@ -16,8 +17,8 @@ namespace AYK {
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& Sh, const std::shared_ptr<VertexArray>& VA, const glm::mat4& Transform) {
 		Sh->Bind();
-		Sh->UploadUniformMat4("uViewProjection", CurrentSceneData->ViewProjectionMatrix);
-		Sh->UploadUniformMat4("uTransform", Transform);
+		std::dynamic_pointer_cast<OpenGLShader>( Sh )->UploadUniformMat4("uViewProjection", CurrentSceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>( Sh )->UploadUniformMat4("uTransform", Transform);
 		VA->Bind();
 		RenderCommand::DrawIndexed(VA);
 	}

@@ -1,8 +1,12 @@
 #include "AYK.h"
 
+#include "Platform/OpenGL/OpenGLShader.h" 
+
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 class ExampleLayer : public AYK::Layer {
 
@@ -82,7 +86,7 @@ public:
 			}
 		)";
 
-		TriangleShader.reset(new AYK::Shader(VertexShaderSrc, FragmentSahderSrc));
+		TriangleShader.reset(AYK::Shader::Create(VertexShaderSrc, FragmentSahderSrc));
 
 		std::string FlatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -102,14 +106,14 @@ public:
 
 			layout(location = 0) out vec4 oColor;
 
-			uniform vec4 uColor;
+			uniform vec3 uColor;
 
 			void main(){
-				oColor = uColor;
+				oColor = vec4( uColor, 1.0 );
 			}
 		)";
 
-		FlatColorShader.reset(new AYK::Shader(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
+		FlatColorShader.reset(AYK::Shader::Create(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(AYK::Timestep Timestep) override {
@@ -157,20 +161,16 @@ public:
 
 		AYK::Renderer::BeginScene(Camera);
 
-
 		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 
-		glm::vec4 RedColor(.8f, .2f, .3f, 1.0f);
-		glm::vec4 BlueColor(.2f, .3f, .8f, 1.0f);
+		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->UploadUniformFloat3("uColor", SquareColor);
 
 
 		for (int y = 0; y < 30; ++y) {
 			for (int x = 0; x < 30; ++x) {
 				SquarePosition = glm::vec3(0.11f * x, y * 0.11f, 0.0f);
-				glm::mat4 SquareTransform = glm::translate(glm::mat4(1.0f), SquarePosition);
-				
-				FlatColorShader->UploadUniformFloat4( "uColor", ((x % 2 == 0) ? RedColor : BlueColor));
-				
+				glm::mat4 SquareTransform = glm::translate(glm::mat4(1.0f), SquarePosition);				
 				AYK::Renderer::Submit(FlatColorShader, SquareVA, SquareTransform * Scale);
 			}
 		}
@@ -180,7 +180,11 @@ public:
 		AYK::Renderer::EndScene();
 	}
 
-	virtual void OnImGuiRender() override {	}
+	virtual void OnImGuiRender() override {	
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(SquareColor));
+		ImGui::End();
+	}
 
 	void OnEvent(AYK::Event& E) override {
 	}
@@ -201,6 +205,8 @@ private:
 
 	glm::vec3 SquarePosition;
 	float SquareSpeed = 1.0f;
+
+	glm::vec3 SquareColor = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public AYK::Application {

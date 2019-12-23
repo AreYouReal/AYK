@@ -1,28 +1,17 @@
 #pragma once
 
-#include <string>
-#include <glm/glm.hpp>
-
 namespace AYK {
 
 	class Shader {
 
 	public:
 
-		Shader(const std::string& VertexSource, const std::string& FragmentSource);
-		~Shader();
+		virtual ~Shader() = default;
 	
-		void Bind() const;
-		void Unbind() const;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
-		void UploadUniformFloat4(const std::string& Name, const glm::vec4& Values);
-		void UploadUniformMat4(const std::string& Name, const glm::mat4& Matrix);
-		
-
-	private:
-
-		uint32_t RendererID;
-	
+		static Shader* Create(const std::string& VertexSource, const std::string& FragmentSource);
 	};
 
 }

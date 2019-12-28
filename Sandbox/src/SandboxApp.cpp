@@ -166,9 +166,8 @@ public:
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->UploadUniformFloat3("uColor", SquareColor);
 
-
-		for (int y = 0; y < 30; ++y) {
-			for (int x = 0; x < 30; ++x) {
+		for (int y = 0; y < 10; ++y) {
+			for (int x = 0; x < 10; ++x) {
 				SquarePosition = glm::vec3(0.11f * x, y * 0.11f, 0.0f);
 				glm::mat4 SquareTransform = glm::translate(glm::mat4(1.0f), SquarePosition);				
 				AYK::Renderer::Submit(FlatColorShader, SquareVA, SquareTransform * Scale);

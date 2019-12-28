@@ -1,6 +1,6 @@
 #pragma once
 
-// For use by Hazel applications
+// For use by AYK applications
 #include "AYK/Application.h"
 #include "AYK/Layer.h"
 #include "AYK/Log.h"

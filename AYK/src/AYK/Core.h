@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef AYK_PLATFORM_WINDOWS
 #if AYK_DYNAMIC_LINK
 	#ifdef AYK_BUILD_DLL
@@ -29,3 +31,13 @@
 #define BIT(x) (1 << x)
 
 #define AYK_BIND_EVENT_FN(function) std::bind(&function, this, std::placeholders::_1)
+
+namespace AYK {
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+}

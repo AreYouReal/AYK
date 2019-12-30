@@ -14,7 +14,7 @@ namespace AYK {
 		}
 
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& VA){
+		inline static void DrawIndexed(const Ref<VertexArray>& VA){
 			CurrentRendererAPI->DrawIndexed(VA);
 		}
 

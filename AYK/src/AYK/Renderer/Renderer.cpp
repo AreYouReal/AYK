@@ -15,7 +15,7 @@ namespace AYK {
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& Sh, const std::shared_ptr<VertexArray>& VA, const glm::mat4& Transform) {
+	void Renderer::Submit(const Ref<Shader>& Sh, const Ref<VertexArray>& VA, const glm::mat4& Transform) {
 		Sh->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>( Sh )->UploadUniformMat4("uViewProjection", CurrentSceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>( Sh )->UploadUniformMat4("uTransform", Transform);

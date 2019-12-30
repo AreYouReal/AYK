@@ -21,7 +21,7 @@ public:
 			.5f, -.5f, .0f, .0f, 1.0f, .0f, 1.0f,
 			.0f, .5f, .0f, .0f, .0f, 1.0f, 1.0f
 		};
-		std::shared_ptr<AYK::VertexBuffer> TriangleVB;
+		AYK::Ref<AYK::VertexBuffer> TriangleVB;
 		TriangleVB.reset(AYK::VertexBuffer::Create(TriangleVertices, sizeof(TriangleVertices)));
 
 		AYK::BufferLayout BLayout = {
@@ -32,7 +32,7 @@ public:
 		TriangleVA->AddVertexBuffer(TriangleVB);
 
 		uint32_t TriangleIndices[3] = { 0, 1, 2 };
-		std::shared_ptr<AYK::IndexBuffer> TriangleIB;
+		AYK::Ref<AYK::IndexBuffer> TriangleIB;
 		TriangleIB.reset(AYK::IndexBuffer::Create(TriangleIndices, (sizeof(TriangleIndices) / sizeof(uint32_t))));
 		TriangleVA->SetIndexBuffer(TriangleIB);
 
@@ -46,13 +46,13 @@ public:
 			-.5f,  .5f, .0f
 		};
 
-		std::shared_ptr<AYK::VertexBuffer> SquareVB;
+		AYK::Ref<AYK::VertexBuffer> SquareVB;
 		SquareVB.reset(AYK::VertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
 		SquareVB->SetLayout({ { AYK::ShaderDataType::Float3, "aPosition"} });
 		SquareVA->AddVertexBuffer(SquareVB);
 
 		uint32_t SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<AYK::IndexBuffer> SquareIB;
+		AYK::Ref<AYK::IndexBuffer> SquareIB;
 		SquareIB.reset(AYK::IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t))));
 		SquareVA->SetIndexBuffer(SquareIB);
 
@@ -190,11 +190,11 @@ public:
 
 private:
 
-	std::shared_ptr<AYK::Shader> TriangleShader;
-	std::shared_ptr<AYK::VertexArray> TriangleVA;
+	AYK::Ref<AYK::Shader> TriangleShader;
+	AYK::Ref<AYK::VertexArray> TriangleVA;
 
-	std::shared_ptr<AYK::Shader> FlatColorShader;
-	std::shared_ptr<AYK::VertexArray> SquareVA;
+	AYK::Ref<AYK::Shader> FlatColorShader;
+	AYK::Ref<AYK::VertexArray> SquareVA;
 
 	AYK::OrthographicCamera Camera;
 	glm::vec3 CameraPosition;

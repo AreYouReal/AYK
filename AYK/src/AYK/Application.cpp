@@ -24,7 +24,7 @@ namespace AYK {
 		AYK_CORE_ASSERT(!Instance, "Application already exists!");
 		Instance = this;
 
-		WindowPtr = std::unique_ptr<Window>( Window::Create() );
+		WindowPtr = Scope<Window>( Window::Create() );
 		WindowPtr->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		//WindowPtr->SetVSync(false);
 		

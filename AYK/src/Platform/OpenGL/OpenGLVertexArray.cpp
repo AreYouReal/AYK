@@ -43,7 +43,7 @@ namespace AYK {
 		glBindVertexArray(0);
 	}
 
-	void OpenGlVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& VBufferToAdd){
+	void OpenGlVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& VBufferToAdd){
 		AYK_CORE_ASSERT(VBufferToAdd->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(RendererID);
@@ -64,7 +64,7 @@ namespace AYK {
 		VBuffers.push_back(VBufferToAdd);
 	}
 
-	void OpenGlVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& IBufferToSet){
+	void OpenGlVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& IBufferToSet){
 		glBindVertexArray(RendererID);
 		IBuffer = IBufferToSet;
 		IBuffer->Bind();

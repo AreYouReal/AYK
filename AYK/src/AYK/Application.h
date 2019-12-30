@@ -32,7 +32,7 @@ namespace AYK {
 		bool OnWindowClose(WindowCloseEvent& E);
 
 
-		std::unique_ptr<Window> WindowPtr;
+		Scope<Window> WindowPtr;
 		ImGuiLayer* ImGuiLayerPtr;
 		bool bRunning = true;
 		LayerStack LStack;

@@ -9,7 +9,7 @@ namespace AYK {
 		virtual void SetClearColor(const glm::vec4& Color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& VA) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& VA) override;
 
 	};
 

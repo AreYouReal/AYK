@@ -39,16 +39,17 @@ public:
 		// Generate VA - Square
 		SquareVA.reset(AYK::VertexArray::Create());
 
-		float SquareVertices[3 * 4] = {
-			-.5f, -.5f, .0f,
-			 .5f, -.5f, .0f,
-			 .5f,  .5f, .0f,
-			-.5f,  .5f, .0f
+		float SquareVertices[5 * 4] = {
+			-.5f, -.5f, .0f, 0.0f, 0.0f,
+			 .5f, -.5f, .0f, 1.0f, 0.0f,
+			 .5f,  .5f, .0f, 1.0f, 1.0f,
+			-.5f,  .5f, .0f, 0.0f, 1.0f
 		};
 
 		AYK::Ref<AYK::VertexBuffer> SquareVB;
 		SquareVB.reset(AYK::VertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
-		SquareVB->SetLayout({ { AYK::ShaderDataType::Float3, "aPosition"} });
+		SquareVB->SetLayout({ { AYK::ShaderDataType::Float3, "aPosition"},
+			{ AYK::ShaderDataType::Float2, "aTexCoord"} });
 		SquareVA->AddVertexBuffer(SquareVB);
 
 		uint32_t SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
@@ -114,6 +115,39 @@ public:
 		)";
 
 		FlatColorShader.reset(AYK::Shader::Create(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
+
+		std::string TextureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 aPosition;
+			layout(location = 1) in vec2 aTexCoord; 
+
+			uniform mat4 uViewProjection;
+			uniform mat4 uTransform;
+
+			out vec2 vTexCoord;
+
+			void main(){
+				vTexCoord = aTexCoord;
+				gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
+			}
+		)";
+
+		std::string TextureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 oColor;
+
+			uniform vec3 uColor;
+
+			in vec2 vTexCoord;
+
+			void main(){
+				oColor = vec4( vTexCoord, 0.0, 1.0 );
+			}
+		)";
+
+		TextureShader.reset(AYK::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
 	}
 
 	void OnUpdate(AYK::Timestep Timestep) override {
@@ -161,7 +195,7 @@ public:
 
 		AYK::Renderer::BeginScene(Camera);
 
-		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(FlatColorShader)->UploadUniformFloat3("uColor", SquareColor);
@@ -174,7 +208,10 @@ public:
 			}
 		}
 
-		AYK::Renderer::Submit(TriangleShader, TriangleVA);
+		AYK::Renderer::Submit(TextureShader, SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle
+		//AYK::Renderer::Submit(TriangleShader, TriangleVA);
 
 		AYK::Renderer::EndScene();
 	}
@@ -193,7 +230,7 @@ private:
 	AYK::Ref<AYK::Shader> TriangleShader;
 	AYK::Ref<AYK::VertexArray> TriangleVA;
 
-	AYK::Ref<AYK::Shader> FlatColorShader;
+	AYK::Ref<AYK::Shader> FlatColorShader, TextureShader;
 	AYK::Ref<AYK::VertexArray> SquareVA;
 
 	AYK::OrthographicCamera Camera;

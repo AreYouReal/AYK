@@ -12,12 +12,12 @@ namespace AYK {
 		virtual uint32_t GetWidth() const override { return(Width); }
 		virtual uint32_t GetHeight() const override { return(Height); }
 
-		virtual void Bind() const override;
+		virtual void Bind(uint32_t Slot = 0) const override;
 
 	private:
 
 		std::string	FilePath;
-		uint32_t	Widht;
+		uint32_t	Width;
 		uint32_t	Height;
 		uint32_t	RendererID;
 

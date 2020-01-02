@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "AYK/vendor/GLFW/include"
 IncludeDir["Glad"] = "AYK/vendor/Glad/include"
 IncludeDir["ImGui"] = "AYK/vendor/imgui"
 IncludeDir["glm"] = "AYK/vendor/glm"
+IncludeDir["stb_image"] = "AYK/vendor/stb_image"
 
 group "Dependencies"
 	include "AYK/vendor/GLFW"
@@ -38,6 +39,8 @@ project "AYK"
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -52,7 +55,8 @@ project "AYK"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links{

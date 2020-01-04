@@ -19,6 +19,7 @@
 
 #include "AYK/Renderer/Buffer.h"
 #include "AYK/Renderer/Shader.h"
+#include "AYK/Renderer/Texture.h"
 #include "AYK/Renderer/VertexArray.h"
 
 #include "AYK/Renderer/OrthographicCamera.h"

@@ -138,16 +138,21 @@ public:
 
 			layout(location = 0) out vec4 oColor;
 
-			uniform vec3 uColor;
-
 			in vec2 vTexCoord;
 
+			uniform sampler2D uTexture;
+
 			void main(){
-				oColor = vec4( vTexCoord, 0.0, 1.0 );
+				oColor = texture(uTexture, vTexCoord);
 			}
 		)";
 
 		TextureShader.reset(AYK::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
+	
+		Texture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
+
+		std::dynamic_pointer_cast<AYK::OpenGLShader>(TextureShader)->Bind();
+		std::dynamic_pointer_cast<AYK::OpenGLShader>(TextureShader)->UploadUniformInt("uTexture", 0);
 	}
 
 	void OnUpdate(AYK::Timestep Timestep) override {
@@ -207,7 +212,7 @@ public:
 				AYK::Renderer::Submit(FlatColorShader, SquareVA, SquareTransform * Scale);
 			}
 		}
-
+		Texture->Bind();
 		AYK::Renderer::Submit(TextureShader, SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle
@@ -232,6 +237,8 @@ private:
 
 	AYK::Ref<AYK::Shader> FlatColorShader, TextureShader;
 	AYK::Ref<AYK::VertexArray> SquareVA;
+
+	AYK::Ref<AYK::Texture2D> Texture;
 
 	AYK::OrthographicCamera Camera;
 	glm::vec3 CameraPosition;

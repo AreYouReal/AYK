@@ -6,6 +6,11 @@ namespace AYK {
 
 	class RenderCommand {
 	public:
+
+		inline static void Init() {
+			CurrentRendererAPI->Init();
+		}
+
 		inline static void SetClearColor(const glm::vec4& Color) {
 			CurrentRendererAPI->SetClearColor(Color);
 		}

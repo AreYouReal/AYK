@@ -11,6 +11,8 @@ namespace AYK {
 
 	public:
 		
+		static void Init();
+
 		static void BeginScene(OrthographicCamera& Camera);
 		static void EndScene();
 

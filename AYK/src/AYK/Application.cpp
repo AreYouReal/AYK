@@ -28,6 +28,7 @@ namespace AYK {
 		WindowPtr->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		//WindowPtr->SetVSync(false);
 		
+		Renderer::Init();
 
 		ImGuiLayerPtr = new ImGuiLayer();
 		PushOverlay(ImGuiLayerPtr);

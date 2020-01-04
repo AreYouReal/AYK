@@ -5,6 +5,11 @@
 
 namespace AYK {
 
+	void OpenGLRendererAPI::Init() {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& Color) {
 		glClearColor(Color.r, Color.g, Color.b, Color.a);
 	}
@@ -16,5 +21,7 @@ namespace AYK {
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& VA) {
 		glDrawElements(GL_TRIANGLES, VA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+
+
 
 }

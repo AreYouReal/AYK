@@ -7,6 +7,10 @@ namespace AYK {
 
 	Renderer::SceneData* Renderer::CurrentSceneData = new Renderer::SceneData;
 
+	void Renderer::Init() {
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& Camera) {
 		CurrentSceneData->ViewProjectionMatrix = Camera.GetViewProjectionMatrix();
 	}

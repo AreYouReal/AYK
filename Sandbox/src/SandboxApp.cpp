@@ -150,6 +150,7 @@ public:
 		TextureShader.reset(AYK::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
 	
 		Texture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
+		ChernoLogoTexture = AYK::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(TextureShader)->Bind();
 		std::dynamic_pointer_cast<AYK::OpenGLShader>(TextureShader)->UploadUniformInt("uTexture", 0);
@@ -215,6 +216,9 @@ public:
 		Texture->Bind();
 		AYK::Renderer::Submit(TextureShader, SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		ChernoLogoTexture->Bind();
+		AYK::Renderer::Submit(TextureShader, SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		// Triangle
 		//AYK::Renderer::Submit(TriangleShader, TriangleVA);
 
@@ -238,7 +242,7 @@ private:
 	AYK::Ref<AYK::Shader> FlatColorShader, TextureShader;
 	AYK::Ref<AYK::VertexArray> SquareVA;
 
-	AYK::Ref<AYK::Texture2D> Texture;
+	AYK::Ref<AYK::Texture2D> Texture, ChernoLogoTexture;
 
 	AYK::OrthographicCamera Camera;
 	glm::vec3 CameraPosition;

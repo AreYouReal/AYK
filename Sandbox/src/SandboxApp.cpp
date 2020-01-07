@@ -116,38 +116,8 @@ public:
 
 		FlatColorShader.reset(AYK::Shader::Create(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
 
-		std::string TextureShaderVertexSrc = R"(
-			#version 330 core
 
-			layout(location = 0) in vec3 aPosition;
-			layout(location = 1) in vec2 aTexCoord; 
-
-			uniform mat4 uViewProjection;
-			uniform mat4 uTransform;
-
-			out vec2 vTexCoord;
-
-			void main(){
-				vTexCoord = aTexCoord;
-				gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
-			}
-		)";
-
-		std::string TextureShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 oColor;
-
-			in vec2 vTexCoord;
-
-			uniform sampler2D uTexture;
-
-			void main(){
-				oColor = texture(uTexture, vTexCoord);
-			}
-		)";
-
-		TextureShader.reset(AYK::Shader::Create(TextureShaderVertexSrc, TextureShaderFragmentSrc));
+		TextureShader.reset(AYK::Shader::Create("assets/shaders/Texture.glsl"));
 	
 		Texture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
 		ChernoLogoTexture = AYK::Texture2D::Create("assets/textures/ChernoLogo.png");

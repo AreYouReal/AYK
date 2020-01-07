@@ -3,12 +3,18 @@
 #include <AYK/Renderer/Shader.h>
 #include <glm/glm.hpp>
 
+#include <unordered_map>
+
+// TODO: Remove!
+typedef unsigned int GLenum;
+
 namespace AYK {
 
 	class OpenGLShader : public Shader {
 
 	public:
 
+		OpenGLShader(const std::string& FilePath);
 		OpenGLShader(const std::string& VertexSource, const std::string& FragmentSource);
 		virtual ~OpenGLShader();
 
@@ -25,6 +31,11 @@ namespace AYK {
 		void UploadUniformMat3(const std::string& Name, const glm::mat3& Matrix);
 		void UploadUniformMat4(const std::string& Name, const glm::mat4& Matrix);
 
+
+	private:
+		std::string ReadFile(const std::string& FilePath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& Source);
+		void Compile(const std::unordered_map<GLenum, std::string>& ShaderSources);
 
 	private:
 

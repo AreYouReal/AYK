@@ -15,11 +15,13 @@ namespace AYK {
 	public:
 
 		OpenGLShader(const std::string& FilePath);
-		OpenGLShader(const std::string& VertexSource, const std::string& FragmentSource);
+		OpenGLShader(const std::string& NameToSet, const std::string& VertexSource, const std::string& FragmentSource);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const std::string& GetName() const override { return(Name); }
 
 		void UploadUniformInt(const std::string& Name, int Values);
 
@@ -40,7 +42,7 @@ namespace AYK {
 	private:
 
 		uint32_t RendererID;
-
+		std::string Name;
 	};
 
 }

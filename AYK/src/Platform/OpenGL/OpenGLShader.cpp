@@ -6,6 +6,7 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "AYK/Renderer/Shader.h"
 
 namespace AYK {
 	
@@ -24,9 +25,17 @@ namespace AYK {
 		std::string ShaderSource = ReadFile(FilePath);
 		std::unordered_map<GLenum, std::string> ShaderSources = PreProcess(ShaderSource);
 		Compile(ShaderSources);
+
+		// Extract name from the filepath
+		auto LastSlash = FilePath.find_last_of("/\\");
+		LastSlash = LastSlash == std::string::npos ? 0 : LastSlash + 1;
+		auto LastDot = FilePath.rfind('.');
+		auto Count = LastDot == std::string::npos ? (FilePath.size() - LastSlash) : LastDot - LastSlash;
+		Name = FilePath.substr(LastSlash, Count);
+
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& VertexSource, const std::string& FragmentSource) {
+	OpenGLShader::OpenGLShader(const std::string& NameToSet, const std::string& VertexSource, const std::string& FragmentSource) : Name(NameToSet) {
 		std::unordered_map<GLenum, std::string> Sources;
 		Sources[GL_VERTEX_SHADER] = VertexSource;
 		Sources[GL_FRAGMENT_SHADER] = FragmentSource;
@@ -82,7 +91,7 @@ namespace AYK {
 
 	std::string OpenGLShader::ReadFile(const std::string& FilePath) {
 		std::string Result;
-		std::ifstream in(FilePath, std::ios::in, std::ios::binary);
+		std::ifstream in(FilePath, std::ios::in | std::ios::binary);
 		if (in) {
 			in.seekg(0, std::ios::end);
 			Result.resize(in.tellg());
@@ -122,7 +131,9 @@ namespace AYK {
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& ShaderSources) {
 		
 		GLuint ProgramID = glCreateProgram();
-		std::vector<GLuint> GLShaderIDs(ShaderSources.size());
+		AYK_CORE_ASSERT(ShaderSources.size() <= 2, "Only support two shaders for now.");
+		std::array<GLuint, 2> GLShaderIDs;
+		int GlShaderIDIndex = 0;
 		for (auto& KeyValue : ShaderSources) {
 			GLenum ShaderType = KeyValue.first;
 			const std::string& ShaderSource = KeyValue.second;
@@ -148,7 +159,7 @@ namespace AYK {
 			}
 
 			glAttachShader(ProgramID, Shader);
-			GLShaderIDs.push_back(Shader);
+			GLShaderIDs[GlShaderIDIndex++] = Shader;
 		}
 
 		glLinkProgram(ProgramID);

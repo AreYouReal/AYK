@@ -87,7 +87,7 @@ public:
 			}
 		)";
 
-		TriangleShader.reset(AYK::Shader::Create(VertexShaderSrc, FragmentSahderSrc));
+		TriangleShader = (AYK::Shader::Create("VertexPosColor", VertexShaderSrc, FragmentSahderSrc));
 
 		std::string FlatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -114,10 +114,10 @@ public:
 			}
 		)";
 
-		FlatColorShader.reset(AYK::Shader::Create(FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
+		FlatColorShader = (AYK::Shader::Create("FlatColor", FlatColorShaderVertexSrc, FlatColorShaderFragmentSrc));
 
 
-		TextureShader.reset(AYK::Shader::Create("assets/shaders/Texture.glsl"));
+		auto TextureShader = AllShaders.Load("assets/shaders/Texture.glsl");
 	
 		Texture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
 		ChernoLogoTexture = AYK::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -184,6 +184,9 @@ public:
 			}
 		}
 		Texture->Bind();
+		
+		auto TextureShader = AllShaders.Get("Texture");
+		
 		AYK::Renderer::Submit(TextureShader, SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		ChernoLogoTexture->Bind();
@@ -206,10 +209,12 @@ public:
 
 private:
 
+	AYK::ShaderLibrary AllShaders;
+
 	AYK::Ref<AYK::Shader> TriangleShader;
 	AYK::Ref<AYK::VertexArray> TriangleVA;
 
-	AYK::Ref<AYK::Shader> FlatColorShader, TextureShader;
+	AYK::Ref<AYK::Shader> FlatColorShader;
 	AYK::Ref<AYK::VertexArray> SquareVA;
 
 	AYK::Ref<AYK::Texture2D> Texture, ChernoLogoTexture;

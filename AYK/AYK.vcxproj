@@ -148,6 +148,7 @@
     <ClInclude Include="src\AYK\LayerStack.h" />
     <ClInclude Include="src\AYK\Log.h" />
     <ClInclude Include="src\AYK\MouseButtonCodes.h" />
+    <ClInclude Include="src\AYK\OrthographicCameraController.h" />
     <ClInclude Include="src\AYK\Renderer\Buffer.h" />
     <ClInclude Include="src\AYK\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\AYK\Renderer\OrthographicCamera.h" />
@@ -544,6 +545,7 @@
     <ClCompile Include="src\AYK\Layer.cpp" />
     <ClCompile Include="src\AYK\LayerStack.cpp" />
     <ClCompile Include="src\AYK\Log.cpp" />
+    <ClCompile Include="src\AYK\OrthographicCameraController.cpp" />
     <ClCompile Include="src\AYK\Renderer\Buffer.cpp" />
     <ClCompile Include="src\AYK\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\AYK\Renderer\RenderCommand.cpp" />

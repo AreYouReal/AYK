@@ -130,38 +130,6 @@ public:
 
 		//AYK_TRACE("Delta time: {0}s  {1}ms", Timestep.GetSeconds(), Timestep.GetMilliseconds());
 
-		float CameraOffset = CameraSpeed * Timestep;
-
-		if (AYK::Input::IsKeyPressed(AYK_KEY_LEFT)) {
-			CameraPosition.x -= CameraOffset;
-		}else if (AYK::Input::IsKeyPressed(AYK_KEY_RIGHT)) {
-			CameraPosition.x += CameraOffset;
-		}
-		
-		if (AYK::Input::IsKeyPressed(AYK_KEY_UP)) {
-			CameraPosition.y += CameraOffset;
-		}else if (AYK::Input::IsKeyPressed(AYK_KEY_DOWN)) {
-			CameraPosition.y -= CameraOffset;
-		}
-		
-		if (AYK::Input::IsKeyPressed(AYK_KEY_E)) {
-			CameraRotation -= CameraOffset * 100;
-		} else if (AYK::Input::IsKeyPressed(AYK_KEY_Q)) {
-			CameraRotation += CameraOffset * 100;
-		}
-
-		float SquareOffset = SquareSpeed * Timestep;
-		if (AYK::Input::IsKeyPressed(AYK_KEY_A)) {
-			SquarePosition.x -= SquareOffset;
-		} else if (AYK::Input::IsKeyPressed(AYK_KEY_D)) {
-			SquarePosition.x += SquareOffset;
-		}
-		
-		if (AYK::Input::IsKeyPressed(AYK_KEY_W)) {
-			SquarePosition.y += SquareOffset;
-		} else if (AYK::Input::IsKeyPressed(AYK_KEY_S)) {
-			SquarePosition.y -= SquareOffset;
-		}
 
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();

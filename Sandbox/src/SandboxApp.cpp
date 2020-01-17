@@ -11,7 +11,7 @@
 class ExampleLayer : public AYK::Layer {
 
 public:
-	ExampleLayer() : Layer("Example"), Camera(-1.6f, 1.6f, -.9f, .9f), CameraPosition(0.0f), SquarePosition(0.0f){
+	ExampleLayer() : Layer("Example"), CameraController(1280.0f / 720.0f, true), SquarePosition(0.0f){
 		// Generate VA -> Triangle
 		TriangleVA.reset(AYK::VertexArray::Create());
 		TriangleVA->Bind();
@@ -128,16 +128,15 @@ public:
 
 	void OnUpdate(AYK::Timestep Timestep) override {
 
+		CameraController.OnUpdate(Timestep);
+
 		//AYK_TRACE("Delta time: {0}s  {1}ms", Timestep.GetSeconds(), Timestep.GetMilliseconds());
 
 
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();
 
-		Camera.SetPosition(CameraPosition);
-		Camera.SetRotation(CameraRotation);
-
-		AYK::Renderer::BeginScene(Camera);
+		AYK::Renderer::BeginScene(CameraController.GetCamera());
 
 		static glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -173,6 +172,7 @@ public:
 	}
 
 	void OnEvent(AYK::Event& E) override {
+		CameraController.OnEvent(E);
 	}
 
 private:
@@ -187,11 +187,7 @@ private:
 
 	AYK::Ref<AYK::Texture2D> Texture, ChernoLogoTexture;
 
-	AYK::OrthographicCamera Camera;
-	glm::vec3 CameraPosition;
-	float CameraSpeed = 1.0f;
-	float CameraRotation = 0.0f;
-
+	AYK::OrthographicCameraController CameraController;
 
 	glm::vec3 SquarePosition;
 	float SquareSpeed = 1.0f;

@@ -23,6 +23,7 @@
 #include "AYK/Renderer/VertexArray.h"
 
 #include "AYK/Renderer/OrthographicCamera.h"
+#include "AYK/OrthographicCameraController.h"
 // -------------------------------
 
 // ------- Entry Point -----------

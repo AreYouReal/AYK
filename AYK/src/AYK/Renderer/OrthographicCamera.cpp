@@ -9,6 +9,11 @@ namespace AYK {
 		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
 	}
 
+	void OrthographicCamera::SetProjection(float Left, float Right, float Bottom, float Top) {
+		ProjectionMatrix = glm::ortho(Left, Right, Bottom, Top, -1.0f, 1.0f);
+		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
+	}
+
 	void OrthographicCamera::RecalculateViewMatrix(){
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::rotate(glm::mat4(1.0f), glm::radians(Rotation), glm::vec3(0, 0, 1));
 

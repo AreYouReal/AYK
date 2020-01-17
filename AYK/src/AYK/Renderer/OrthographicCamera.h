@@ -19,6 +19,8 @@ namespace AYK {
 			Rotation = RotationToSet;  RecalculateViewMatrix();
 		}
 
+		void SetProjection(float Left, float Right, float Bottom, float Top);
+
 		const glm::mat4 GetProjectionMatrix() const { return(ProjectionMatrix); }
 		const glm::mat4 GetViewMatrix() const { return(ViewMatrix); }
 		const glm::mat4 GetViewProjectionMatrix() const { return(ViewProjectionMatrix); }

@@ -11,11 +11,14 @@ namespace AYK {
 
 	class OrthographicCameraController {
 	public:
-		OrthographicCameraController(float AspectRationToSet);
+		OrthographicCameraController(float AspectRationToSet, bool Rotation = false);
 
 
 		void OnUpdate(Timestep TS);
 		void OnEvent(Event& E);
+
+		OrthographicCamera& GetCamera() { return(Cam); }
+		const OrthographicCamera& GetCamera() const { return(Cam); }
 
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& E);
@@ -27,6 +30,14 @@ namespace AYK {
 		float ZoomLevel = 1.0f;
 
 		OrthographicCamera Cam;
+
+		bool bRotation;
+
+		glm::vec3 CameraPosition = {0.0f, 0.0f, 0.0f};
+		float CameraRotation = 0.0f;
+
+		float CameraTranslationSpeed = 5.0f;
+		float CameraRotationSpeed = 180.0f;
 
 	};
 

@@ -45,8 +45,10 @@ namespace AYK {
 			Timestep T = Time - LastFrameTime;
 			LastFrameTime = Time;
 
-			for (Layer* L : LStack) {
-				L->OnUpdate(T);
+			if (!bMinimized) {
+				for (Layer* L : LStack) {
+					L->OnUpdate(T);
+				}
 			}
 
 			ImGuiLayerPtr->Begin();
@@ -59,7 +61,17 @@ namespace AYK {
 
 	bool Application::OnWindowClose(WindowCloseEvent& E) {
 		bRunning = false;
-		return false;
+		return(false);
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& E){
+		uint32_t Width = E.GetWidth();
+		uint32_t Height = E.GetHeight();
+		bMinimized = (Width == 0 || Height == 0);
+
+		Renderer::OnWindowResize(Width, Height);
+
+		return(false);
 	}
 
 	void Application::OnEvent(Event& E){
@@ -70,6 +82,7 @@ namespace AYK {
 		//});
 
 		Dispactcher.Dispatch<WindowCloseEvent>(AYK_BIND_EVENT_FN(Application::OnWindowClose));
+		Dispactcher.Dispatch<WindowResizeEvent>(AYK_BIND_EVENT_FN(Application::OnWindowResize));
 	
 		//AYK_CORE_TRACE("{0}", E);
 		  

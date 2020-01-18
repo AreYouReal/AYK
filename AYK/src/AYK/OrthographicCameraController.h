@@ -13,12 +13,14 @@ namespace AYK {
 	public:
 		OrthographicCameraController(float AspectRationToSet, bool Rotation = false);
 
-
 		void OnUpdate(Timestep TS);
 		void OnEvent(Event& E);
 
 		OrthographicCamera& GetCamera() { return(Cam); }
 		const OrthographicCamera& GetCamera() const { return(Cam); }
+
+		float GetZoomLevel() const { return(ZoomLevel); }
+		void SetZoomLevel(float Level) { ZoomLevel = Level; }
 
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& E);

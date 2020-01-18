@@ -30,11 +30,12 @@ namespace AYK {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& E);
-
+		bool OnWindowResize(WindowResizeEvent& E);
 
 		Scope<Window> WindowPtr;
 		ImGuiLayer* ImGuiLayerPtr;
 		bool bRunning = true;
+		bool bMinimized = false;
 		LayerStack LStack;
 		float LastFrameTime = 0.0f;
 

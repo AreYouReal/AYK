@@ -11,6 +11,10 @@ namespace AYK {
 		RenderCommand::Init();
 	}
 
+	void Renderer::OnWindowResize(uint32_t Width, uint32_t Height) {
+		RenderCommand::SetViewport(0, 0, Width, Height);
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& Camera) {
 		CurrentSceneData->ViewProjectionMatrix = Camera.GetViewProjectionMatrix();
 	}

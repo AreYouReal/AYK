@@ -11,6 +11,10 @@ namespace AYK {
 			CurrentRendererAPI->Init();
 		}
 
+		inline static void SetViewport(uint32_t X, uint32_t Y, uint32_t Width, uint32_t Height) {
+			CurrentRendererAPI->SetViewport(X, Y, Width, Height);
+		}
+
 		inline static void SetClearColor(const glm::vec4& Color) {
 			CurrentRendererAPI->SetClearColor(Color);
 		}

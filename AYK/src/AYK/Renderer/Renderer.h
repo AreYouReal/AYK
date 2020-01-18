@@ -12,6 +12,7 @@ namespace AYK {
 	public:
 		
 		static void Init();
+		static void OnWindowResize(uint32_t Width, uint32_t Height);
 
 		static void BeginScene(OrthographicCamera& Camera);
 		static void EndScene();

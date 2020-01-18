@@ -58,6 +58,8 @@ namespace AYK {
 			WindowResizeEvent Event(Width, Height);
 			Data.Widht = Width;
 			Data.Height = Height;
+			AYK_CORE_WARN("{0} {1}", Width, Height);
+
 			Data.EventCallback(Event);
 		});
 

@@ -1,9 +1,9 @@
 #include "aykpch.h"
 #include "Application.h"
 
-#include "AYK/Log.h"
+#include "AYK/Core/Log.h"
 
-#include "Events/ApplicationEvent.h"
+#include "AYK/Events/ApplicationEvent.h"
 
 #include "AYK/Renderer/Renderer.h"
 

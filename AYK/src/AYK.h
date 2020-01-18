@@ -1,15 +1,15 @@
 #pragma once
 
 // For use by AYK applications
-#include "AYK/Application.h"
-#include "AYK/Layer.h"
-#include "AYK/Log.h"
+#include "AYK/Core/Application.h"
+#include "AYK/Core/Layer.h"
+#include "AYK/Core/Log.h"
 
 #include "AYK/Core/Timestep.h"
 
-#include "AYK/Input.h"
-#include "AYK/MouseButtonCodes.h"
-#include "AYK/KeyCodes.h"
+#include "AYK/Core/Input.h"
+#include "AYK/Core/MouseButtonCodes.h"
+#include "AYK/Core/KeyCodes.h"
 
 #include "AYK/ImGui/ImGuiLayer.h"
 
@@ -23,9 +23,9 @@
 #include "AYK/Renderer/VertexArray.h"
 
 #include "AYK/Renderer/OrthographicCamera.h"
-#include "AYK/OrthographicCameraController.h"
+#include "AYK/Renderer/OrthographicCameraController.h"
 // -------------------------------
 
 // ------- Entry Point -----------
-#include "AYK/EntryPoint.h"
+#include "AYK/Core/EntryPoint.h"
 // -------------------------------

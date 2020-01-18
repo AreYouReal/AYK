@@ -133,32 +133,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\AYK.h" />
-    <ClInclude Include="src\AYK\Application.h" />
-    <ClInclude Include="src\AYK\Core.h" />
+    <ClInclude Include="src\AYK\Core\Application.h" />
+    <ClInclude Include="src\AYK\Core\Core.h" />
+    <ClInclude Include="src\AYK\Core\EntryPoint.h" />
+    <ClInclude Include="src\AYK\Core\Input.h" />
+    <ClInclude Include="src\AYK\Core\KeyCodes.h" />
+    <ClInclude Include="src\AYK\Core\Layer.h" />
+    <ClInclude Include="src\AYK\Core\LayerStack.h" />
+    <ClInclude Include="src\AYK\Core\Log.h" />
+    <ClInclude Include="src\AYK\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\AYK\Core\Timestep.h" />
-    <ClInclude Include="src\AYK\EntryPoint.h" />
+    <ClInclude Include="src\AYK\Core\Window.h" />
     <ClInclude Include="src\AYK\Events\ApplicationEvent.h" />
     <ClInclude Include="src\AYK\Events\Event.h" />
     <ClInclude Include="src\AYK\Events\KeyEvent.h" />
     <ClInclude Include="src\AYK\Events\MouseEvent.h" />
     <ClInclude Include="src\AYK\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\AYK\Input.h" />
-    <ClInclude Include="src\AYK\KeyCodes.h" />
-    <ClInclude Include="src\AYK\Layer.h" />
-    <ClInclude Include="src\AYK\LayerStack.h" />
-    <ClInclude Include="src\AYK\Log.h" />
-    <ClInclude Include="src\AYK\MouseButtonCodes.h" />
-    <ClInclude Include="src\AYK\OrthographicCameraController.h" />
     <ClInclude Include="src\AYK\Renderer\Buffer.h" />
     <ClInclude Include="src\AYK\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\AYK\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\AYK\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\AYK\Renderer\RenderCommand.h" />
     <ClInclude Include="src\AYK\Renderer\Renderer.h" />
     <ClInclude Include="src\AYK\Renderer\RendererAPI.h" />
     <ClInclude Include="src\AYK\Renderer\Shader.h" />
     <ClInclude Include="src\AYK\Renderer\Texture.h" />
     <ClInclude Include="src\AYK\Renderer\VertexArray.h" />
-    <ClInclude Include="src\AYK\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -539,15 +539,15 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\AYK\Application.cpp" />
+    <ClCompile Include="src\AYK\Core\Application.cpp" />
+    <ClCompile Include="src\AYK\Core\Layer.cpp" />
+    <ClCompile Include="src\AYK\Core\LayerStack.cpp" />
+    <ClCompile Include="src\AYK\Core\Log.cpp" />
     <ClCompile Include="src\AYK\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\AYK\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\AYK\Layer.cpp" />
-    <ClCompile Include="src\AYK\LayerStack.cpp" />
-    <ClCompile Include="src\AYK\Log.cpp" />
-    <ClCompile Include="src\AYK\OrthographicCameraController.cpp" />
     <ClCompile Include="src\AYK\Renderer\Buffer.cpp" />
     <ClCompile Include="src\AYK\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\AYK\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\AYK\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\AYK\Renderer\Renderer.cpp" />
     <ClCompile Include="src\AYK\Renderer\RendererAPI.cpp" />

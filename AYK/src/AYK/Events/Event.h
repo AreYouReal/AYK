@@ -4,7 +4,7 @@
 #include <memory>
 #include <functional>
 
-#include "AYK/Core.h"
+#include "AYK/Core/Core.h"
 
 namespace AYK {
 

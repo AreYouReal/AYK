@@ -1,8 +1,8 @@
 #include "aykpch.h"
 #include "OrthographicCameraController.h"
 
-#include "AYK/Input.h"
-#include "AYK/KeyCodes.h"
+#include "AYK/Core/Input.h"
+#include "AYK/Core/KeyCodes.h"
 
 namespace AYK {
 

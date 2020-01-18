@@ -2,7 +2,7 @@
 
 #include "aykpch.h"
 
-#include "AYK/Core.h"
+#include "AYK/Core/Core.h"
 #include "AYK/Events/Event.h"
 
 

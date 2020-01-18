@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AYK/Input.h"
+#include "AYK/Core/Input.h"
 
 namespace AYK {
 

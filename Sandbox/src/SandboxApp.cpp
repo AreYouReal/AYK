@@ -1,4 +1,5 @@
-#include "AYK.h"
+#include <AYK.h>
+#include <AYK/Core/EntryPoint.h>
 
 #include "Platform/OpenGL/OpenGLShader.h" 
 
@@ -7,13 +8,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
 
 class ExampleLayer : public AYK::Layer {
 
 public:
 	ExampleLayer() : Layer("Example"), CameraController(1280.0f / 720.0f, true), SquarePosition(0.0f){
 		// Generate VA -> Triangle
-		TriangleVA.reset(AYK::VertexArray::Create());
+		TriangleVA = AYK::VertexArray::Create();
 		TriangleVA->Bind();
 
 		float TriangleVertices[3 * 7] = {
@@ -37,7 +39,7 @@ public:
 		TriangleVA->SetIndexBuffer(TriangleIB);
 
 		// Generate VA - Square
-		SquareVA.reset(AYK::VertexArray::Create());
+		SquareVA = AYK::VertexArray::Create();
 
 		float SquareVertices[5 * 4] = {
 			-.5f, -.5f, .0f, 0.0f, 0.0f,
@@ -200,7 +202,8 @@ class Sandbox : public AYK::Application {
 public:
 
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {

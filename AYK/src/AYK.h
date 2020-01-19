@@ -25,7 +25,3 @@
 #include "AYK/Renderer/OrthographicCamera.h"
 #include "AYK/Renderer/OrthographicCameraController.h"
 // -------------------------------
-
-// ------- Entry Point -----------
-#include "AYK/Core/EntryPoint.h"
-// -------------------------------

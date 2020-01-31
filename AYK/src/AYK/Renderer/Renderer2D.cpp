@@ -6,8 +6,7 @@
 
 #include "RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace AYK {
 
@@ -49,9 +48,8 @@ namespace AYK {
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& Cam) {
-		std::dynamic_pointer_cast<AYK::OpenGLShader>(Data->FlatShader)->Bind();
-		std::dynamic_pointer_cast<AYK::OpenGLShader>(Data->FlatShader)->UploadUniformMat4("uViewProjection", Cam.GetViewProjectionMatrix());
-		std::dynamic_pointer_cast<AYK::OpenGLShader>(Data->FlatShader)->UploadUniformMat4("uTransform", glm::mat4(1.0f));
+		Data->FlatShader->Bind();
+		Data->FlatShader->SetMat4("uViewProjection", Cam.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene() {
@@ -63,8 +61,14 @@ namespace AYK {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color) {
-		std::dynamic_pointer_cast<AYK::OpenGLShader>(Data->FlatShader)->Bind();
-		std::dynamic_pointer_cast<AYK::OpenGLShader>(Data->FlatShader)->UploadUniformFloat4("uColor", Color);
+		Data->FlatShader->Bind();
+		Data->FlatShader->SetFloat4("uColor", Color);
+		
+		
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+		Data->FlatShader->SetMat4("uTransform", Transform);
+
+
 		Data->VA->Bind();
 		RenderCommand::DrawIndexed(Data->VA);
 	}

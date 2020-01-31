@@ -15,6 +15,7 @@
 
 // ------- Renderer --------------
 #include "AYK/Renderer/Renderer.h"
+#include "AYK/Renderer/Renderer2D.h"
 #include "AYK/Renderer/RenderCommand.h"
 
 #include "AYK/Renderer/Buffer.h"

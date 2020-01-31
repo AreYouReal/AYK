@@ -2,6 +2,7 @@
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 
 namespace AYK {
 
@@ -9,6 +10,7 @@ namespace AYK {
 
 	void Renderer::Init() {
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::OnWindowResize(uint32_t Width, uint32_t Height) {

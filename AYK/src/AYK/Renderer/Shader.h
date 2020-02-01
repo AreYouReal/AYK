@@ -16,6 +16,7 @@ namespace AYK {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
+		virtual void SetInt(const std::string& Name, const int Value) = 0;
 		virtual void SetFloat3(const std::string& Name, const glm::vec3& Value) = 0;
 		virtual void SetFloat4(const std::string& Name, const glm::vec4& Value) = 0;
 		virtual void SetMat4(const std::string& Name, const glm::mat4& Value) = 0;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OrthographicCamera.h"
+#include "Texture.h"
 
 namespace AYK {
 
@@ -16,6 +17,9 @@ namespace AYK {
 		// Primitives
 		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const glm::vec4 Color);
 		static void DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color);
+
+		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture);
+		static void DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture);
 	};
 
 }

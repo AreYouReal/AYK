@@ -22,5 +22,7 @@ private:
 	AYK::Ref<AYK::VertexArray> VA;
 	AYK::Ref<AYK::Shader> FlatColorShader;
 
+	AYK::Ref<AYK::Texture2D> CheckerboardTexture;
+
 	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

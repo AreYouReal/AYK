@@ -54,6 +54,10 @@ namespace AYK {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& Name, const int Value) {
+		UploadUniformInt(Name, Value);
+	}
+
 	void OpenGLShader::SetFloat3(const std::string& Name, const glm::vec3& Value) {
 		UploadUniformFloat3(Name, Value);
 	}

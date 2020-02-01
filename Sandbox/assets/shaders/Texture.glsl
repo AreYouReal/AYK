@@ -26,5 +26,5 @@ in vec2 vTexCoord;
 uniform sampler2D uTexture;
 
 void main(){
-	oColor = texture(uTexture, vTexCoord);
+	oColor = texture(uTexture, vTexCoord * 10);
 }

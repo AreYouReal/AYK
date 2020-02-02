@@ -28,8 +28,6 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 
 	AYK::Renderer2D::DrawQuad({ .0f, .0f, -0.1f }, { 5.5f, 5.5f }, CheckerboardTexture);
 
-
-
 	AYK::Renderer2D::EndScene();
 }
 

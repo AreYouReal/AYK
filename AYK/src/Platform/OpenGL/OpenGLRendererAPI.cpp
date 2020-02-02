@@ -26,6 +26,7 @@ namespace AYK {
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& VA) {
 		glDrawElements(GL_TRIANGLES, VA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 

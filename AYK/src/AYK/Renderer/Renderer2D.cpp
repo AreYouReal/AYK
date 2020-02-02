@@ -12,7 +12,6 @@ namespace AYK {
 
 	struct Renderer2DStorage {
 		Ref<VertexArray> VA;
-		Ref<Shader> FlatShader;
 		Ref<Shader> TextureShader;
 	};
 
@@ -44,7 +43,6 @@ namespace AYK {
 		IB.reset(IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t))));
 		Data->VA->SetIndexBuffer(IB);
 
-		Data->FlatShader = Shader::Create("assets/shaders/FlatColor.glsl");
 		Data->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		Data->TextureShader->Bind();
 		Data->TextureShader->SetInt("UTexture", 0);
@@ -55,9 +53,6 @@ namespace AYK {
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& Cam) {
-		Data->FlatShader->Bind();
-		Data->FlatShader->SetMat4("uViewProjection", Cam.GetViewProjectionMatrix());
-
 		Data->TextureShader->Bind();
 		Data->TextureShader->SetMat4("uViewProjection", Cam.GetViewProjectionMatrix());
 	}
@@ -71,12 +66,12 @@ namespace AYK {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color) {
-		Data->FlatShader->Bind();
-		Data->FlatShader->SetFloat4("uColor", Color);
-		
-		
+		Data->TextureShader->SetFloat4("uColor", Color);
+		// Bind white texture here
+
+
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
-		Data->FlatShader->SetMat4("uTransform", Transform);
+		Data->TextureShader->SetMat4("uTransform", Transform);
 
 
 		Data->VA->Bind();
@@ -89,7 +84,8 @@ namespace AYK {
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture) {
 		Data->TextureShader->Bind();
-		
+
+		Data->TextureShader->SetFloat4("uColor", glm::vec4(1.0f));
 		Texture->Bind();
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });

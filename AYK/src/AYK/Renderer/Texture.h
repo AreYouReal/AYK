@@ -19,6 +19,7 @@ namespace AYK {
 
 	class Texture2D : public Texture {
 	public:
+		static Ref<Texture2D> Create(uint32_t Width, uint32_t Height);
 		static Ref<Texture2D> Create(const std::string& Path);
 
 	};

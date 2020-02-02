@@ -13,6 +13,7 @@ namespace AYK {
 	struct Renderer2DStorage {
 		Ref<VertexArray> VA;
 		Ref<Shader> TextureShader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DStorage* Data;
@@ -43,6 +44,10 @@ namespace AYK {
 		IB.reset(IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t))));
 		Data->VA->SetIndexBuffer(IB);
 
+		Data->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t WhiteTextureData = 0xffffffff;
+		Data->WhiteTexture->SetData(&WhiteTextureData, sizeof(uint32_t));
+
 		Data->TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		Data->TextureShader->Bind();
 		Data->TextureShader->SetInt("UTexture", 0);
@@ -67,12 +72,10 @@ namespace AYK {
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color) {
 		Data->TextureShader->SetFloat4("uColor", Color);
-		// Bind white texture here
-
+		Data->WhiteTexture->Bind();
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
 		Data->TextureShader->SetMat4("uTransform", Transform);
-
 
 		Data->VA->Bind();
 		RenderCommand::DrawIndexed(Data->VA);

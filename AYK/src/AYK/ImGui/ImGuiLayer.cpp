@@ -70,9 +70,4 @@ namespace AYK {
 		}
 	}
 
-	void ImGuiLayer::OnImGuiRender() {
-		static bool Show = true;
-		ImGui::ShowDemoWindow(&Show);
-	}
-
 }

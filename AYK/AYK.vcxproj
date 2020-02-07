@@ -144,6 +144,7 @@
     <ClInclude Include="src\AYK\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\AYK\Core\Timestep.h" />
     <ClInclude Include="src\AYK\Core\Window.h" />
+    <ClInclude Include="src\AYK\Debug\Instrumentor.h" />
     <ClInclude Include="src\AYK\Events\ApplicationEvent.h" />
     <ClInclude Include="src\AYK\Events\Event.h" />
     <ClInclude Include="src\AYK\Events\KeyEvent.h" />

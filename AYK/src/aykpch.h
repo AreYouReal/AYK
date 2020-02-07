@@ -17,6 +17,8 @@
 
 #include "AYK/Core/Log.h"
 
+#include "AYK/Debug/Instrumentor.h"
+
 #ifdef AYK_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

@@ -1270,6 +1270,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\AYK\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\AYK\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Core\Application.cpp">

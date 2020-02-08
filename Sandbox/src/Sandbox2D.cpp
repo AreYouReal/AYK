@@ -9,20 +9,20 @@
 Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), CameraController(1280.0f / 720.0f){ }
 
 void Sandbox2D::OnAttach() {
+	AYK_PROFILE_FUNCTION();
+
 	CheckerboardTexture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
 }
 
-void Sandbox2D::OnDetach() { }
+void Sandbox2D::OnDetach() {
+	AYK_PROFILE_FUNCTION();
+}
 
 void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 
 	AYK_PROFILE_FUNCTION();
 
-
-	{
-		AYK_PROFILE_SCOPE("CameraController::OnUpdate");
-		CameraController.OnUpdate(Timestep);
-	}
+	CameraController.OnUpdate(Timestep);
 
 	{
 		AYK_PROFILE_SCOPE("Render Prep");
@@ -35,9 +35,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK::Renderer2D::BeginScene(CameraController.GetCamera());
 
 		AYK::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-
 		AYK::Renderer2D::DrawQuad({ 1.0f, 0.5f }, { .2f, .2f }, { 0.3f, 0.2f, 0.8f, 1.0f });
-
 		AYK::Renderer2D::DrawQuad({ .0f, .0f, -0.1f }, { 5.5f, 5.5f }, CheckerboardTexture);
 
 		AYK::Renderer2D::EndScene();

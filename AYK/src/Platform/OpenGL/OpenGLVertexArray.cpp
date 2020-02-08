@@ -27,23 +27,33 @@ namespace AYK {
 	}
 
 	OpenGlVertexArray::OpenGlVertexArray() {
+		AYK_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &RendererID);
 	}
 
 	OpenGlVertexArray::~OpenGlVertexArray() {
+		AYK_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &RendererID);
 	}
 
 
 	void OpenGlVertexArray::Bind() const{
+		AYK_PROFILE_FUNCTION();
+
 		glBindVertexArray(RendererID);
 	}
 
 	void OpenGlVertexArray::Unbind() const{
+		AYK_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
 	void OpenGlVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& VBufferToAdd){
+		AYK_PROFILE_FUNCTION();
+
 		AYK_CORE_ASSERT(VBufferToAdd->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(RendererID);
@@ -65,6 +75,8 @@ namespace AYK {
 	}
 
 	void OpenGlVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& IBufferToSet){
+		AYK_PROFILE_FUNCTION();
+
 		glBindVertexArray(RendererID);
 		IBuffer = IBufferToSet;
 		IBuffer->Bind();

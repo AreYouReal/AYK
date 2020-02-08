@@ -19,6 +19,7 @@ namespace AYK {
 	ImGuiLayer::~ImGuiLayer(){ }
 
 	void ImGuiLayer::OnAttach() {
+		AYK_PROFILE_FUNCTION();
 
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -43,18 +44,24 @@ namespace AYK {
 	}
 
 	void ImGuiLayer::OnDetach()	{
+		AYK_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 
 	void ImGuiLayer::Begin() {
+		AYK_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
 
 	void ImGuiLayer::End() {
+		AYK_PROFILE_FUNCTION();
+
 		ImGuiIO& IO = ImGui::GetIO();
 		Application& App = Application::Get();
 		IO.DisplaySize = ImVec2((float)App.GetWindow().GetWidth(), (float)App.GetWindow().GetHeight());

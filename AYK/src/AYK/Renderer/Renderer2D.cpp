@@ -20,6 +20,8 @@ namespace AYK {
 
 	void Renderer2D::Init() {
 
+		AYK_PROFILE_FUNCTION();
+
 		Data = new Renderer2DStorage();
 
 		Data->VA = VertexArray::Create();
@@ -54,16 +56,20 @@ namespace AYK {
 	}
 
 	void Renderer2D::Shutdown() {
+		AYK_PROFILE_FUNCTION();
+
 		delete Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& Cam) {
+		AYK_PROFILE_FUNCTION();
+
 		Data->TextureShader->Bind();
 		Data->TextureShader->SetMat4("uViewProjection", Cam.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene() {
-
+		AYK_PROFILE_FUNCTION();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const glm::vec4 Color) {
@@ -71,6 +77,8 @@ namespace AYK {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color) {
+		AYK_PROFILE_FUNCTION();
+
 		Data->TextureShader->SetFloat4("uColor", Color);
 		Data->WhiteTexture->Bind();
 
@@ -86,6 +94,8 @@ namespace AYK {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture) {
+		AYK_PROFILE_FUNCTION();
+
 		Data->TextureShader->Bind();
 
 		Data->TextureShader->SetFloat4("uColor", glm::vec4(1.0f));

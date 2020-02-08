@@ -9,6 +9,7 @@ namespace AYK {
 	Renderer::SceneData* Renderer::CurrentSceneData = new Renderer::SceneData;
 
 	void Renderer::Init() {
+		AYK_PROFILE_FUNCTION();
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

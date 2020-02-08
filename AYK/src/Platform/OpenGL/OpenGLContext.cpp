@@ -11,6 +11,8 @@ namespace AYK {
 	}
 
 	void OpenGLContext::Init() {
+		AYK_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(WindowHandle);
 		int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		AYK_CORE_ASSERT(Status, "Failed to initialize Glad!");
@@ -22,6 +24,8 @@ namespace AYK {
 	}
 
 	void OpenGLContext::SwapBuffers() {
+		AYK_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(WindowHandle);
 	}
 

@@ -22,14 +22,19 @@ namespace AYK {
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& Props) {
+		AYK_PROFILE_FUNCTION();
+
 		Init(Props);
 	}
 
 	WindowsWindow::~WindowsWindow() {
+		AYK_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& PropsToSet) {
+		AYK_PROFILE_FUNCTION();
+
 		WData.Title = PropsToSet.Title;
 		WData.Widht = PropsToSet.Width;
 		WData.Height = PropsToSet.Height;
@@ -123,15 +128,21 @@ namespace AYK {
 	}
 
 	void WindowsWindow::Shutdown() {
+		AYK_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(WindowHandle);
 	}
 
 	void WindowsWindow::OnUpdate() {
+		AYK_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		GContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool Enabled) {
+		AYK_PROFILE_FUNCTION();
+
 		if (Enabled) {
 			glfwSwapInterval(1);
 		} else { 	

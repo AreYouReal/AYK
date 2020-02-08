@@ -8,6 +8,8 @@
 namespace AYK {
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t Width, uint32_t Height) : Width(Width), Height(Height) {
+		AYK_PROFILE_FUNCTION();
+
 		InternalFormat = GL_RGBA8;
 		DataFormat = GL_RGBA;
 
@@ -22,9 +24,15 @@ namespace AYK {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& Path) : FilePath(Path) {
+		AYK_PROFILE_FUNCTION();
+
 		int W, H, Channels;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(Path.c_str(), &W, &H, &Channels, 0);
+		stbi_uc* data = nullptr;
+		{
+			AYK_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(cosnt std::string&)");
+			data = stbi_load(Path.c_str(), &W, &H, &Channels, 0);
+		}
 		AYK_CORE_ASSERT(data, "Failed to load image!");
 		Width = W;
 		Height = H;
@@ -56,16 +64,22 @@ namespace AYK {
 
 
 	OpenGLTexture2D::~OpenGLTexture2D() {
+		AYK_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(void* Data, uint32_t Size) {
+		AYK_PROFILE_FUNCTION();
+
 		uint32_t BytesPerChannel = (DataFormat == GL_RGBA ? 4 : 3);
 		AYK_CORE_ASSERT(Size == Width * Height * BytesPerChannel, "Data must be entire texture!");
 		glTextureSubImage2D(RendererID, 0, 0, 0, Width, Height, DataFormat, GL_UNSIGNED_BYTE, Data);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t Slot) const {
+		AYK_PROFILE_FUNCTION();
+
 		glBindTextureUnit(Slot, RendererID);
 	}
 

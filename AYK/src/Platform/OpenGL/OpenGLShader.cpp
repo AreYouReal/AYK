@@ -22,6 +22,8 @@ namespace AYK {
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& FilePath) {
+		AYK_PROFILE_FUNCTION();
+
 		std::string ShaderSource = ReadFile(FilePath);
 		std::unordered_map<GLenum, std::string> ShaderSources = PreProcess(ShaderSource);
 		Compile(ShaderSources);
@@ -36,6 +38,8 @@ namespace AYK {
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& NameToSet, const std::string& VertexSource, const std::string& FragmentSource) : Name(NameToSet) {
+		AYK_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> Sources;
 		Sources[GL_VERTEX_SHADER] = VertexSource;
 		Sources[GL_FRAGMENT_SHADER] = FragmentSource;
@@ -43,6 +47,8 @@ namespace AYK {
 	}
 
 	OpenGLShader::~OpenGLShader() {
+		AYK_PROFILE_FUNCTION();
+
 		glDeleteProgram(RendererID);
 	}
 
@@ -55,18 +61,26 @@ namespace AYK {
 	}
 
 	void OpenGLShader::SetInt(const std::string& Name, const int Value) {
+		AYK_PROFILE_FUNCTION();
+
 		UploadUniformInt(Name, Value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& Name, const glm::vec3& Value) {
+		AYK_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(Name, Value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& Name, const glm::vec4& Value) {
+		AYK_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(Name, Value);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& Name, const glm::mat4& Value) {
+		AYK_PROFILE_FUNCTION();
+
 		UploadUniformMat4(Name, Value);
 	}
 
@@ -106,6 +120,8 @@ namespace AYK {
 	}
 
 	std::string OpenGLShader::ReadFile(const std::string& FilePath) {
+		AYK_PROFILE_FUNCTION();
+
 		std::string Result;
 		std::ifstream in(FilePath, std::ios::in | std::ios::binary);
 		if (in) {
@@ -123,6 +139,8 @@ namespace AYK {
 	}
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& Source) {
+		AYK_PROFILE_FUNCTION();
+		
 		std::unordered_map<GLenum, std::string> ShaderSources;
 
 
@@ -145,7 +163,8 @@ namespace AYK {
 	}
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& ShaderSources) {
-		
+		AYK_PROFILE_FUNCTION();
+
 		GLuint ProgramID = glCreateProgram();
 		AYK_CORE_ASSERT(ShaderSources.size() <= 2, "Only support two shaders for now.");
 		std::array<GLuint, 2> GLShaderIDs;

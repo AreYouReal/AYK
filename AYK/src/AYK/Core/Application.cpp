@@ -21,6 +21,9 @@ namespace AYK {
 	Application* Application::Instance = nullptr;
 
 	Application::Application(){
+
+		AYK_PROFILE_FUNCTION();
+
 		AYK_CORE_ASSERT(!Instance, "Application already exists!");
 		Instance = this;
 
@@ -36,24 +39,40 @@ namespace AYK {
 	}
 	
 	Application::~Application(){
+		AYK_PROFILE_FUNCTION();
 	}
 	
 	void Application::Run() {
 
+		AYK_PROFILE_FUNCTION();
+
 		while (bRunning) {
+			AYK_PROFILE_SCOPE("RunLoop");
+
 			float Time = (float)glfwGetTime(); // Platform::GetTime
 			Timestep T = Time - LastFrameTime;
 			LastFrameTime = Time;
 
 			if (!bMinimized) {
-				for (Layer* L : LStack) {
-					L->OnUpdate(T);
+
+				{
+					AYK_PROFILE_SCOPE("LayerStack OnUpdate");
+					for (Layer* L : LStack) {
+						L->OnUpdate(T);
+					}
+
 				}
+
+				ImGuiLayerPtr->Begin();
+				{
+					AYK_PROFILE_SCOPE("LayerStack OnImGuiRenderer");
+					for (Layer* L : LStack) { L->OnImGuiRender(); }
+				}
+
+				ImGuiLayerPtr->End();
 			}
 
-			ImGuiLayerPtr->Begin();
-			for (Layer* L : LStack) { L->OnImGuiRender(); }
-			ImGuiLayerPtr->End();
+
 
 			WindowPtr->OnUpdate();
 		}
@@ -65,6 +84,8 @@ namespace AYK {
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& E){
+		AYK_PROFILE_FUNCTION();
+
 		uint32_t Width = E.GetWidth();
 		uint32_t Height = E.GetHeight();
 		bMinimized = (Width == 0 || Height == 0);
@@ -75,6 +96,8 @@ namespace AYK {
 	}
 
 	void Application::OnEvent(Event& E){
+		AYK_PROFILE_FUNCTION();
+
 		EventDispatcher Dispactcher(E);
 		//Dispactcher.Dispatch<WindowCloseEvent>([=](WindowCloseEvent& E) -> bool {
 		//	bRunning = false;
@@ -96,11 +119,15 @@ namespace AYK {
 	}
 
 	void Application::PushLayer(Layer* LayerToPush){
+		AYK_PROFILE_FUNCTION();
+
 		LStack.PushLayer(LayerToPush);
 		LayerToPush->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* OverlayToPush){ 
+		AYK_PROFILE_FUNCTION();
+
 		LStack.PushOverlay(OverlayToPush);
 		OverlayToPush->OnAttach();
 	}

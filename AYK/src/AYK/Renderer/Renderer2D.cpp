@@ -80,6 +80,7 @@ namespace AYK {
 		AYK_PROFILE_FUNCTION();
 
 		Data->TextureShader->SetFloat4("uColor", Color);
+		Data->TextureShader->SetFloat("uTilingTexture", 1.0f);
 		Data->WhiteTexture->Bind();
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
@@ -89,16 +90,22 @@ namespace AYK {
 		RenderCommand::DrawIndexed(Data->VA);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture) {
-		DrawQuad({ Position.x, Position.y, 0.0f }, Size, Texture);
+	void Renderer2D::DrawQuad(const glm::vec2& Position, 
+		const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor,
+		const glm::vec4& TintColor) {
+		DrawQuad({ Position.x, Position.y, 0.0f }, Size, Texture, TilingFactor, TintColor);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture) {
+	void Renderer2D::DrawQuad(const glm::vec3& Position, 
+		const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor,
+		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
 
 		Data->TextureShader->Bind();
 
-		Data->TextureShader->SetFloat4("uColor", glm::vec4(1.0f));
+		Data->TextureShader->SetFloat4("uColor", TintColor);
+		Data->TextureShader->SetFloat("uTilingFactor", TilingFactor);
+		
 		Texture->Bind();
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
@@ -108,6 +115,58 @@ namespace AYK {
 		Data->VA->Bind();
 		RenderCommand::DrawIndexed(Data->VA);
 	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color) {
+		DrawRotatedQuad(glm::vec3(Position.x, Position.y, 0.0f), Size, Rotation, Color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color) {
+		AYK_PROFILE_FUNCTION();
+
+		Data->TextureShader->Bind();
+
+		Data->TextureShader->SetFloat4("uColor", Color);
+		Data->TextureShader->SetFloat("uTilingFactor", 1.0f);
+		Data->WhiteTexture->Bind();
+
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
+			* glm::rotate(glm::mat4(1.0f), Rotation, glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+		Data->TextureShader->SetMat4("uTransform", Transform);
+
+
+		Data->VA->Bind();
+		RenderCommand::DrawIndexed(Data->VA);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& Position, 
+		const glm::vec2 Size, const float Rotation, const Ref<Texture2D>& Texture, float TilingFactor,
+		const glm::vec4& TintColor) {
+		DrawRotatedQuad(glm::vec3(Position.x, Position.y, 0.0f), Size, Rotation, Texture, TilingFactor, TintColor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& Position, 
+		const glm::vec2 Size, const float Rotation, const Ref<Texture2D>& Texture, float TilingFactor,
+		const glm::vec4& TintColor) {
+		AYK_PROFILE_FUNCTION();
+
+		Data->TextureShader->Bind();
+
+		Data->TextureShader->SetFloat4("uColor", TintColor);
+		Data->TextureShader->SetFloat("uTilingFactor", TilingFactor);
+
+		Texture->Bind();
+
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
+			* glm::rotate(glm::mat4(1.0f), Rotation, glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+		Data->TextureShader->SetMat4("uTransform", Transform);
+
+
+		Data->VA->Bind();
+		RenderCommand::DrawIndexed(Data->VA);
+	}
+
 
 }
 

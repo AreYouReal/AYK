@@ -124,7 +124,7 @@ namespace AYK{
 
 }
 
-#define  AYK_PROFILE 1
+#define  AYK_PROFILE 0
 
 #if AYK_PROFILE
 #define AYK_PROFILE_BEGIN_SESSION(Name, FilePath) ::AYK::Instrumentor::Get().BeginSession(Name, FilePath)

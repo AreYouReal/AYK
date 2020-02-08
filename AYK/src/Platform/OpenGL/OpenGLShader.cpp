@@ -66,6 +66,12 @@ namespace AYK {
 		UploadUniformInt(Name, Value);
 	}
 
+	void OpenGLShader::SetFloat(const std::string& Name, const float Value) {
+		AYK_PROFILE_FUNCTION();
+
+		UploadUniformFloat(Name, Value);
+	}
+
 	void OpenGLShader::SetFloat3(const std::string& Name, const glm::vec3& Value) {
 		AYK_PROFILE_FUNCTION();
 

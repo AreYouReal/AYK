@@ -111,11 +111,14 @@ namespace AYK {
 		virtual void SetLayout(const BufferLayout& Layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static VertexBuffer* Create(float* Vertices, uint32_t Size);
+		virtual void SetData(const void* Data, uint32_t Size) = 0;
+
+		static Ref<VertexBuffer> Create(uint32_t Size);
+		static Ref<VertexBuffer> Create(float* Vertices, uint32_t Size);
 
 	};
 
-
+	// Currently AYK suppoers 32-bit index buffers
 	class IndexBuffer {
 	public:
 		virtual ~IndexBuffer() = default;
@@ -125,7 +128,7 @@ namespace AYK {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* Indices, uint32_t Count);
+		static Ref<IndexBuffer> Create(uint32_t* Indices, uint32_t Count);
 
 	};
 

@@ -18,7 +18,7 @@ namespace AYK {
 		virtual void SetClearColor(const glm::vec4& Color) = 0;
 		virtual void Clear() = 0;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& VA) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& VA, uint32_t IndexCount = 0) = 0;
 	
 		inline static API GetAPI() { return(CurrentAPI); }
 	private:

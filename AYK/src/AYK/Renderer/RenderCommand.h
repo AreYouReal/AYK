@@ -23,8 +23,8 @@ namespace AYK {
 		}
 
 
-		inline static void DrawIndexed(const Ref<VertexArray>& VA){
-			CurrentRendererAPI->DrawIndexed(VA);
+		inline static void DrawIndexed(const Ref<VertexArray>& VA, const uint32_t IndexCount = 0){
+			CurrentRendererAPI->DrawIndexed(VA, IndexCount);
 		}
 
 	private:

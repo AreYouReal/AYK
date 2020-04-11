@@ -12,7 +12,7 @@ namespace AYK {
 		virtual void SetClearColor(const glm::vec4& Color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& VA) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& VA, uint32_t IndexCount = 0) override;
 
 
 

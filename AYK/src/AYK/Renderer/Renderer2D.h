@@ -13,6 +13,7 @@ namespace AYK {
 
 		static void BeginScene(const OrthographicCamera& Cam);
 		static void EndScene();
+		static void Flush();
 
 		// Primitives
 		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const glm::vec4 Color);

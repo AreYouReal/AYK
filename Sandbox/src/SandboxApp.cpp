@@ -23,8 +23,7 @@ public:
 			.5f, -.5f, .0f, .0f, 1.0f, .0f, 1.0f,
 			.0f, .5f, .0f, .0f, .0f, 1.0f, 1.0f
 		};
-		AYK::Ref<AYK::VertexBuffer> TriangleVB;
-		TriangleVB.reset(AYK::VertexBuffer::Create(TriangleVertices, sizeof(TriangleVertices)));
+		AYK::Ref<AYK::VertexBuffer> TriangleVB = AYK::VertexBuffer::Create(TriangleVertices, sizeof(TriangleVertices));
 
 		AYK::BufferLayout BLayout = {
 			{ AYK::ShaderDataType::Float3, "aPosition", true},
@@ -34,8 +33,7 @@ public:
 		TriangleVA->AddVertexBuffer(TriangleVB);
 
 		uint32_t TriangleIndices[3] = { 0, 1, 2 };
-		AYK::Ref<AYK::IndexBuffer> TriangleIB;
-		TriangleIB.reset(AYK::IndexBuffer::Create(TriangleIndices, (sizeof(TriangleIndices) / sizeof(uint32_t))));
+		AYK::Ref<AYK::IndexBuffer> TriangleIB = AYK::IndexBuffer::Create(TriangleIndices, (sizeof(TriangleIndices) / sizeof(uint32_t)));
 		TriangleVA->SetIndexBuffer(TriangleIB);
 
 		// Generate VA - Square
@@ -48,15 +46,13 @@ public:
 			-.5f,  .5f, .0f, 0.0f, 1.0f
 		};
 
-		AYK::Ref<AYK::VertexBuffer> SquareVB;
-		SquareVB.reset(AYK::VertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
+		AYK::Ref<AYK::VertexBuffer> SquareVB= AYK::VertexBuffer::Create(SquareVertices, sizeof(SquareVertices));
 		SquareVB->SetLayout({ { AYK::ShaderDataType::Float3, "aPosition"},
 			{ AYK::ShaderDataType::Float2, "aTexCoord"} });
 		SquareVA->AddVertexBuffer(SquareVB);
 
 		uint32_t SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		AYK::Ref<AYK::IndexBuffer> SquareIB;
-		SquareIB.reset(AYK::IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t))));
+		AYK::Ref<AYK::IndexBuffer> SquareIB = AYK::IndexBuffer::Create(SquareIndices, (sizeof(SquareIndices) / sizeof(uint32_t)));
 		SquareVA->SetIndexBuffer(SquareIB);
 
 		std::string VertexShaderSrc = R"(

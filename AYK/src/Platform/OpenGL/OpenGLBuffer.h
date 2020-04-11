@@ -7,12 +7,16 @@ namespace AYK {
 	class OpenGLVertexBuffer : public VertexBuffer {
 
 	public:
+
+		OpenGLVertexBuffer(uint32_t Size);
 		OpenGLVertexBuffer(float* Vertices, uint32_t Size);
 		~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;
 
 		virtual void Unbind() const override;
+
+		virtual void SetData(const void* Data, uint32_t Size) override;
 
 		virtual void SetLayout(const BufferLayout& Layout) override { BLayout = Layout; }
 

@@ -26,8 +26,9 @@ namespace AYK {
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& VA) {
-		glDrawElements(GL_TRIANGLES, VA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& VA, uint32_t IndexCount) {
+		uint32_t Count = IndexCount ? VA->GetIndexBuffer()->GetCount() : IndexCount;
+		glDrawElements(GL_TRIANGLES, Count, GL_UNSIGNED_INT, nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

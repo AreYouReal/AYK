@@ -10,6 +10,14 @@ namespace AYK {
 	//////////VertexBuffer////////////////////
 	//////////////////////////////////////////
 
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t Size){
+		AYK_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+		glBufferData(GL_ARRAY_BUFFER, Size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* Vertices, uint32_t Size){
 		AYK_PROFILE_FUNCTION();
 
@@ -34,6 +42,11 @@ namespace AYK {
 		AYK_PROFILE_FUNCTION();
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* Data, uint32_t Size){
+		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, Size, Data);
 	}
 	
 	///////////////////////////////////////////

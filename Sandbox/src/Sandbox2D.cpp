@@ -34,13 +34,8 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK_PROFILE_SCOPE("Render Draw");
 		AYK::Renderer2D::BeginScene(CameraController.GetCamera());
 
-		static float Rotation = 0.0f;
-		Rotation += Timestep * 2;
-
-		AYK::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		AYK::Renderer2D::DrawQuad({ 1.0f, 0.5f }, { .2f, .2f }, { 0.3f, 0.2f, 0.8f, 1.0f });		
-		//AYK::Renderer2D::DrawRotatedQuad({ .0f, .0f, -0.1f }, { 5.5f, 5.5f }, glm::radians(45.0f), CheckerboardTexture, 10, {0.5f, 0.1f, 0.1f, 1.0f});
-		//AYK::Renderer2D::DrawQuad({ .0f, .0f }, { 1.5f, 1.5f }, CheckerboardTexture, 10, {0.1f, 0.8, 0.2f, 1.0f});
+		AYK::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { .8f, .8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+		AYK::Renderer2D::DrawQuad({ .5f, -0.5f }, { .5f, .75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
 
 		AYK::Renderer2D::EndScene();
 	}

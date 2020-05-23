@@ -60,8 +60,8 @@ namespace AYK {
 			QuadIndices[i + 1] = Offset + 1;
 			QuadIndices[i + 2] = Offset + 2;
 
-			QuadIndices[i + 3] = Offset + 3;
-			QuadIndices[i + 4] = Offset + 2;
+			QuadIndices[i + 3] = Offset + 2;
+			QuadIndices[i + 4] = Offset + 3;
 			QuadIndices[i + 5] = Offset + 0;
 
 			Offset += 4;
@@ -98,13 +98,14 @@ namespace AYK {
 	void Renderer2D::EndScene() {
 		AYK_PROFILE_FUNCTION();
 
-		uint32_t DataSize =(uint8_t*)Data.QuadVertexBufferPtr - (uint8_t*)Data.QuadVertexBufferPtr;
+		uint32_t DataSize =(uint8_t*)Data.QuadVertexBufferPtr - (uint8_t*)Data.QuadVertexBufferBase;
 		Data.VB->SetData(Data.QuadVertexBufferBase, DataSize);
 
 		Flush();
 	}
 
 	void Renderer2D::Flush(){
+
 		RenderCommand::DrawIndexed(Data.VA, Data.QuadIndexCount);
 	}
 

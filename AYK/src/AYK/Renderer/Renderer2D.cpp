@@ -14,13 +14,14 @@ namespace AYK {
 		glm::vec3 Position;
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
-		// TODO: TexId
+		float TexIndex;
 	};
 
 	struct Renderer2DData {
 		const uint32_t MaxQuads = 10000;
 		const uint32_t MaxVertices = MaxQuads * 4;
 		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxTextureSlots = 32; // TOD: RenderCaps
 
 		Ref<VertexArray> VA;
 		Ref<VertexBuffer> VB;
@@ -30,6 +31,9 @@ namespace AYK {
 		uint32_t QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
+
+		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		uint32_t TextureSlotIndex = 1; // 0 - white texture
 	};
 
 	static Renderer2DData Data;
@@ -46,7 +50,8 @@ namespace AYK {
 		Data.VB->SetLayout({ 
 			{ ShaderDataType::Float3, "aPosition"},
 			{ ShaderDataType::Float4, "aColor"},
-			{ ShaderDataType::Float2, "aTexCoord"}
+			{ ShaderDataType::Float2, "aTexCoord"},
+			{ ShaderDataType::Float, "aTexIndex"}
 			});
 		Data.VA->AddVertexBuffer(Data.VB);
 
@@ -75,9 +80,15 @@ namespace AYK {
 		uint32_t WhiteTextureData = 0xffffffff;
 		Data.WhiteTexture->SetData(&WhiteTextureData, sizeof(uint32_t));
 
+		int32_t Samplers[Data.MaxTextureSlots];
+		for (uint32_t i = 0; i < Data.MaxTextureSlots; ++i) {
+			Samplers[i] = i;
+		}
 		Data.TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		Data.TextureShader->Bind();
-		Data.TextureShader->SetInt("UTexture", 0);
+		Data.TextureShader->SetIntArray("UTextures", Samplers, Data.MaxTextureSlots);
+		
+		Data.TextureSlots[0] = Data.WhiteTexture;
 	}
 
 	void Renderer2D::Shutdown() {
@@ -92,6 +103,8 @@ namespace AYK {
 	
 		Data.QuadVertexBufferPtr = Data.QuadVertexBufferBase;
 		Data.QuadIndexCount = 0;
+
+		Data.TextureSlotIndex = 1;
 	
 	}
 
@@ -105,7 +118,9 @@ namespace AYK {
 	}
 
 	void Renderer2D::Flush(){
-
+		for (uint32_t i = 0; i < Data.TextureSlotIndex; ++i) {
+			Data.TextureSlots[i]->Bind(i);
+		}
 		RenderCommand::DrawIndexed(Data.VA, Data.QuadIndexCount);
 	}
 
@@ -117,24 +132,31 @@ namespace AYK {
 		AYK_PROFILE_FUNCTION();
 
 		// NOTE: Batching 
+		
+		const float TextureIndex = 0.0f; // White texture
+		
 		Data.QuadVertexBufferPtr->Position = Position;
 		Data.QuadVertexBufferPtr->Color = Color;
 		Data.QuadVertexBufferPtr->TexCoord = {0.0f, 0.0f};
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 		Data.QuadVertexBufferPtr++;
 
 		Data.QuadVertexBufferPtr->Position = {Position.x + Size.x, Position.y, 0.0f};
 		Data.QuadVertexBufferPtr->Color = Color;
 		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 		Data.QuadVertexBufferPtr++;
 
 		Data.QuadVertexBufferPtr->Position = { Position.x + Size.x, Position.y + Size.y, 0.0f };
 		Data.QuadVertexBufferPtr->Color = Color;
 		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 		Data.QuadVertexBufferPtr++;
 
 		Data.QuadVertexBufferPtr->Position = { Position.x, Position.y + Size.y, 0.0f };
 		Data.QuadVertexBufferPtr->Color = Color;
 		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 		Data.QuadVertexBufferPtr++;
 
 		Data.QuadIndexCount += 6;
@@ -161,6 +183,50 @@ namespace AYK {
 		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
 
+		constexpr glm::vec4 DefaultColor = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		float TextureIndex = 0.0f;
+
+		for (uint32_t i = 1; i < Data.TextureSlotIndex; ++i) {
+			if (*Data.TextureSlots[i].get() == *Texture.get()) {
+				TextureIndex = (float)i;
+			}
+		}
+
+		if (TextureIndex) {
+			TextureIndex = (float)Data.TextureSlotIndex;
+			Data.TextureSlots[Data.TextureSlotIndex] = Texture;
+			Data.TextureSlotIndex++;
+		}
+
+		Data.QuadVertexBufferPtr->Position = Position;
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = { Position.x + Size.x, Position.y, 0.0f };
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = { Position.x + Size.x, Position.y + Size.y, 0.0f };
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = { Position.x, Position.y + Size.y, 0.0f };
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadIndexCount += 6;
+
+#if OLD_PATH
+
 		Data.TextureShader->Bind();
 
 		Data.TextureShader->SetFloat4("uColor", TintColor);
@@ -174,6 +240,7 @@ namespace AYK {
 
 		Data.VA->Bind();
 		RenderCommand::DrawIndexed(Data.VA);
+#endif
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color) {

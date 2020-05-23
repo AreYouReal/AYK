@@ -22,7 +22,7 @@ namespace AYK {
 		virtual void Unbind() const override;
 
 		virtual void SetInt(const std::string& Name, const int Value) override;
-
+		virtual void SetIntArray(const std::string& Name, int* Values, uint32_t Count) override;
 		virtual void SetFloat(const std::string& Name, const float Value) override;
 		virtual void SetFloat3(const std::string& Name, const glm::vec3& Value) override;
 		virtual void SetFloat4(const std::string& Name, const glm::vec4& Value) override;
@@ -30,8 +30,8 @@ namespace AYK {
 
 		virtual const std::string& GetName() const override { return(Name); }
 
-		void UploadUniformInt(const std::string& Name, int Values);
-
+		void UploadUniformInt(const std::string& Name, int Value);
+		void UploadUniformIntArray(const std::string& Name, int* Values, uint32_t Count);
 		void UploadUniformFloat(const std::string& Name, float Values);
 		void UploadUniformFloat2(const std::string& Name, const glm::vec2& Values);
 		void UploadUniformFloat3(const std::string& Name, const glm::vec3& Values);

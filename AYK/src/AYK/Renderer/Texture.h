@@ -16,6 +16,8 @@ namespace AYK {
 
 		virtual void Bind(uint32_t Slot = 0) const = 0;
 
+		virtual bool operator==(const Texture& Other) const = 0;
+
 	};
 
 
@@ -23,6 +25,8 @@ namespace AYK {
 	public:
 		static Ref<Texture2D> Create(uint32_t Width, uint32_t Height);
 		static Ref<Texture2D> Create(const std::string& Path);
+
+		
 
 	};
 

@@ -20,6 +20,8 @@ namespace AYK {
 
 		virtual void Bind(uint32_t Slot = 0) const override;
 
+		virtual bool operator==(const Texture& Other) const override { return(RendererID == ((OpenGLTexture2D&)Other).RendererID); }
+
 	private:
 
 		std::string	FilePath;

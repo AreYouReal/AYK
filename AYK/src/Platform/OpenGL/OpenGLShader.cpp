@@ -66,6 +66,10 @@ namespace AYK {
 		UploadUniformInt(Name, Value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& Name, int* Values, uint32_t Count){
+		UploadUniformIntArray(Name, Values, Count);
+	}
+
 	void OpenGLShader::SetFloat(const std::string& Name, const float Value) {
 		AYK_PROFILE_FUNCTION();
 
@@ -93,6 +97,11 @@ namespace AYK {
 	void OpenGLShader::UploadUniformInt(const std::string& Name, int Values) {
 		GLint Location = glGetUniformLocation(RendererID, Name.c_str());
 		glUniform1i(Location, Values);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& Name, int* Values, uint32_t Count){
+		GLint Location = glGetUniformLocation(RendererID, Name.c_str());
+		glUniform1iv(Location, Count, Values);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& Name, float Values) {

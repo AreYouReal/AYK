@@ -78,6 +78,7 @@ namespace AYK {
 
 		Data.WhiteTexture = Texture2D::Create(1, 1);
 		uint32_t WhiteTextureData = 0xffffffff;
+		uint32_t BlackTextureData = 0xff000000;
 		Data.WhiteTexture->SetData(&WhiteTextureData, sizeof(uint32_t));
 
 		int32_t Samplers[Data.MaxTextureSlots];
@@ -86,7 +87,7 @@ namespace AYK {
 		}
 		Data.TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		Data.TextureShader->Bind();
-		Data.TextureShader->SetIntArray("UTextures", Samplers, Data.MaxTextureSlots);
+		Data.TextureShader->SetIntArray("uTextures", Samplers, Data.MaxTextureSlots);
 		
 		Data.TextureSlots[0] = Data.WhiteTexture;
 	}
@@ -193,7 +194,7 @@ namespace AYK {
 			}
 		}
 
-		if (TextureIndex) {
+		if (TextureIndex == 0.0f) {
 			TextureIndex = (float)Data.TextureSlotIndex;
 			Data.TextureSlots[Data.TextureSlotIndex] = Texture;
 			Data.TextureSlotIndex++;

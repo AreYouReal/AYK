@@ -24,6 +24,8 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 
 	CameraController.OnUpdate(Timestep);
 
+	AYK::Renderer2D::ResetStats();
+
 	{
 		AYK_PROFILE_SCOPE("Render Prep");
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });

@@ -47,12 +47,32 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK::Renderer2D::DrawRotatedQuad({-2.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, Rotation, CheckerboardTexture, 10.0f);
 
 		AYK::Renderer2D::EndScene();
+
+		AYK::Renderer2D::BeginScene(CameraController.GetCamera());
+		for (float y = -5.0f; y < 5.0f; y += 0.5f) {
+			for (float x = -5.0f; x < 5.0f; x += 0.5f) {
+				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, .5f};
+				AYK::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+			}
+		}
+		AYK::Renderer2D::EndScene();
+
+
 	}
 
 }
 
 void Sandbox2D::OnImGuiRender() {
 	ImGui::Begin("Settings");
+
+	auto Stats = AYK::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls: %d", Stats.DrawCalls);
+	ImGui::Text("Quads: %d", Stats.QuadCount);
+	ImGui::Text("Vertices: %d", Stats.GetTotalVErtexCount());
+	ImGui::Text("Indices %d:", Stats.GetTotalIndexCount());
+
+
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(SquareColor));
 	ImGui::End();
 }

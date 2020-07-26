@@ -19,9 +19,9 @@ namespace AYK {
 	};
 
 	struct Renderer2DData {
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxQuads = 2000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32; // TOD: RenderCaps
 
 		Ref<VertexArray> VA;
@@ -138,14 +138,25 @@ namespace AYK {
 		++Data.Stats.DrawCalls;
 	}
 
+	void Renderer2D::FlushAndReset() {
+		EndScene();
+		Data.QuadVertexBufferPtr = Data.QuadVertexBufferBase;
+		Data.QuadIndexCount = 0;
+
+		Data.TextureSlotIndex = 1;
+	}
+
 	void Renderer2D::DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const glm::vec4 Color) {
 		DrawQuad({ Position.x, Position.y, 0.0f }, Size, Color);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color) {
 		AYK_PROFILE_FUNCTION();
-		// NOTE: Batching 
 		
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
+			FlushAndReset();
+		}
+
 		const float TextureIndex = 0.0f; // White texture 
 		const float TilingFactor = 1.0f;
 		
@@ -195,6 +206,10 @@ namespace AYK {
 		const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor,
 		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
+
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
+			FlushAndReset();
+		}
 
 		constexpr glm::vec4 DefaultColor = {1.0f, 1.0f, 1.0f, 1.0f};
 
@@ -255,6 +270,10 @@ namespace AYK {
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color) {
 		AYK_PROFILE_FUNCTION();
 
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
+			FlushAndReset();
+		}
+
 		const float TextureIndex = 0.0f;
 		const float TilingFactor = 1.0f;
 
@@ -306,6 +325,10 @@ namespace AYK {
 		const glm::vec2 Size, const float Rotation, const Ref<Texture2D>& Texture, float TilingFactor,
 		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
+
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
+			FlushAndReset();
+		}
 
 		constexpr glm::vec4 DefaultColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 

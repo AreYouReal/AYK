@@ -6,7 +6,10 @@
 
 namespace AYK {
 
-	OrthographicCameraController::OrthographicCameraController(float AspectRationToSet, bool Rotation) : AspectRation(AspectRationToSet), Cam(-AspectRation * ZoomLevel, AspectRation * ZoomLevel, -ZoomLevel, ZoomLevel), bRotation(Rotation) {}
+	OrthographicCameraController::OrthographicCameraController(float AspectRationToSet, bool Rotation) : 
+		AspectRatio(AspectRationToSet), 
+		CamBounds({ -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel }),
+		Cam(-AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel), bRotation(Rotation) {}
 
 	void OrthographicCameraController::OnUpdate(Timestep TS) {
 		AYK_PROFILE_FUNCTION();
@@ -45,15 +48,17 @@ namespace AYK {
 
 		ZoomLevel -= E.GetYOffset() * 0.25f;
 		ZoomLevel = std::max(ZoomLevel, 0.25f);
-		Cam.SetProjection(-AspectRation * ZoomLevel, AspectRation * ZoomLevel, -ZoomLevel, ZoomLevel);
+		CamBounds = { -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel };
+		Cam.SetProjection(CamBounds.Left, CamBounds.Right, CamBounds.Bottom, CamBounds.Top);
 		return(false);
 	}
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& E) {
 		AYK_PROFILE_FUNCTION();
 
-		AspectRation = (float)E.GetWidth() / (float)E.GetHeight();
-		Cam.SetProjection(-AspectRation * ZoomLevel, AspectRation * ZoomLevel, -ZoomLevel, ZoomLevel);
+		AspectRatio = (float)E.GetWidth() / (float)E.GetHeight();
+		CamBounds = { -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel };
+		Cam.SetProjection( CamBounds.Left, CamBounds.Right, CamBounds.Bottom, CamBounds.Top );
 		return(false);
 	}
 

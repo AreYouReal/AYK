@@ -278,7 +278,7 @@ namespace AYK {
 		const float TilingFactor = 1.0f;
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(Rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), Rotation, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
 
 
@@ -347,7 +347,7 @@ namespace AYK {
 		}
 
 		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(Rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), Rotation, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f});
 
 

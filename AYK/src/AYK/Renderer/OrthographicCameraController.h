@@ -9,6 +9,14 @@
 
 namespace AYK {
 
+	struct OrthographicCameraBounds {
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWight() { return(Right - Left); }
+		float GetHeight() { return(Top - Bottom); }
+	};
+
 	class OrthographicCameraController {
 	public:
 		OrthographicCameraController(float AspectRationToSet, bool Rotation = false);
@@ -22,16 +30,20 @@ namespace AYK {
 		float GetZoomLevel() const { return(ZoomLevel); }
 		void SetZoomLevel(float Level) { ZoomLevel = Level; }
 
+		const OrthographicCameraBounds& GetBounds() const { return(CamBounds); }
+
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& E);
 		bool OnWindowResized(WindowResizeEvent& E);
 
 	private:
 
-		float AspectRation;
+		float AspectRatio;
 		float ZoomLevel = 1.0f;
 
+		OrthographicCameraBounds CamBounds;
 		OrthographicCamera Cam;
+
 
 		bool bRotation;
 

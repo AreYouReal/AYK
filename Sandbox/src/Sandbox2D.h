@@ -2,6 +2,8 @@
 
 #include "AYK.h"
 
+#include "ParticleSystem.h"
+
 class Sandbox2D : public AYK::Layer {
 public:
 	Sandbox2D();
@@ -25,4 +27,7 @@ private:
 	AYK::Ref<AYK::Texture2D> CheckerboardTexture;
 
 	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+	ParticleProps Particle;
+	ParticleSystem PSystem;
 };

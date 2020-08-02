@@ -4,7 +4,6 @@
 
 namespace AYK {
 
-
 	class OrthographicCamera {
 	public:
 		OrthographicCamera(float Left, float Right, float Bottom, float Top);

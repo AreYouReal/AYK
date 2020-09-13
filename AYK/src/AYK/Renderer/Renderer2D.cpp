@@ -207,56 +207,52 @@ namespace AYK {
 		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
 
+		constexpr float x = 7, y = 6;
+		constexpr float SheetWidth = 2560.0f, SheetHeight = 1664.0f;
+		constexpr float SpriteWidth = 128.0f, SpriteHeight = 128.0f;
+
+		constexpr size_t QuadVertexCount = 4;
+		constexpr glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		constexpr glm::vec2 TextureCoords[] = { 
+			{ (x * SpriteWidth) / SheetWidth, (y * SpriteHeight) / SheetHeight }, 
+			{ ((x + 1) * SpriteWidth) / SheetWidth, (y * SpriteHeight) / SheetHeight },
+			{ ((x + 1) * SpriteWidth) / SheetWidth, ((y + 1) * SpriteHeight) / SheetHeight },
+			{ (x * SpriteWidth) / SheetWidth, ((y + 1) * SpriteHeight) / SheetHeight }
+		};
+
 		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
 			FlushAndReset();
 		}
-
-		constexpr glm::vec4 DefaultColor = {1.0f, 1.0f, 1.0f, 1.0f};
 
 		float TextureIndex = 0.0f;
 
 		for (uint32_t i = 1; i < Data.TextureSlotIndex; ++i) {
 			if (*Data.TextureSlots[i].get() == *Texture.get()) {
 				TextureIndex = (float)i;
+				break;
 			}
 		}
 
 		if (TextureIndex == 0.0f) {
+			if (Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots) {
+				FlushAndReset();
+			}
 			TextureIndex = (float)Data.TextureSlotIndex;
 			Data.TextureSlots[Data.TextureSlotIndex] = Texture;
 			Data.TextureSlotIndex++;
 		}
 
-		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) 
+			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
 
-
-		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[0];
-		Data.QuadVertexBufferPtr->Color = DefaultColor;
-		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
-		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
-		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
-		Data.QuadVertexBufferPtr++;
-
-		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[1];
-		Data.QuadVertexBufferPtr->Color = DefaultColor;
-		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
-		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
-		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
-		Data.QuadVertexBufferPtr++;
-
-		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[2];
-		Data.QuadVertexBufferPtr->Color = DefaultColor;
-		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
-		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
-		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
-		Data.QuadVertexBufferPtr++;
-
-		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[3];
-		Data.QuadVertexBufferPtr->Color = DefaultColor;
-		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
-		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
-		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
-		Data.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < QuadVertexCount; ++i) {
+			Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[i];
+			Data.QuadVertexBufferPtr->Color = Color;
+			Data.QuadVertexBufferPtr->TexCoord = TextureCoords[i];
+			Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+			Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+			Data.QuadVertexBufferPtr++;
+		}
 
 		Data.QuadIndexCount += 6;
 

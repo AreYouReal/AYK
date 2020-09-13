@@ -12,6 +12,8 @@ void Sandbox2D::OnAttach() {
 
 	CheckerboardTexture = AYK::Texture2D::Create("assets/textures/checkerboard.png");
 
+	SpriteSheet = AYK::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+
 	Particle.ColorBegin = { 254/255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	Particle.SizeBegin = 0.5f;
@@ -40,7 +42,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();
 	}
-
+#if 0
 	{
 
 		float static Rotation = 0.0f;
@@ -66,9 +68,8 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		}
 		AYK::Renderer2D::EndScene();
 
-
 	}
-
+#endif
 
 	if (AYK::Input::IsMouseButtonPressed(AYK_MOUSE_BUTTON_LEFT)) {
 		auto [x, y] = AYK::Input::GetMousePosition();
@@ -88,6 +89,12 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 
 	PSystem.OnUpdate(Timestep);
 	PSystem.OnRender(CameraController.GetCamera());
+
+	AYK::Renderer2D::BeginScene(CameraController.GetCamera());
+	AYK::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, {1.0f, 1.0f}, SpriteSheet);
+	AYK::Renderer2D::EndScene();
+
+
 }
 
 void Sandbox2D::OnImGuiRender() {

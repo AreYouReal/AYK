@@ -203,22 +203,65 @@ namespace AYK {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& Position, 
-		const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor,
+		const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor, 
 		const glm::vec4& TintColor) {
 		AYK_PROFILE_FUNCTION();
 
-		constexpr float x = 7, y = 6;
-		constexpr float SheetWidth = 2560.0f, SheetHeight = 1664.0f;
-		constexpr float SpriteWidth = 128.0f, SpriteHeight = 128.0f;
+		constexpr size_t QuadVertexCount = 4;
+		constexpr glm::vec4 Color = {1.0f, 1.0f, 1.0f, 1.0f};
+		constexpr glm::vec2 TextureCoords[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f} };
+
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices ) {
+			FlushAndReset();
+		}
+
+		float TextureIndex = 0.0f;
+
+		for (uint32_t i = 1; i < Data.TextureSlotIndex; ++i) {
+			if (*Data.TextureSlots[i].get() == *Texture.get()) {
+				TextureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (TextureIndex == 0.0f) {
+			if (Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots) {
+				FlushAndReset();
+			}
+			TextureIndex = (float)Data.TextureSlotIndex;
+			Data.TextureSlots[Data.TextureSlotIndex] = Texture;
+			Data.TextureSlotIndex++;
+		}
+
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) 
+			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+
+		for (size_t i = 0; i < QuadVertexCount; ++i) {
+			Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[i];
+			Data.QuadVertexBufferPtr->Color = Color;
+			Data.QuadVertexBufferPtr->TexCoord = TextureCoords[i];
+			Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+			Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+			Data.QuadVertexBufferPtr++;
+		}
+
+		Data.QuadIndexCount += 6;
+
+		++Data.Stats.QuadCount;
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const Ref<SubTexture2D>& SubTexture, float TilingFactor /*= 1.0f*/, const glm::vec4& TintColor /*= glm::vec4(1.0f)*/) 	{
+		DrawQuad({ Position.x, Position.y, 0.0f }, Size, SubTexture, TilingFactor, TintColor);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<SubTexture2D>& SubTexture, float TilingFactor /*= 1.0f*/, const glm::vec4& TintColor /*= glm::vec4(1.0f)*/) {
+
+		AYK_PROFILE_FUNCTION();
 
 		constexpr size_t QuadVertexCount = 4;
 		constexpr glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		constexpr glm::vec2 TextureCoords[] = { 
-			{ (x * SpriteWidth) / SheetWidth, (y * SpriteHeight) / SheetHeight }, 
-			{ ((x + 1) * SpriteWidth) / SheetWidth, (y * SpriteHeight) / SheetHeight },
-			{ ((x + 1) * SpriteWidth) / SheetWidth, ((y + 1) * SpriteHeight) / SheetHeight },
-			{ (x * SpriteWidth) / SheetWidth, ((y + 1) * SpriteHeight) / SheetHeight }
-		};
+		const glm::vec2* TextureCoords = SubTexture->GetTexCoords();
+		const Ref<Texture2D> Texture = SubTexture->GetTexture();
 
 		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
 			FlushAndReset();
@@ -242,7 +285,7 @@ namespace AYK {
 			Data.TextureSlotIndex++;
 		}
 
-		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) 
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
 			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
 
 		for (size_t i = 0; i < QuadVertexCount; ++i) {
@@ -381,7 +424,75 @@ namespace AYK {
 	}
 
 
-	AYK::Renderer2D::Statistics Renderer2D::GetStats(){
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const Ref<SubTexture2D>& SubTexture, float TilingFactor /*= 1.0f*/, const glm::vec4& TintColor /*= glm::vec4(1.0f)*/) {
+		DrawRotatedQuad(glm::vec3(Position.x, Position.y, 0.0f), Size, Rotation, SubTexture, TilingFactor, TintColor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const Ref<SubTexture2D>& SubTexture, float TilingFactor /*= 1.0f*/, const glm::vec4& TintColor /*= glm::vec4(1.0f)*/) {
+		AYK_PROFILE_FUNCTION();
+
+		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices) {
+			FlushAndReset();
+		}
+
+		constexpr glm::vec4 DefaultColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+		const glm::vec2* TextureCoords = SubTexture->GetTexCoords();
+		const Ref<Texture2D> Texture = SubTexture->GetTexture();
+
+		float TextureIndex = 0.0f;
+
+		for (uint32_t i = 1; i < Data.TextureSlotIndex; ++i) {
+			if (*Data.TextureSlots[i].get() == *Texture.get()) {
+				TextureIndex = (float)i;
+			}
+		}
+
+		if (TextureIndex == 0.0f) {
+			TextureIndex = (float)Data.TextureSlotIndex;
+			Data.TextureSlots[Data.TextureSlotIndex] = Texture;
+			Data.TextureSlotIndex++;
+		}
+
+		glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position)
+			* glm::rotate(glm::mat4(1.0f), Rotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { Size.x, Size.y, 1.0f });
+
+
+		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[0];
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[1];
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[2];
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[3];
+		Data.QuadVertexBufferPtr->Color = DefaultColor;
+		Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
+		Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
+		Data.QuadVertexBufferPtr++;
+
+		Data.QuadIndexCount += 6;
+
+		++Data.Stats.QuadCount;
+	}
+
+	AYK::Renderer2D::Statistics Renderer2D::GetStats() {
 		return(Data.Stats);
 	}
 

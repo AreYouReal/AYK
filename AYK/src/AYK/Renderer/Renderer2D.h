@@ -2,6 +2,7 @@
 
 #include "OrthographicCamera.h"
 #include "Texture.h"
+#include "SubTexture2D.h"
 
 namespace AYK {
 
@@ -18,15 +19,19 @@ namespace AYK {
 		// Primitives
 		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const glm::vec4 Color);
 		static void DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const glm::vec4 Color);
-
 		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
 		static void DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<Texture2D>& Texture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec2& Position, const glm::vec2 Size, const Ref<SubTexture2D>& SubTexture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::vec3& Position, const glm::vec2 Size, const Ref<SubTexture2D>& SubTexture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
 
 		// NORE: Rotation is in radians
 		static void DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color);
 		static void DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const glm::vec4 Color);
 		static void DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const Ref<Texture2D>& Texture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
 		static void DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const Ref<Texture2D>& Texture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec2& Position, const glm::vec2 Size, const float Rotation, const Ref<SubTexture2D>& SubTexture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
+		static void DrawRotatedQuad(const glm::vec3& Position, const glm::vec2 Size, const float Rotation, const Ref<SubTexture2D>& SubTexture, float TilingFactor = 1.0f, const glm::vec4& TintColor = glm::vec4(1.0f));
+
 
 		struct Statistics {
 			uint32_t DrawCalls = 0;

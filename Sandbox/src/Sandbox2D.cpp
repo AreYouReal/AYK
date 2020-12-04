@@ -14,7 +14,7 @@ void Sandbox2D::OnAttach() {
 
 	SpriteSheet = AYK::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
-	StairsTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 7, 6 }, {128*4, 128});
+	StairsTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 7, 6 }, {128, 128});
 
 	Particle.ColorBegin = { 254/255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };

@@ -14,7 +14,7 @@ namespace AYK {
 		const Ref<Texture2D> GetTexture() const { return(Tex); }
 		const glm::vec2* GetTexCoords() const { return(TexCoords); }
 
-		static Ref<SubTexture2D> CreateFromCoords(const Ref<Texture2D>& Tex, const glm::vec2& Coords, const glm::vec2& SpriteSize);
+		static Ref<SubTexture2D> CreateFromCoords(const Ref<Texture2D>& Tex, const glm::vec2& Coords, const glm::vec2& CellSize, const glm::vec2& SpriteSize = {1, 1});
 
 	private:
 

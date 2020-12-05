@@ -28,7 +28,7 @@ private:
 
 	AYK::Ref<AYK::Texture2D> SpriteSheet;
 
-	AYK::Ref<AYK::SubTexture2D> StairsTexture;
+	AYK::Ref<AYK::SubTexture2D> StairsTexture, BarrelTexture, TreeTexture;
 
 
 	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };

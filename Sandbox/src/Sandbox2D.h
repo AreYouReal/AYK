@@ -28,11 +28,14 @@ private:
 
 	AYK::Ref<AYK::Texture2D> SpriteSheet;
 
-	AYK::Ref<AYK::SubTexture2D> StairsTexture, BarrelTexture, TreeTexture;
+	AYK::Ref<AYK::SubTexture2D> StairsTexture;
 
 
 	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
 	ParticleProps Particle;
 	ParticleSystem PSystem;
+
+	uint32_t MapWidth, MapHeight;
+	std::unordered_map<char, AYK::Ref<AYK::SubTexture2D>> TextureMap;
 };

@@ -28,11 +28,16 @@ namespace AYK {
 		const OrthographicCamera& GetCamera() const { return(Cam); }
 
 		float GetZoomLevel() const { return(ZoomLevel); }
-		void SetZoomLevel(float Level) { ZoomLevel = Level; }
+		void SetZoomLevel(float Level) { 
+			ZoomLevel = Level;
+			CalculateView();
+		}
 
 		const OrthographicCameraBounds& GetBounds() const { return(CamBounds); }
 
 	private:
+		void CalculateView();
+		
 		bool OnMouseScrolledEvent(MouseScrolledEvent& E);
 		bool OnWindowResized(WindowResizeEvent& E);
 

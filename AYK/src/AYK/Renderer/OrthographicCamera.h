@@ -25,6 +25,7 @@ namespace AYK {
 		const glm::mat4 GetViewProjectionMatrix() const { return(ViewProjectionMatrix); }
 
 	private:
+
 		glm::mat4 ProjectionMatrix;
 		glm::mat4 ViewMatrix;
 		glm::mat4 ViewProjectionMatrix;

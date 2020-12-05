@@ -43,22 +43,23 @@ namespace AYK {
 		D.Dispatch<WindowResizeEvent>(AYK_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
-	bool OrthographicCameraController::OnMouseScrolledEvent(MouseScrolledEvent& E) {
-		AYK_PROFILE_FUNCTION();
-
-		ZoomLevel -= E.GetYOffset() * 0.25f;
-		ZoomLevel = std::max(ZoomLevel, 0.25f);
+	void OrthographicCameraController::CalculateView() {
 		CamBounds = { -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel };
 		Cam.SetProjection(CamBounds.Left, CamBounds.Right, CamBounds.Bottom, CamBounds.Top);
+	}
+
+	bool OrthographicCameraController::OnMouseScrolledEvent(MouseScrolledEvent& E) {
+		AYK_PROFILE_FUNCTION();
+		ZoomLevel -= E.GetYOffset() * 0.25f;
+		ZoomLevel = std::max(ZoomLevel, 0.25f);
+		CalculateView();
 		return(false);
 	}
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& E) {
 		AYK_PROFILE_FUNCTION();
-
 		AspectRatio = (float)E.GetWidth() / (float)E.GetHeight();
-		CamBounds = { -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel };
-		Cam.SetProjection( CamBounds.Left, CamBounds.Right, CamBounds.Bottom, CamBounds.Top );
+		CalculateView();
 		return(false);
 	}
 

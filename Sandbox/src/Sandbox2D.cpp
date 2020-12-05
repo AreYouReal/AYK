@@ -5,6 +5,23 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+static const uint32_t SMapWidth = 24; 
+static const char* MapTiles =
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWWWWWDDDDWWWWWWWWW"
+"WWWWWWWWDDDWWWDDWWWWWWWW"
+"WWWWWWDDDDDWWWDDWWWWWWWW"
+"WWWWWDDDDDDWWWWWDDWWWWWW"
+"WWWWDWWWWWXXDDDDDDWWWWWW"
+"WWWDWWWWDDDDDDDDWWWWWWWW"
+"WWWWDDDDDDDDDDDDWWWWWWWW"
+"WWWWWWWDDDDDDDDWWWWWWWWW"
+"WWWWWWWWWDDDDDWWWWWWWWWW"
+"WWWWWWWWWWWDDWWWWWWWWWWW"
+"WWWWWWWWWWWDDWWWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW";
+
 Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), CameraController(1280.0f / 720.0f){ }
 
 void Sandbox2D::OnAttach() {
@@ -14,9 +31,13 @@ void Sandbox2D::OnAttach() {
 
 	SpriteSheet = AYK::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
-	StairsTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 7, 6 }, {128, 128});
-	BarrelTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 8, 2 }, { 128, 128 });
-	TreeTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 2, 1 }, { 128, 128 }, {1,2});
+	StairsTexture = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 0, 11 }, {128, 128});
+
+	MapWidth = SMapWidth;
+	MapHeight = strlen(MapTiles) / MapWidth;
+
+	TextureMap['D'] = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 6, 11 }, { 128, 128 });
+	TextureMap['W'] = AYK::SubTexture2D::CreateFromCoords(SpriteSheet, { 11, 11 }, { 128, 128 });
 
 	Particle.ColorBegin = { 254/255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -27,6 +48,7 @@ void Sandbox2D::OnAttach() {
 	Particle.VelocityVariation = { 3.0f, 1.0f };
 	Particle.Position = { 0.0f, 0.0f };
 
+	CameraController.SetZoomLevel(5.0f);
 }
 
 void Sandbox2D::OnDetach() {
@@ -95,9 +117,20 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 	PSystem.OnRender(CameraController.GetCamera());
 
 	AYK::Renderer2D::BeginScene(CameraController.GetCamera());
-	AYK::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, {1.0f, 1.0f}, StairsTexture);
-	AYK::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, BarrelTexture);
-	AYK::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 2.0f }, TreeTexture);
+
+
+	for (uint32_t y = 0; y < MapHeight; ++y) {
+		for (uint32_t x = 0; x < MapWidth; ++x) {
+			char TileType = MapTiles[x + y * MapWidth];
+			AYK::Ref<AYK::SubTexture2D> Texture;
+			if (TextureMap.find(TileType) != TextureMap.end()) {
+				Texture = TextureMap[TileType];
+			} else {
+				Texture = StairsTexture;
+			}
+			AYK::Renderer2D::DrawQuad({x - MapWidth / 2.0f, y - MapHeight/2.0f, 0.5f }, { 1.0f, 1.0f }, Texture);
+		}
+	}
 	AYK::Renderer2D::EndScene();
 
 

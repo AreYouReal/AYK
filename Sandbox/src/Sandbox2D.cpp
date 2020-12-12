@@ -107,6 +107,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		x = (x / Width) * Bounds.GetWight() - Bounds.GetWight() * 0.5f;
 		y = Bounds.GetHeight() * 0.5f - (y / Height) * Bounds.GetHeight();
 		Particle.Position = { x + Pos.x, y + Pos.y };
+		
 		for (int i = 0; i < 50; ++i) {
 			PSystem.Emit(Particle);
 		}

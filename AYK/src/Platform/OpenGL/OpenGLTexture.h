@@ -17,6 +17,7 @@ namespace AYK {
 
 		virtual uint32_t GetWidth() const override { return(Width); }
 		virtual uint32_t GetHeight() const override { return(Height); }
+		virtual uint32_t GetRendererID() const override { return(RendererID); }
 
 		virtual void Bind(uint32_t Slot = 0) const override;
 

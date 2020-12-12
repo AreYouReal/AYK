@@ -24,6 +24,8 @@ namespace AYK {
 		void PushOverlay(Layer* OverlayToPush);
 
 
+		void Close();
+
 		inline static Application& Get() { return(*Instance); }
 
 		inline Window& GetWindow() { return(*WindowPtr); }

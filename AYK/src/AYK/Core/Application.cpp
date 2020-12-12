@@ -132,6 +132,10 @@ namespace AYK {
 		OverlayToPush->OnAttach();
 	}
 
+	void Application::Close(){
+		bRunning = false;
+	}
+
 
 
 }

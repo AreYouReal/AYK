@@ -1272,6 +1272,8 @@
     <ClInclude Include="src\AYK\Renderer\Renderer2D.h" />
     <ClInclude Include="src\AYK\Debug\Instrumentor.h" />
     <ClInclude Include="src\AYK\Renderer\SubTexture2D.h" />
+    <ClInclude Include="src\AYK\Renderer\Framebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Core\Application.cpp">
@@ -1351,5 +1353,7 @@
     </ClCompile>
     <ClCompile Include="src\AYK\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\AYK\Renderer\SubTexture2D.cpp" />
+    <ClCompile Include="src\AYK\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

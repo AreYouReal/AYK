@@ -68,7 +68,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();
 	}
-#if 0
+
 	{
 
 		float static Rotation = 0.0f;
@@ -95,7 +95,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		AYK::Renderer2D::EndScene();
 
 	}
-#endif
+
 
 	if (AYK::Input::IsMouseButtonPressed(AYK_MOUSE_BUTTON_LEFT)) {
 		auto [x, y] = AYK::Input::GetMousePosition();

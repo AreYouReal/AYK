@@ -49,6 +49,12 @@ void Sandbox2D::OnAttach() {
 	Particle.Position = { 0.0f, 0.0f };
 
 	CameraController.SetZoomLevel(5.0f);
+
+
+	AYK::FramebufferSpecification FBSpec;
+	FBSpec.Width = 1280;
+	FBSpec.Height = 720;
+	Framebuff = AYK::Framebuffer::Create(FBSpec);
 }
 
 void Sandbox2D::OnDetach() {
@@ -65,6 +71,9 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 
 	{
 		AYK_PROFILE_SCOPE("Render Prep");
+
+		Framebuff->Bind();
+
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();
 	}
@@ -133,7 +142,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		}
 	}
 	AYK::Renderer2D::EndScene();
-
+	Framebuff->Unbind();
 
 }
 
@@ -214,9 +223,9 @@ void Sandbox2D::OnImGuiRender() {
 
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(SquareColor));
 	
-	uint32_t TextureID = CheckerboardTexture->GetRendererID();
+	uint32_t TextureID = Framebuff->GetColorAttachmentRendererID();
 
-	ImGui::Image((void*)TextureID, ImVec2{256.0f, 256.0f});
+	ImGui::Image((void*)TextureID, ImVec2{320.0f, 180.0f});
 	
 	
 	ImGui::End();

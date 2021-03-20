@@ -11,8 +11,17 @@ namespace AYK {
 		virtual ~OpenGLFramebuffer();
 
 		void Invalidate();
+
+		virtual void Bind() override;
+		virtual void Unbind() override;
+
+		virtual uint32_t GetColorAttachmentRendererID() const override { return(ColorAttachment); };
+
+		virtual const FramebufferSpecification& GetSpecification() const override { return(Spec); };
+
 	private:
 		uint32_t RendererID;
+		uint32_t ColorAttachment, DepthAttachment;
 		FramebufferSpecification Spec;
 
 	};

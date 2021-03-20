@@ -20,6 +20,7 @@
 
 #include "AYK/Renderer/Buffer.h"
 #include "AYK/Renderer/Shader.h"
+#include "AYK/Renderer/Framebuffer.h"
 #include "AYK/Renderer/Texture.h"
 #include "AYK/Renderer/SubTexture2D.h"
 #include "AYK/Renderer/VertexArray.h"

@@ -18,7 +18,7 @@ namespace AYK {
 	void OpenGLFramebuffer::Invalidate() {
 		glCreateFramebuffers(1, &RendererID);
 
-		glBindFramebuffer(GL_TEXTURE_2D, RendererID);
+		glBindFramebuffer(GL_FRAMEBUFFER, RendererID);
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &ColorAttachment);
 		glBindTexture(GL_TEXTURE_2D, ColorAttachment);
@@ -36,15 +36,15 @@ namespace AYK {
 
 		AYK_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is incomplete!");
 
-		glBindFramebuffer(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	void OpenGLFramebuffer::Bind() {
-		glBindFramebuffer(GL_TEXTURE_2D, RendererID);
+		glBindFramebuffer(GL_FRAMEBUFFER, RendererID);
 	}
 
 	void OpenGLFramebuffer::Unbind() {
-		glBindFramebuffer(GL_TEXTURE_2D, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 }

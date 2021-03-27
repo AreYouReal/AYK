@@ -10,6 +10,9 @@
     <Filter Include="src\AYK\Core">
       <UniqueIdentifier>{B9844F1E-A5E7-DEC2-4E6D-17793AAFAA45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AYK\Debug">
+      <UniqueIdentifier>{F7764CE8-6337-C81E-2C72-119C98F10CFB}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\AYK\Events">
       <UniqueIdentifier>{85A865F5-7176-59FB-5A0A-CA2146773560}</UniqueIdentifier>
     </Filter>
@@ -60,6 +63,9 @@
     <ClInclude Include="src\AYK\Core\Application.h">
       <Filter>src\AYK\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Core\Base.h">
+      <Filter>src\AYK\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Core\EntryPoint.h">
       <Filter>src\AYK\Core</Filter>
     </ClInclude>
@@ -87,6 +93,9 @@
     <ClInclude Include="src\AYK\Core\Window.h">
       <Filter>src\AYK\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Debug\Instrumentor.h">
+      <Filter>src\AYK\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Events\ApplicationEvent.h">
       <Filter>src\AYK\Events</Filter>
     </ClInclude>
@@ -105,6 +114,9 @@
     <ClInclude Include="src\AYK\Renderer\Buffer.h">
       <Filter>src\AYK\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Renderer\Framebuffer.h">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Renderer\GraphicsContext.h">
       <Filter>src\AYK\Renderer</Filter>
     </ClInclude>
@@ -120,10 +132,16 @@
     <ClInclude Include="src\AYK\Renderer\Renderer.h">
       <Filter>src\AYK\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\AYK\Renderer\Renderer2D.h">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\AYK\Renderer\RendererAPI.h">
       <Filter>src\AYK\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\AYK\Renderer\Shader.h">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Renderer\SubTexture2D.h">
       <Filter>src\AYK\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\AYK\Renderer\Texture.h">
@@ -136,6 +154,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1266,14 +1287,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\AYK\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\AYK\Debug\Instrumentor.h" />
-    <ClInclude Include="src\AYK\Renderer\SubTexture2D.h" />
-    <ClInclude Include="src\AYK\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
-    <ClInclude Include="src\AYK\Core\Base.h">
-      <Filter>src\AYK\Core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AYK\Core\Application.cpp">
@@ -1297,6 +1310,9 @@
     <ClCompile Include="src\AYK\Renderer\Buffer.cpp">
       <Filter>src\AYK\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\AYK\Renderer\Framebuffer.cpp">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\AYK\Renderer\OrthographicCamera.cpp">
       <Filter>src\AYK\Renderer</Filter>
     </ClCompile>
@@ -1309,10 +1325,16 @@
     <ClCompile Include="src\AYK\Renderer\Renderer.cpp">
       <Filter>src\AYK\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\AYK\Renderer\Renderer2D.cpp">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\AYK\Renderer\RendererAPI.cpp">
       <Filter>src\AYK\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\AYK\Renderer\Shader.cpp">
+      <Filter>src\AYK\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\Renderer\SubTexture2D.cpp">
       <Filter>src\AYK\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\AYK\Renderer\Texture.cpp">
@@ -1325,6 +1347,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1351,9 +1376,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\AYK\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\AYK\Renderer\SubTexture2D.cpp" />
-    <ClCompile Include="src\AYK\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

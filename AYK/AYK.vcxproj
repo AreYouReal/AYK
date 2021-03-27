@@ -134,7 +134,7 @@
   <ItemGroup>
     <ClInclude Include="src\AYK.h" />
     <ClInclude Include="src\AYK\Core\Application.h" />
-    <ClInclude Include="src\AYK\Core\Core.h" />
+    <ClInclude Include="src\AYK\Core\Base.h" />
     <ClInclude Include="src\AYK\Core\EntryPoint.h" />
     <ClInclude Include="src\AYK\Core\Input.h" />
     <ClInclude Include="src\AYK\Core\KeyCodes.h" />

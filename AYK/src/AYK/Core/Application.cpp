@@ -9,8 +9,6 @@
 
 #include "Input.h"
 
-
-
 #include <GLFW/glfw3.h>
 
 
@@ -109,11 +107,13 @@ namespace AYK {
 	
 		//AYK_CORE_TRACE("{0}", E);
 		  
+
 		for (auto it = LStack.end(); it != LStack.begin();) {
 			(*--it)->OnEvent(E);
 			if (E.bHandled) {
 				break;
 			}
+			(*it)->OnEvent(E);
 		}
 
 	}

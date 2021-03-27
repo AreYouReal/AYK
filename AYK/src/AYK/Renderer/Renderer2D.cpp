@@ -105,6 +105,8 @@ namespace AYK {
 
 	void Renderer2D::Shutdown() {
 		AYK_PROFILE_FUNCTION();
+
+		delete[] Data.QuadVertexBufferBase;  
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& Cam) {
@@ -130,6 +132,10 @@ namespace AYK {
 	}
 
 	void Renderer2D::Flush(){
+		if (Data.QuadIndexCount == 0) {
+			return; // Nothing to draw
+		}
+
 		for (uint32_t i = 0; i < Data.TextureSlotIndex; ++i) {
 			Data.TextureSlots[i]->Bind(i);
 		}
@@ -208,7 +214,6 @@ namespace AYK {
 		AYK_PROFILE_FUNCTION();
 
 		constexpr size_t QuadVertexCount = 4;
-		constexpr glm::vec4 Color = {1.0f, 1.0f, 1.0f, 1.0f};
 		constexpr glm::vec2 TextureCoords[] = { {0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f} };
 
 		if (Data.QuadIndexCount >= Renderer2DData::MaxIndices ) {
@@ -238,7 +243,7 @@ namespace AYK {
 
 		for (size_t i = 0; i < QuadVertexCount; ++i) {
 			Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[i];
-			Data.QuadVertexBufferPtr->Color = Color;
+			Data.QuadVertexBufferPtr->Color = TintColor;
 			Data.QuadVertexBufferPtr->TexCoord = TextureCoords[i];
 			Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 			Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;
@@ -259,7 +264,6 @@ namespace AYK {
 		AYK_PROFILE_FUNCTION();
 
 		constexpr size_t QuadVertexCount = 4;
-		constexpr glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		const glm::vec2* TextureCoords = SubTexture->GetTexCoords();
 		const Ref<Texture2D> Texture = SubTexture->GetTexture();
 
@@ -290,7 +294,7 @@ namespace AYK {
 
 		for (size_t i = 0; i < QuadVertexCount; ++i) {
 			Data.QuadVertexBufferPtr->Position = Transform * Data.QuadVertexPositons[i];
-			Data.QuadVertexBufferPtr->Color = Color;
+			Data.QuadVertexBufferPtr->Color = TintColor;
 			Data.QuadVertexBufferPtr->TexCoord = TextureCoords[i];
 			Data.QuadVertexBufferPtr->TexIndex = TextureIndex;
 			Data.QuadVertexBufferPtr->TilingFactor = TilingFactor;

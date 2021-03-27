@@ -13,7 +13,7 @@
 namespace AYK {
 	class Application {
 	public:
-		Application();
+		Application(const std::string& Name = "AYK App");
 		virtual ~Application();
 
 		void Run();

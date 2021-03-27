@@ -10,8 +10,8 @@ namespace AYK {
 	
 	struct WindowProps {
 		std::string Title;
-		unsigned int Width;
-		unsigned int Height;
+		uint32_t Width;
+		uint32_t Height;
 
 		WindowProps(const std::string& TitleToSet = "AYK Engine", unsigned int W = 1280, unsigned int H = 720)
 		: Title(TitleToSet), Width(W), Height(H){ }

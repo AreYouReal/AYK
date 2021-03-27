@@ -10,8 +10,6 @@
 
 #include "EditorLayer.h"
 
-
-
 namespace AYK {
 
 	class AYKEditor : public Application {
@@ -22,16 +20,14 @@ namespace AYK {
 			PushLayer(new EditorLayer());
 		}
 
-		~AYKEditor() {
-
-		}
-
+		~AYKEditor() { }
 
 	};
 
-	Application* CreateApplication() {
-		return(new AYKEditor());
-	}
+
 
 }
 
+AYK::Application* CreateApplication() {
+	return(new AYK::AYKEditor());
+}

@@ -18,7 +18,7 @@ namespace AYK {
 
 	Application* Application::Instance = nullptr;
 
-	Application::Application(){
+	Application::Application(const std::string& Name){
 
 		AYK_PROFILE_FUNCTION();
 

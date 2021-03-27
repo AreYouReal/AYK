@@ -2,44 +2,34 @@
 
 #include "AYK.h"
 
+namespace AYK {
 
-class EditorLayer : public AYK::Layer {
-public:
-	EditorLayer();
-	virtual ~EditorLayer() = default; 
+	class EditorLayer : public Layer {
+	public:
+		EditorLayer();
+		virtual ~EditorLayer() = default;
 
-	virtual void OnAttach() override;
-	virtual void OnDetach() override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
 
-	void OnUpdate(AYK::Timestep Timestep) override;
-	virtual void OnImGuiRender() override;
-	void OnEvent(AYK::Event& E) override;
-
-
-private:
-
-	AYK::OrthographicCameraController CameraController;
+		void OnUpdate(Timestep Timestep) override;
+		virtual void OnImGuiRender() override;
+		void OnEvent(Event& E) override;
 
 
+	private:
 
+		OrthographicCameraController CameraController;
 
-	AYK::Ref<AYK::VertexArray> VA;
-	AYK::Ref<AYK::Shader> FlatColorShader;
+		Ref<AYK::VertexArray> VA;
+		Ref<AYK::Shader> FlatColorShader;
+		Ref<AYK::Texture2D> CheckerboardTexture;
 
-	AYK::Ref<AYK::Texture2D> CheckerboardTexture;
+		glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
-	AYK::Ref<AYK::Texture2D> SpriteSheet;
+		Ref<AYK::Framebuffer> Framebuff;
 
-	AYK::Ref<AYK::SubTexture2D> StairsTexture;
+	};
 
+}
 
-	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
-
-	AYK::Ref<AYK::Framebuffer> Framebuff;
-
-	ParticleProps Particle;
-	ParticleSystem PSystem;
-
-	uint32_t MapWidth, MapHeight;
-	std::unordered_map<char, AYK::Ref<AYK::SubTexture2D>> TextureMap;
-};

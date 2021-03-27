@@ -10,14 +10,16 @@ namespace AYK {
 
 
 
-	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification Spec){
+	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec)
+	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::OpenGL: return(CreateRef<OpenGLFramebuffer>(Spec));
-		default:
-			AYK_CORE_ASSERT(false, "RendererAPI is not supported!");
-			return nullptr;
+		case RendererAPI::API::None:    AYK_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLFramebuffer>(spec);
 		}
+
+		AYK_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
 	}
 
 }

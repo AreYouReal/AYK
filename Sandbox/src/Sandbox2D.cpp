@@ -72,7 +72,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 	{
 		AYK_PROFILE_SCOPE("Render Prep");
 
-		//Framebuff->Bind();
+		Framebuff->Bind();
 
 		AYK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		AYK::RenderCommand::Clear();
@@ -142,7 +142,7 @@ void Sandbox2D::OnUpdate(AYK::Timestep Timestep) {
 		}
 	}
 	AYK::Renderer2D::EndScene();
-	//Framebuff->Unbind();
+	Framebuff->Unbind();
 
 }
 

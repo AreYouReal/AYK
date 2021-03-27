@@ -4,18 +4,18 @@
 
 namespace AYK {
 
-	struct FramebufferSpecification {
+	struct FramebufferSpecification
+	{
 		uint32_t Width, Height;
-		//FramebufferFormat Format
+		// FramebufferFormat Format = 
 		uint32_t Samples = 1;
 
-		bool bSwapChainTarget = false;
- 	};
+		bool SwapChainTarget = false;
+	};
 
-	class Framebuffer {
-
+	class Framebuffer
+	{
 	public:
-
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 
@@ -23,7 +23,7 @@ namespace AYK {
 
 		virtual const FramebufferSpecification& GetSpecification() const = 0;
 
-		static Ref<Framebuffer> Create(const FramebufferSpecification Spec);
+		static Ref<Framebuffer> Create(const FramebufferSpecification& spec);
 	};
 
 }

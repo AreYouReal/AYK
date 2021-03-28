@@ -41,6 +41,31 @@ namespace AYK {
 			AYK::RenderCommand::Clear();
 		}
 
+		float static Rotation = 0.0f;
+		Rotation += Timestep * 3.0f;
+
+		AYK_PROFILE_SCOPE("Render Draw");
+		AYK::Renderer2D::BeginScene(CameraController.GetCamera());
+
+		AYK::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(-45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
+
+		AYK::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { .8f, .8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+		AYK::Renderer2D::DrawQuad({ .5f, -0.5f }, { .5f, .75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+		AYK::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, Rotation, CheckerboardTexture, 10.0f);
+
+		AYK::Renderer2D::EndScene();
+
+		AYK::Renderer2D::BeginScene(CameraController.GetCamera());
+		for (float y = -5.0f; y < 5.0f; y += 0.5f) {
+			for (float x = -5.0f; x < 5.0f; x += 0.5f) {
+				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, .5f };
+				AYK::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+			}
+		}
+		AYK::Renderer2D::EndScene();
+
+	
+
 		Framebuff->Unbind();
 
 	}
@@ -49,7 +74,7 @@ namespace AYK {
 
 
 		// Note: Switch this to true to enable dockspace
-		static bool dockingEnabled = false;
+		static bool dockingEnabled = true;
 		if (dockingEnabled)
 		{
 			static bool dockspaceOpen = true;
@@ -123,7 +148,7 @@ namespace AYK {
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(SquareColor));
 
 			uint32_t textureID = Framebuff->GetColorAttachmentRendererID();
-			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+			ImGui::Image((void*)textureID, ImVec2{ 1280.0f, 720.0f }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			ImGui::End();
 
 			ImGui::End();
@@ -142,7 +167,7 @@ namespace AYK {
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(SquareColor));
 
 			uint32_t textureID = Framebuff->GetColorAttachmentRendererID();
-			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			ImGui::End();
 		}
 

@@ -13,7 +13,9 @@ namespace AYK {
 		uint32_t Width;
 		uint32_t Height;
 
-		WindowProps(const std::string& TitleToSet = "AYK Engine", unsigned int W = 1280, unsigned int H = 720)
+		WindowProps(const std::string& TitleToSet = "AYK Engine", 
+			uint32_t W = 1280, 
+			uint32_t H = 720)
 		: Title(TitleToSet), Width(W), Height(H){ }
 
 	};
@@ -29,8 +31,8 @@ namespace AYK {
 
 		virtual void OnUpdate() = 0;
 
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		virtual uint32_t GetWidth() const = 0;
+		virtual uint32_t GetHeight() const = 0;
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFunc& Callback) = 0;

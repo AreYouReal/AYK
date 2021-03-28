@@ -16,7 +16,7 @@ namespace AYK {
 
 	public:
 
-		AYKEditor() {
+		AYKEditor() : Application("AYK Editor") {
 			PushLayer(new EditorLayer());
 		}
 

@@ -36,8 +36,6 @@ private:
 
 	glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
-	AYK::Ref<AYK::Framebuffer> Framebuff;
-
 	ParticleProps Particle;
 	ParticleSystem PSystem;
 

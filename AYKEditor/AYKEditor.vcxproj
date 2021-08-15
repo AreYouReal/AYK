@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9E232723-8ADB-6870-F3E2-41CCDFB90361}</ProjectGuid>
+    <ProjectGuid>{712029DE-DD8A-DD54-26C9-8EFA9272BBA9}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AYK-Editor</RootNamespace>
+    <RootNamespace>AYKEditor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,23 +55,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\AYK-Editor\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\AYK-Editor\</IntDir>
-    <TargetName>AYK-Editor</TargetName>
+    <OutDir>..\bin\Debug-windows-x86_64\AYKEditor\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\AYKEditor\</IntDir>
+    <TargetName>AYKEditor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\AYK-Editor\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\AYK-Editor\</IntDir>
-    <TargetName>AYK-Editor</TargetName>
+    <OutDir>..\bin\Release-windows-x86_64\AYKEditor\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\AYKEditor\</IntDir>
+    <TargetName>AYKEditor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64\AYK-Editor\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64\AYK-Editor\</IntDir>
-    <TargetName>AYK-Editor</TargetName>
+    <OutDir>..\bin\Dist-windows-x86_64\AYKEditor\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\AYKEditor\</IntDir>
+    <TargetName>AYKEditor</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,6 +130,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EditorLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AYKEditorApp.cpp" />
+    <ClCompile Include="src\EditorLayer.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AYK\AYK.vcxproj">
       <Project>{2AD3870B-96DC-877C-1F58-9E7C8B60937C}</Project>

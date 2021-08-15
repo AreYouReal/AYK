@@ -147,8 +147,21 @@ namespace AYK {
 
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(SquareColor));
 
+
+			ImGui::End();
+
+			ImGui::Begin("Viewport");
+			ImVec2 ViewportPanelSize = ImGui::GetContentRegionAvail();
+
+			if (ViewportSize != *((glm::vec2*)&ViewportPanelSize)) {
+				Framebuff->Resize(ViewportPanelSize.x, ViewportPanelSize.y);
+				ViewportSize = { ViewportPanelSize.x, ViewportPanelSize.y };
+			}
+
+			AYK_WARN("Viewport size: {0} {1}", ViewportPanelSize.x, ViewportPanelSize.y);
 			uint32_t textureID = Framebuff->GetColorAttachmentRendererID();
 			ImGui::Image((void*)textureID, ImVec2{ 1280.0f, 720.0f }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
 			ImGui::End();
 
 			ImGui::End();

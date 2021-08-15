@@ -23,11 +23,17 @@ namespace AYK {
 
 		Ref<AYK::VertexArray> VA;
 		Ref<AYK::Shader> FlatColorShader;
+		Ref<AYK::Framebuffer> Framebuff;
+
+
+
 		Ref<AYK::Texture2D> CheckerboardTexture;
+
+		glm::vec2 ViewportSize;
 
 		glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
-		Ref<AYK::Framebuffer> Framebuff;
+
 
 	};
 

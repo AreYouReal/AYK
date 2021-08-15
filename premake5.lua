@@ -1,6 +1,6 @@
 workspace "AYK"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "AYK-Editor"
 	configurations{
 		"Debug",
 		"Release",
@@ -139,8 +139,8 @@ project "Sandbox"
 		optimize "on"
 
 
-project "AYK-Editor"
-	location "AYK-Editor"
+project "AYKEditor"
+	location "AYKEditor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

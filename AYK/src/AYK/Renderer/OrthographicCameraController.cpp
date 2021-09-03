@@ -43,6 +43,11 @@ namespace AYK {
 		D.Dispatch<WindowResizeEvent>(AYK_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
+	void OrthographicCameraController::OnResize(float Width, float Height) {
+		AspectRatio = Width/Height;
+		CalculateView();
+	}
+
 	void OrthographicCameraController::CalculateView() {
 		CamBounds = { -AspectRatio * ZoomLevel, AspectRatio * ZoomLevel, -ZoomLevel, ZoomLevel };
 		Cam.SetProjection(CamBounds.Left, CamBounds.Right, CamBounds.Bottom, CamBounds.Top);
@@ -58,8 +63,7 @@ namespace AYK {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& E) {
 		AYK_PROFILE_FUNCTION();
-		AspectRatio = (float)E.GetWidth() / (float)E.GetHeight();
-		CalculateView();
+		OnResize(E.GetWidth() , E.GetHeight());
 		return(false);
 	}
 

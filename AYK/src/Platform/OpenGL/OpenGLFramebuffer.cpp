@@ -51,6 +51,7 @@ namespace AYK {
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, RendererID);
+		glViewport(0, 0, Spec.Width, Spec.Height);
 	}
 
 	void OpenGLFramebuffer::Unbind()

@@ -23,6 +23,7 @@ namespace AYK {
 
 		void OnUpdate(Timestep TS);
 		void OnEvent(Event& E);
+		void OnResize(float Width, float Height);
 
 		OrthographicCamera& GetCamera() { return(Cam); }
 		const OrthographicCamera& GetCamera() const { return(Cam); }

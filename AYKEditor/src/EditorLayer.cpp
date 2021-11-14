@@ -28,7 +28,9 @@ namespace AYK {
 
 		AYK_PROFILE_FUNCTION();
 
-		CameraController.OnUpdate(Timestep);
+		if (bViewportFocused) {
+			CameraController.OnUpdate(Timestep);
+		}
 
 		AYK::Renderer2D::ResetStats();
 
@@ -148,6 +150,11 @@ namespace AYK {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
 		ImGui::Begin("Viewport");
+
+		bViewportFocused = ImGui::IsWindowFocused();
+		bViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->SetBlockEvent(!bViewportFocused || !bViewportHovered);
+
 		ImVec2 ViewportPanelSize = ImGui::GetContentRegionAvail();
 
 		if (ViewportSize != *((glm::vec2*)&ViewportPanelSize)) {

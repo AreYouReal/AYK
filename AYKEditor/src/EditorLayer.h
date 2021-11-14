@@ -29,6 +29,8 @@ namespace AYK {
 
 		Ref<AYK::Texture2D> CheckerboardTexture;
 
+		bool bViewportFocused = false;
+		bool bViewportHovered = false;
 		glm::vec2 ViewportSize{0.0f, 0.0f};
 
 		glm::vec4 SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };

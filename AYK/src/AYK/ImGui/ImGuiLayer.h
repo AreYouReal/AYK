@@ -20,7 +20,11 @@ namespace AYK {
 		void Begin();
 		void End();
 
+		void SetBlockEvent(bool bNewValue) { bBlockEvents = bNewValue; }
+
 	private:
+
+		bool bBlockEvents = true;
 
 		float Time;
 

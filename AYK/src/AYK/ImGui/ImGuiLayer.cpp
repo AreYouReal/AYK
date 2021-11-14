@@ -52,9 +52,11 @@ namespace AYK {
 	}
 
 	void ImGuiLayer::OnEvent(Event& e) {
-		//ImGuiIO& io = ImGui::GetIO();
-		//e.bHandled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
-		//e.bHandled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		if (bBlockEvents) {
+			ImGuiIO& io = ImGui::GetIO();
+			e.bHandled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.bHandled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
 	}
 
 	void ImGuiLayer::Begin() {

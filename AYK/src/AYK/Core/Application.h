@@ -26,6 +26,8 @@ namespace AYK {
 
 		void Close();
 
+		ImGuiLayer* GetImGuiLayer() { return(ImGuiLayerPtr); }
+
 		inline static Application& Get() { return(*Instance); }
 
 		inline Window& GetWindow() { return(*WindowPtr); }

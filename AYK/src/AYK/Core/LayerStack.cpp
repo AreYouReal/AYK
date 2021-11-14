@@ -3,8 +3,6 @@
 
 namespace AYK {
 
-	LayerStack::LayerStack() {	}
-
 	LayerStack::~LayerStack() {
 		for (Layer* L : Layers) {
 			delete L;

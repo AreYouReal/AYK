@@ -108,8 +108,8 @@ namespace AYK {
 		//AYK_CORE_TRACE("{0}", E);
 		  
 
-		for (auto it = LStack.end(); it != LStack.begin();) {
-			(*--it)->OnEvent(E);
+		for (auto it = LStack.rbegin(); it != LStack.rend(); ++it) {
+			//(*--it)->OnEvent(E);
 			if (E.bHandled) {
 				break;
 			}

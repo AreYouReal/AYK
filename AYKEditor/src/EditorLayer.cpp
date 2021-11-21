@@ -157,7 +157,7 @@ namespace AYK {
 
 		ImVec2 ViewportPanelSize = ImGui::GetContentRegionAvail();
 
-		if (ViewportSize != *((glm::vec2*)&ViewportPanelSize)) {
+		if (ViewportSize != *((glm::vec2*)&ViewportPanelSize) && ViewportPanelSize.x > 0 && ViewportPanelSize.y > 0) {
 			Framebuff->Resize(ViewportPanelSize.x, ViewportPanelSize.y);
 			ViewportSize = { ViewportPanelSize.x, ViewportPanelSize.y };
 

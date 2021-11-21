@@ -10,7 +10,7 @@
 		#define AYK_PLATFORM_WINDOWS
 	#else 
 		/* Windows x86*/
-		#error "x86 Builds atr not supported"
+		#error "x86 Builds are not supported"
 	#endif
 #elif defined(__APPLE__) || defined(__MACH__)
 	#include <TargetConditionals.h>
@@ -37,12 +37,13 @@
 	#define AYK_PLATFORM_ANDROID
 	#error "Android is not supported!"
 #elif defined(__linux__)
-	define AYK_PLATFORM_LINUX
+	#define AYK_PLATFORM_LINUX
 	#error "Linux is not supported!"
 #else
 	/* Unknown compiler/platform */
 #error "Unknown platform!"
 #endif // End of platform detection
+
 
 #ifdef AYK_PLATFORM_WINDOWS
 	#if AYK_DYNAMIC_LINK
@@ -59,7 +60,17 @@
 #endif // END of DLL support
 
 #ifdef AYK_DEBUG
+	#if defined(AYK_PLATFORM_WINDOWS)
+		#define AYK_DEBUGBREAK() __debugbreak()
+	#elif defined(AYK_PLATFORM_LINUX)
+		#include <signal.h>
+		#define AYK_DEBUGBREAK() raise(SIGTRAP)
+	#else
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
 	#define AYK_ENABLE_ASSERTS
+#else
+	#define AYK_DEBUGBREAK()
 #endif
 
 #ifdef AYK_ENABLE_ASSERTS

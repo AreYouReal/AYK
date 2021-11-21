@@ -5,6 +5,8 @@
 
 namespace AYK {
 
+	static const uint32_t sMaxFBSize = 8192;
+
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
 		: Spec(spec)
 	{
@@ -60,6 +62,12 @@ namespace AYK {
 	}
 
 	void OpenGLFramebuffer::Resize(uint32_t Width, uint32_t Height) {
+
+		if (Width == 0 || Height == 0 || Width > sMaxFBSize || Height > sMaxFBSize) {
+			AYK_CORE_WARN("Attempt to resize framebuffer to {0}, {1}", Width, Height);
+			return;
+		}
+
 		Spec.Width = Width;
 		Spec.Height = Height;
 		Invalidate();

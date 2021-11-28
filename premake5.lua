@@ -17,6 +17,7 @@ IncludeDir["Glad"] = "AYK/vendor/Glad/include"
 IncludeDir["ImGui"] = "AYK/vendor/imgui"
 IncludeDir["glm"] = "AYK/vendor/glm"
 IncludeDir["stb_image"] = "AYK/vendor/stb_image"
+IncludeDir["entt"] = "AYK/vendor/entt"
 
 group "Dependencies"
 	include "AYK/vendor/GLFW"
@@ -56,7 +57,8 @@ project "AYK"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links{
@@ -109,7 +111,8 @@ project "Sandbox"
 		"AYK/vendor/spdlog/include",
 		"AYK/src",
 		"AYK/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links{
@@ -158,7 +161,8 @@ project "AYKEditor"
 		"AYK/vendor/spdlog/include",
 		"AYK/src",
 		"AYK/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links{

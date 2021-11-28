@@ -22,6 +22,9 @@
     <Filter Include="src\AYK\Renderer">
       <UniqueIdentifier>{87EC6CDC-73E5-8B2E-9C17-71B3886F6B3A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\AYK\Scene">
+      <UniqueIdentifier>{9ED95AE9-0A9A-D61F-D3D4-1F9D3F541BFC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="src\AYK\Renderer\VertexArray.h">
       <Filter>src\AYK\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AYK\Scene\Scene.h">
+      <Filter>src\AYK\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1339,6 +1345,9 @@
     </ClCompile>
     <ClCompile Include="src\AYK\Renderer\VertexArray.cpp">
       <Filter>src\AYK\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AYK\Scene\Scene.cpp">
+      <Filter>src\AYK\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
